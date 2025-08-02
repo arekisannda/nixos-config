@@ -36,11 +36,11 @@
       nixls = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
       zload = "source ~/.zshrc";
 
-      nixs = "nix search nixpkgs";
-      nixd = "nix develop --command zsh";
-      nixb = "nix build";
-      nixr = "nix run";
-      nixf = "nix flake";
+      nixs   = "nix search nixpkgs";
+      nixdev = "nix develop --command zsh";
+      nixbld = "nix build";
+      nixrun = "nix run";
+      nixflk = "nix flake";
 
       ec = "emacsclient -c -n";
       er = "emacsclient -r -n";

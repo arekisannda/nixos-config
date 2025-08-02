@@ -63,6 +63,7 @@ in {
     # ZEIT_DB = "$HOME/.config/zeit.db";
     # Disable hardware cursors. This might fix issues with disappearing cursors
     EMACS_USER_DIRECTORY = "$XDG_CONFIG_HOME/emacs";
+    DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock;
   };
 
   news.display = "silent";
