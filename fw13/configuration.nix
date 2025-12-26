@@ -1,36 +1,27 @@
-{ pkgs, stateVersion, ... }:
+{ pkgs, stateVersion, inputs, ... }:
 
 let
   modules = ../modules;
   system = "${modules}/system";
 
   importSystem = builtins.map (e: system + "/${e}.nix") [
-    #system
+    # system
     "base"
     "amd"
     "ssh"
-    "i18n"
     "sway"
     "pipewire"
     "scripts"
     "docker"
-
-    # languages
-    "python"
-    "nodejs"
+    "udev"
 
     # tools
     "gpg"
     "network-tools"
     "system-tools"
-    "texlive"
 
-    # applications
-    "emacs"
-    "firefox"
-    "steam"
-    "discord"
-    "vial"
+    # configuration 
+    "networking-steam"
   ];
 
   importUsers = [ ../modules/users/arekisannda/default.nix ];
@@ -43,9 +34,17 @@ in {
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelParams = [
+    "console=tty1"
+    "quiet"
+  ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Nix Settings
+  nix.nixPath = [
+    "nixpkgs=${inputs.nixpkgs}"
+    "nixpkgs-unstable=${inputs.nixpkgs-latest}"
+  ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # nix.settings.auto-optimize-store = true;
   nix.gc = {
@@ -80,6 +79,9 @@ in {
     fwupd.enable = true;
     libinput.enable = true;
     printing.enable = true;
+    udisks2.enable = true;
+    devmon.enable = true;
+    gvfs.enable = true;
     logind = { powerKey = "ignore"; };
   };
 
@@ -87,6 +89,7 @@ in {
   i18n.defaultLocale = "en_US.UTF-8";
 
   documentation.man.generateCaches = true;
+  documentation.dev.enable = true;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

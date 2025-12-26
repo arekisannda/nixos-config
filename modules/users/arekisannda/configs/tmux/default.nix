@@ -26,10 +26,14 @@ in
     unbind -T prefix \"
     unbind -T prefix \%
     
+    bind-key -T prefix w choose-tree -Zs
     bind-key -T prefix W choose-tree -Zw
-    bind-key -T prefix S choose-tree -Zs
-    bind-key -T prefix v split-pane -h
-    bind-key -T prefix s split-pane
+    bind-key -T prefix c new-window -c "#{pane_current_path}"
+    bind-key -T prefix C new-window
+    bind-key -T prefix v split-pane -h -c "#{pane_current_path}"
+    bind-key -T prefix V split-pane -h
+    bind-key -T prefix s split-pane -v -c "#{pane_current_path}"
+    bind-key -T prefix S split-pane -v
     bind-key -T prefix \+ setw synchronize-panes
     bind-key -T prefix C-s command-prompt -p "Swap with pane:" "swap-pane -t '%%'"
     
@@ -37,7 +41,7 @@ in
     bind-key -T root C-Down  select-pane -D
     bind-key -T root C-Left  select-pane -L
     bind-key -T root C-Right select-pane -R
-  '';
+    '';
 
     plugins = with pkgs; [
       {
@@ -46,7 +50,7 @@ in
         set -g @logging-path "$HOME/.config/tmux/logs"
         set -g @screen-capture-path "$HOME/.config/tmux/captures"
         set -g @save-complete-history-path "$HOME/.config/tmux/saves"
-      '';
+        '';
       }
       tmuxPlugins.tmux-fzf
       tmuxPlugins.jump

@@ -3,13 +3,17 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-latest.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-emacs.url = "github:NixOS/nixpkgs/4eaa9a5a6aa1b7772519af4d8b25e7c44177d3d6";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs:
+  outputs = { nixpkgs, nixpkgs-latest, nixpkgs-emacs, nixos-hardware, home-manager, ... }@inputs:
     let
       stateVersion = "25.05";
 
@@ -19,24 +23,19 @@
         pkgs = import nixpkgs { inherit system; };
       });
     in {
-      devShells = forAllSystems({ pkgs, system }:
+      devShells = forAllSystems({ pkgs, ... }:
         {
           default = pkgs.mkShell {
             name = "nix development shell";
             buildInputs = with pkgs; [
-              nixd
               nixfmt-classic
-              nixpkgs-fmt
               statix
               deadnix
             ];
-            shellHook = ''
-              echo 'Nix Development System: ${system}'
-              export DEV_SHELL=1
 
-              if [[ -n "$DEV_SHELL" ]]; then
-                PROMPT="[%{$reset_color%}\$PROMPT]"
-              fi
+            DEV_SHELL="nixos";
+
+            shellHook = ''
             '';
           };
         });
@@ -47,14 +46,22 @@
         inherit system;
         specialArgs = { inherit inputs stateVersion; };
 
-        modules = [ ./fw13/configuration.nix ];
+        modules = [
+          ./fw13/configuration.nix
+          nixos-hardware.nixosModules.framework-amd-ai-300-series
+        ];
       };
 
       home.fw13.arekisannda = let
         system = "x86_64-linux";
       in home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages."${system}";
-        extraSpecialArgs = { inherit inputs stateVersion; };
+        extraSpecialArgs = {
+          inherit inputs stateVersion;
+          nixpkgs = nixpkgs.legacyPackages."${system}";
+          nixpkgs-unstable = nixpkgs-latest.legacyPackages."${system}";
+          nixpkgs-emacs = nixpkgs-emacs.legacyPackages."${system}";
+        };
 
         modules = [ ./options.nix ./modules/users/arekisannda/home.nix ];
       };

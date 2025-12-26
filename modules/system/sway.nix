@@ -5,14 +5,18 @@
     enableDefaultPackages = true;
 
     packages = with pkgs; [
+      carlito
       fira-sans
       nerd-fonts.sauce-code-pro
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-emoji
+      noto-fonts-extra
       source-han-mono
       source-han-sans
       source-han-serif
+      unifont
+      unifont_upper
     ];
 
     fontconfig = {
@@ -31,16 +35,19 @@
     extraPackages = with pkgs; [
       (pass-wayland.withExtensions (exts: with exts; [ pass-otp ]))
 
+      (pkgs.python3.withPackages (python-pkgs: with python-pkgs; [
+        i3ipc
+        argparse
+      ]))
+
       alacritty
       cameractrls
       cliphist
       glib
       grim
-      imv
       inotify-tools
       kanshi
       kdePackages.breeze
-      lan-mouse
       libnotify
       light
       networkmanagerapplet
@@ -57,9 +64,7 @@
       swaycons
       swayest-workstyle
       swayidle
-      swaylock-effects
       swaynotificationcenter
-      vlc
       waybar
       waypipe
       wayvnc
@@ -67,27 +72,13 @@
       wl-clipboard
       wlroots
       wlsunset
-      zathura
+      wtype
     ];
-  };
-
-  programs.dconf.enable = true;
-  programs.light.enable = true;
-
-  systemd.user.services.kanshi = {
-    description = "kanshi daemon";
-    environment = {
-      WAYLAND_DISPLAY = "wayland-1";
-      DISPLAY = ":0";
-    };
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = ''${pkgs.kanshi}/bin/kanshi -c $HOME/.config/kanshi/config'';
-    };
   };
 
   services.greetd = {
     enable = true;
+    vt = 2;
     settings = {
       default_session = {
         command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway --user-menu --user-menu-min-uid 1000 --remember --remember-session --asterisks";
@@ -95,6 +86,8 @@
       };
     };
   };
+
+  services.playerctld.enable = true;
 
   xdg = {
     portal = {
@@ -106,15 +99,25 @@
     };
   };
 
+  programs.dconf.enable = true;
+  programs.light.enable = true;
+
   environment.sessionVariables = {
-    PATH="/run/current-system/sw/bin:$PATH";
-    CALIBRE_USE_DARK_PALETTE = "1";
     GTK_CSD = "0";
+    NIXOS_OZONE_WL = "1";
+    XDG_CURRENT_DESKTOP = "sway";
+    _JAVA_AWT_WM_NONREPARENTING = "1";
+
     QT_QPA_PLATFORM = "wayland";
     QT_QPA_PLATFORMTHEME = "qt5ct";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-    XDG_CURRENT_DESKTOP = "sway";
-    _JAVA_AWT_WM_NONREPARENTING = "1";
+    # QT_QPA_PLATFORM_PLUGIN_PATH = "${qtPackage.qtbase}/lib/qt-6/plugins/platforms";
+    # XMODIFIERS = "@im=fcitx";
+    GTK_IM_MODULE = "fcitx";
+    QT_IM_MODULE = "fcitx";
+    QT_IM_MODULES = "fcitx";
+    # INPUT_METHOD = "fcitx";
+
     # WLR_NO_HARDWARE_CURSORS = "1";
   };
 }

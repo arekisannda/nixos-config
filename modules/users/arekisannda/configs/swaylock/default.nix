@@ -3,8 +3,7 @@
 let
   wallpaper = config.setup.gui.wallpaper;
   gui = config.setup.gui.theme;
-in
-{
+in {
   programs.swaylock = {
     enable = true;
     package = pkgs.swaylock-effects;
@@ -24,9 +23,8 @@ in
       text-clear = "";
       color = "#${wallpaper.lockscreenColor}";
       image = wallpaper.image;
-      scaling= wallpaper.lockscreenScaling;
-      timestr="%I:%M:%S %p";
-      effect-greyscale = true;
+      scaling = wallpaper.lockscreenScaling;
+      timestr = "%I:%M:%S %p";
       inside-color = "#00000000";
       inside-clear-color = "#00000000";
       inside-ver-color = "#00000000";
@@ -42,7 +40,6 @@ in
       line-wrong-color = "#00000000";
       line-clear-color = "#00000000";
       line-uses-inside = true;
-      daemonize = true;
       ignore-empty-password = true;
       clock = true;
     };

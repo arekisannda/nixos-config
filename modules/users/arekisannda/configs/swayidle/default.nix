@@ -11,40 +11,55 @@ let
   delay.sleep = 2;
 
   bin = {
+    cat = "${pkgs.coreutils}/bin/cat";
+    gpgconf = "${pkgs.gnupg}/bin/gpgconf";
     light = "${pkgs.light}/bin/light";
     lock = "${pkgs.swaylock-effects}/bin/swaylock";
+    pgrep = "${pkgs.procps}/bin/pgrep";
     playerctl = "${pkgs.playerctl}/bin/playerctl";
-    cat = "${pkgs.coreutils}/bin/cat";
+    sleep = "${pkgs.coreutils}/bin/sleep";
     swaymsg = "${pkgs.sway}/bin/swaymsg";
+    systemctl = "${pkgs.systemd}/bin/systemctl";
   };
-in
-{
+in {
   services.swayidle = {
     enable = true;
 
+    systemdTarget = "sway-session.target";
+
     events = [
-      { event = "before-sleep"; command = "${bin.playerctl} pause"; }
-      { event = "before-sleep"; command = "exec ${bin.lock} & sleep ${toString delay.sleep}"; }
+      {
+        event = "before-sleep";
+        command = "${bin.playerctl} -a pause";
+      }
+      {
+        event = "before-sleep";
+        command = "${bin.gpgconf} --kill gpg-agent";
+      }
+      {
+        event = "before-sleep";
+        command = "if ! ${bin.pgrep} swaylock; then ${bin.lock} --daemonize; fi";
+      }
     ];
 
     timeouts = [
       {
         timeout = timeout.idle;
         command = "${bin.light} -G > /tmp/brightness && ${bin.light} -S 10";
-        resumeCommand = "${bin.light} -S $([ -f /tmp/brightness ] && ${bin.cat} /tmp/brightness || echo 100%)";
+        resumeCommand =
+          "${bin.light} -S $([ -f /tmp/brightness ] && ${bin.cat} /tmp/brightness || echo 100%)";
       }
       {
         timeout = timeout.lock;
-        command = "exec ${bin.lock}";
+        command = "${bin.gpgconf} --kill gpg-agent";
       }
       {
-        timeout = timeout.screen;
-        command = "${bin.swaymsg} 'output * dpms off'";
-        resumeCommand = "${bin.swaymsg} 'output * dpms on'";
+        timeout = timeout.lock;
+        command = "if ! ${bin.pgrep} swaylock; then ${bin.lock} --daemonize; fi";
       }
       {
         timeout = timeout.sleep;
-        command = "sleep ${toString delay.sleep}; /run/current-system/sw/bin/systemctl suspend";
+        command = "${bin.systemctl} suspend";
       }
     ];
   };

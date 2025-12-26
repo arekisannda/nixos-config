@@ -6,7 +6,6 @@
     bc
     binutils
     cacert
-    direnv
     fzf
     git
     gnupg
@@ -18,18 +17,19 @@
     man-pages
     man-pages-posix
     neovim
-    nix-index
     patsh
     pkg-config
     ranger
     rclone
     ripgrep
     shellcheck
+    socat
     sqlite
     sshfs
     stow
     tmux
     tree
+    unzip
     wget
     yq-go
     zsh
@@ -40,7 +40,11 @@
 
   environment.variables = {
     EDITOR = "nvim";
+    PATH="/run/current-system/sw/bin:$PATH";
   };
+
+  environment.localBinInPath = true;
+  programs.nix-ld.enable = true;
 
   environment.sessionVariables = rec {
     XDG_CACHE_HOME = "$HOME/.cache";

@@ -1,11 +1,10 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 let
   wallpaper = config.setup.gui.wallpaper;
   gui = config.setup.gui.theme;
   hexString = hex: "#${hex}";
-in
-{
+in {
   xdg.configFile = {
     "sway/config" = {
       enable = true;
@@ -20,6 +19,7 @@ in
         include $XDG_CONFIG_HOME/sway/local/*.sway
         include $XDG_CONFIG_HOME/sway/autostarts.sway
 
+        exec_always ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &
         exec sleep 5; systemctl --user start kanshi.service
       '';
     };
@@ -77,6 +77,26 @@ in
         output * bg ${wallpaper.image} ${wallpaper.scaling} ${hexString wallpaper.color}
         font pango:${gui.font.mono} ${toString gui.font.size}
       '';
+    };
+  };
+
+  systemd.user.services = {
+    "sway-mode-clock" = {
+      Unit = {
+        Description = "Waybar Mode Clock";
+        After = [ "sway-session.target" ];
+      };
+      Install = {
+        WantedBy = [ "sway-session.target" ];
+      };
+      Service = {
+        Type = "simple";
+        ExecStart = pkgs.writeShellScript "sway-mode-clock" ''
+          while /run/current-system/sw/bin/swaymsg -q -t subscribe "[\"mode\"]"; do
+            /run/current-system/sw/bin/pkill -RTMIN+16 waybar
+          done
+        '';
+      };
     };
   };
 }

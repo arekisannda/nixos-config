@@ -1,8 +1,6 @@
 { pkgs, lib, ... }:
 
 {
-  environment.systemPackages = with pkgs; [ steam ];
-
   networking.firewall = lib.mkMerge [{
     allowedTCPPorts = [
       # 27015 # SRCDS Rcon port

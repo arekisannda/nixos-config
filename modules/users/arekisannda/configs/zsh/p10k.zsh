@@ -48,6 +48,7 @@
 
   # Left prompt segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+    dev_shell
     # context                 # user@host
     dir                       # current directory
     vcs                       # git status

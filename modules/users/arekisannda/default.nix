@@ -11,6 +11,9 @@
       "input"
       "networkmanager"
       "nixos"
+      "plugdev"
+      "storage"
+      "users"
       "video"
       "wheel"
     ];

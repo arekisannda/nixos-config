@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, lib, ... }:
 
 {
   programs.zsh = {
@@ -7,9 +7,7 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
-    oh-my-zsh = {
-      enable = true;
-    };
+    oh-my-zsh.enable = true;
 
     plugins = [
       {
@@ -22,6 +20,11 @@
         src = "${inputs.self}/modules/users/arekisannda/configs/zsh";
         file = "p10k.zsh";
       }
+      {
+        name = "fzf-tab";
+        src = pkgs.zsh-fzf-tab;
+        file = "share/fzf-tab/fzf-tab.plugin.zsh";
+      }
     ];
 
     shellAliases = {
@@ -31,16 +34,15 @@
       update-dry = "sudo nixos-rebuild dry-build --flake /etc/nixos#$(hostname)";
       hmup = "nix run /etc/nixos#home.$(hostname).$USER.activationPackage";
       hmup-dry = "nix build --dry-run /etc/nixos#home.$(hostname).$USER.activationPackage";
-      nixgc = "sudo nix-collect-garbage";
-
       nixls = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
-      zload = "source ~/.zshrc";
+      nixgc = "sudo nix-collect-garbage -d -v && nix-collect-garbage -d -v";
 
-      nixs   = "nix search nixpkgs";
-      nixdev = "nix develop --command zsh";
-      nixbld = "nix build";
-      nixrun = "nix run";
-      nixflk = "nix flake";
+      nsch = "nix search nixpkgs";
+      ndev = "nix develop --command zsh";
+      ndevr = "nix develop --command";
+      nbld = "nix build";
+      nrun = "nix run";
+      nflk = "nix flake";
 
       ec = "emacsclient -c -n";
       er = "emacsclient -r -n";
@@ -50,6 +52,8 @@
 
       sm = "swaymsg";
       git = "GPG_TTY=$(tty) git";
+
+      zload = "source ~/.zshrc";
     };
 
     history = {
@@ -58,5 +62,16 @@
       path = "$HOME/.zsh_history";
       ignorePatterns = ["rm *" "pkill *" "cp *"];
     };
+
+    initContent = let
+      dev_shell_prompt = lib.mkOrder 1000 ''
+      prompt_dev_shell() {
+        [[ -n "$DEV_SHELL" ]] || return
+        p10k segment -b blue -f white -t "($DEV_SHELL)"
+      }
+      '';
+    in lib.mkMerge [
+      dev_shell_prompt
+    ];
   };
 }
