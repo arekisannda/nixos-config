@@ -77,7 +77,7 @@ in {
     udisks2.enable = true;
     devmon.enable = true;
     gvfs.enable = true;
-    logind = { powerKey = "ignore"; };
+    logind = { settings = { Login = { HandlePowerKey = "ignore"; }; }; };
   };
 
   time.timeZone = "America/Los_Angeles";

@@ -10,8 +10,7 @@
       nerd-fonts.sauce-code-pro
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
-      noto-fonts-extra
+      noto-fonts-color-emoji
       source-han-mono
       source-han-sans
       source-han-serif
@@ -55,7 +54,7 @@
       playerctl
       pulseaudio
       qjackctl
-      rofi-wayland
+      rofi
       slurp
       swappy
       sway-audio-idle-inhibit
@@ -77,11 +76,9 @@
 
   services.greetd = {
     enable = true;
-    vt = 2;
     settings = {
       default_session = {
-        command =
-          "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway --user-menu --user-menu-min-uid 1000 --remember --remember-session --asterisks";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd sway --user-menu --user-menu-min-uid 1000 --remember --remember-session --asterisks";
         user = "greeter";
       };
     };

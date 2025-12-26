@@ -2,20 +2,20 @@
   description = "NixOS Flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-latest.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-emacs.url = "github:NixOS/nixpkgs/4eaa9a5a6aa1b7772519af4d8b25e7c44177d3d6";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs = { nixpkgs, nixpkgs-latest, nixpkgs-emacs, nixos-hardware, home-manager, ... }@inputs:
     let
-      stateVersion = "25.05";
+      stateVersion = "25.11";
 
       allSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
       forAllSystems = f: nixpkgs.lib.genAttrs allSystems (system: f {

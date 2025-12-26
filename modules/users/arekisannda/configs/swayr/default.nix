@@ -5,7 +5,7 @@
     enable = true;
     settings = {
       menu = {
-        executable = "${pkgs.rofi-wayland}/bin/rofi";
+        executable = "${pkgs.rofi}/bin/rofi";
         args = [
           "-i"
           "-dmenu"
