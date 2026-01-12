@@ -12,7 +12,7 @@
         pv = "pr view";
       };
     };
-    
-    extensions = with pkgs; [];
+
+    extensions = with pkgs; [ ];
   };
 }

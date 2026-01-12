@@ -34,17 +34,12 @@ in {
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = [
-    "console=tty1"
-    "quiet"
-  ];
+  boot.kernelParams = [ "console=tty1" "quiet" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Nix Settings
-  nix.nixPath = [
-    "nixpkgs=${inputs.nixpkgs}"
-    "nixpkgs-unstable=${inputs.nixpkgs-latest}"
-  ];
+  nix.nixPath =
+    [ "nixpkgs=${inputs.nixpkgs}" "nixpkgs-unstable=${inputs.nixpkgs-latest}" ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # nix.settings.auto-optimize-store = true;
   nix.gc = {

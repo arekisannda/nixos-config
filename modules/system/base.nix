@@ -36,11 +36,11 @@
     zsh-powerlevel10k
   ];
 
-  users.groups.nixos = {};
+  users.groups.nixos = { };
 
   environment.variables = {
     EDITOR = "nvim";
-    PATH="/run/current-system/sw/bin:$PATH";
+    PATH = "/run/current-system/sw/bin:$PATH";
   };
 
   environment.localBinInPath = true;

@@ -2,7 +2,7 @@
 
 {
   programs.zsh.enable = true;
-  users.groups.arekisannda = {};
+  users.groups.arekisannda = { };
   users.users.arekisannda = {
     isNormalUser = true;
     group = "arekisannda";

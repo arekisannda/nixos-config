@@ -24,7 +24,7 @@
       defaultFonts = {
         serif = [ "Fira Sans" "Source Han Sans" ];
         sansSerif = [ "Fira Sans" "Source Han Sans" ];
-        monospace = [ "SauceCodePro NFM" "Source Han Mono"];
+        monospace = [ "SauceCodePro NFM" "Source Han Mono" ];
       };
     };
   };
@@ -35,10 +35,8 @@
     extraPackages = with pkgs; [
       (pass-wayland.withExtensions (exts: with exts; [ pass-otp ]))
 
-      (pkgs.python3.withPackages (python-pkgs: with python-pkgs; [
-        i3ipc
-        argparse
-      ]))
+      (pkgs.python3.withPackages
+        (python-pkgs: with python-pkgs; [ i3ipc argparse ]))
 
       alacritty
       cameractrls
@@ -60,6 +58,7 @@
       rofi-wayland
       slurp
       swappy
+      sway-audio-idle-inhibit
       sway-new-workspace
       swaycons
       swayest-workstyle
@@ -81,7 +80,8 @@
     vt = 2;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway --user-menu --user-menu-min-uid 1000 --remember --remember-session --asterisks";
+        command =
+          "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway --user-menu --user-menu-min-uid 1000 --remember --remember-session --asterisks";
         user = "greeter";
       };
     };

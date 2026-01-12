@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
@@ -15,7 +14,7 @@
       "image/jpeg" = [ "imv.desktop" ];
       "image/png" = [ "imv.desktop" ];
       "image/webp" = [ "imv.desktop" ];
-      "inode/directory" = ["pcmanfm.desktop"];
+      "inode/directory" = [ "pcmanfm.desktop" ];
       "text/html" = [ "firefox.desktop" ];
       "text/org" = [ "emacsclient.desktop" ];
       "text/x-tex" = [ "emacsclient.desktop" ];

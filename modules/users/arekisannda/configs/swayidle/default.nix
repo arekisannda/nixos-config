@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, nixpkgs-unstable, ... }:
 
 let
   timeout = {
@@ -38,7 +38,8 @@ in {
       }
       {
         event = "before-sleep";
-        command = "if ! ${bin.pgrep} swaylock; then ${bin.lock} --daemonize; fi";
+        command =
+          "if ! ${bin.pgrep} swaylock; then ${bin.lock} --daemonize; fi";
       }
     ];
 
@@ -55,7 +56,8 @@ in {
       }
       {
         timeout = timeout.lock;
-        command = "if ! ${bin.pgrep} swaylock; then ${bin.lock} --daemonize; fi";
+        command =
+          "if ! ${bin.pgrep} swaylock; then ${bin.lock} --daemonize; fi";
       }
       {
         timeout = timeout.sleep;

@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs, nixpkgs-unstable, nixpkgs-emacs, stateVersion, ... }@attr:
+{ config, pkgs, nixpkgs-unstable, stateVersion, ... }@attr:
 
 let
   username = "arekisannda";
@@ -73,18 +73,17 @@ in {
   home.sessionVariables = {
     # VIRSH_DEFAULT_CONNECT_URI = "qemu:///system";
     # ZEIT_DB = "$HOME/.config/zeit.db";
-    # Disable hardware cursors. This might fix issues with disappearing cursors
-    BROWSER="firefox";
+    BROWSER = "firefox";
     CALIBRE_USE_DARK_PALETTE = "1";
     DOCKER_HOST = "unix://$XDG_RUNTIME_DIR/docker.sock";
-    EMACS_NIX = "1";
     EMACS_USER_DIRECTORY = "$XDG_CONFIG_HOME/emacs";
-    GOPATH="$HOME/.go";
+    GOPATH = "$HOME/.go";
     LSP_USE_PLISTS = "true";
   };
 
   home.file = let
-    session-vars-file = "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh";
+    session-vars-file =
+      "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh";
   in {
     ".profile".text = ''
       [ -f "${session-vars-file}" ] && . "${session-vars-file}"
@@ -134,6 +133,7 @@ in {
     # enchant2
     cmake
     delve
+    dtach
     gcc
     gdb
     ghostscript

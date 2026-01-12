@@ -10,12 +10,8 @@ let
     };
   };
 in {
-  nixpkgs.overlays = [
-    pinentry-rofi
-  ];
+  nixpkgs.overlays = [ pinentry-rofi ];
 
-  environment.systemPackages = [
-    pkgs.pinentry-rofi
-  ];
+  environment.systemPackages = [ pkgs.pinentry-rofi ];
 }
 

@@ -105,14 +105,12 @@
               EnableLongPress = false;
             };
 
-            sections = {
-              LongPressBlocklist."0" = "konsole";
-            };
+            sections = { LongPressBlocklist."0" = "konsole"; };
           };
 
           hangul = {
             globalSection = {
-              Keyboard="Romaja";
+              Keyboard = "Romaja";
               PrevPage = "";
               NextPage = "";
               AutoReorder = false;
@@ -122,7 +120,7 @@
 
             sections = {
               HanjaModeToggleKey."0" = "Henkan";
-              PrevCandidate."0"="Shift+Tab";
+              PrevCandidate."0" = "Shift+Tab";
               NextCandidate."0" = "Tab";
             };
           };

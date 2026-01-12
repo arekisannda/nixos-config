@@ -1,23 +1,42 @@
 { config, ... }:
 
-let
-  terminal = config.setup.terminal.theme;
-in
-{
+let terminal = config.setup.terminal.theme;
+in {
   programs.gh-dash = {
     enable = true;
     settings = {
       prSections = [
-        { title = "My Pull Requests"; filters = "is:open author:@me"; }
-        { title = "Needs My Review"; filters = "is:open review-requested:@me"; }
-        { title = "Involved"; filters = "is:open involves:@me -author:@me"; }
+        {
+          title = "My Pull Requests";
+          filters = "is:open author:@me";
+        }
+        {
+          title = "Needs My Review";
+          filters = "is:open review-requested:@me";
+        }
+        {
+          title = "Involved";
+          filters = "is:open involves:@me -author:@me";
+        }
       ];
 
       issuesSections = [
-        { title = "My Issues"; filters = "is:open author:@me"; }
-        { title = "Assigned"; filters = "is:open assignee:@me"; }
-        { title = "Involved"; filters = "is:open involves:@me -author:@me"; }
-        { title = "Kubernetes"; filters = "is: open repo:kubernetes/Kubernetes"; }
+        {
+          title = "My Issues";
+          filters = "is:open author:@me";
+        }
+        {
+          title = "Assigned";
+          filters = "is:open assignee:@me";
+        }
+        {
+          title = "Involved";
+          filters = "is:open involves:@me -author:@me";
+        }
+        {
+          title = "Kubernetes";
+          filters = "is: open repo:kubernetes/Kubernetes";
+        }
       ];
 
       defaults = {
@@ -64,11 +83,11 @@ in
       };
 
       keybindings = {
-        issues = [];
-        prs = [];
+        issues = [ ];
+        prs = [ ];
       };
 
-      repoPaths = {};
+      repoPaths = { };
 
       theme = {
         ui.table.showSeparator = true;
@@ -82,9 +101,7 @@ in
             success = "#${terminal.colors.normal.green}";
           };
 
-          background = {
-            selected = "#${terminal.colors.background.bright}";
-          };
+          background = { selected = "#${terminal.colors.background.bright}"; };
 
           border = {
             primary = "#${terminal.colors.background.bright}";

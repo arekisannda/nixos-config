@@ -1,9 +1,7 @@
 { config, ... }:
 
-let
-  gui = config.setup.gui.theme;
-in
-{
+let gui = config.setup.gui.theme;
+in {
   services.swaync = {
     enable = true;
     settings = {
@@ -38,17 +36,11 @@ in
       hide-on-action = false;
       script-fail-notify = true;
 
-      scripts = {};
-      notification-visibility = {};
+      scripts = { };
+      notification-visibility = { };
 
-      widgets = [
-        "mpris"
-        "volume"
-        "backlight"
-        "inhibitors"
-        "dnd"
-        "notifications"
-      ];
+      widgets =
+        [ "mpris" "volume" "backlight" "inhibitors" "dnd" "notifications" ];
 
       widget-config = {
         inhibitors = {
@@ -61,9 +53,7 @@ in
           button-text = "Clear";
           clear-all-button = false;
         };
-        dnd = {
-          text = "Do Not Disturb";
-        };
+        dnd = { text = "Do Not Disturb"; };
         label = {
           text = "Notification Center";
           max-lines = 1;
@@ -80,9 +70,7 @@ in
           show-per-app = true;
           show-per-app-label = true;
         };
-        backlight = {
-          label = "󰃟" ;
-        };
+        backlight = { label = "󰃟"; };
       };
     };
 
@@ -111,7 +99,7 @@ in
       .blank-window {
         background: transparent;
       }
-      
+
       .control-center {
         border-top: 1px solid @cc-border;
         border-bottom: 1px solid @cc-border;
@@ -121,28 +109,28 @@ in
         box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.7), 0 2px 6px 2px rgba(0, 0, 0, 0.3);
         transition: opacity 400ms ease-in-out, background 0.15s ease-in-out;
       }
-      
+
       .control-center-list {
         background: transparent;
       }
-      
+
       .control-center .notification-row:focus {
         opacity: 1;
         background: @noti-bg-hover;
         border: 1px solid @warning_color;
         border-radius: 4px;
       }
-      
+
       .control-center .notification-row:hover {
         opacity: 1;
         background: transparent;
         border: 1px solid @warning_color;
       }
-      
+
       .control-center-list-placeholder {
         opacity: 0.5;
       }
-      
+
       .close-button {
         opacity: 0;
         background: @noti-close-bg;
@@ -157,7 +145,7 @@ in
         min-width: 24px;
         min-height: 24px;
       }
-      
+
       .close-button:hover {
         opacity: 0;
         box-shadow: none;
@@ -165,11 +153,11 @@ in
         transition: all .15s ease-in-out;
         border: none;
       }
-      
+
       .inline-reply {
         margin-top: 8px;
       }
-      
+
       .inline-reply-entry {
         background: @noti-bg-darker;
         color: @text-color;
@@ -177,7 +165,7 @@ in
         border-radius: 4px;
         caret-color: @text-color;
       }
-      
+
       .inline-reply-button {
         margin-left: 4px;
         border: 1px solid @noti-button-border;
@@ -185,23 +173,23 @@ in
         color: @text-color;
         background: @noti-bg;
       }
-      
+
       .inline-reply-button:disabled {
         background: initial;
         color: @text-color-disabled;
         border: 1px solid transparent;
       }
-      
+
       .inline-reply-button:hover {
         background: @noti-bg-hover;
       }
-      
+
       .body-image {
         margin-top: 6px;
         background-color: #fff;
         border-radius: 12px;
       }
-      
+
       .summary {
         font-size: 1.0rem;
         font-weight: 700;
@@ -209,7 +197,7 @@ in
         color: @noti-summary;
         text-shadow: none;
       }
-      
+
       .time {
         font-size: 0.9rem;
         font-weight: 700;
@@ -218,7 +206,7 @@ in
         text-shadow: none;
         margin-right: 18px;
       }
-      
+
       .body {
         font-size: 0.9rem;
         font-weight: 400;
@@ -226,13 +214,13 @@ in
         color: @text-color;
         text-shadow: none;
       }
-      
+
       .widget-title {
         color: @text-color;
         margin: 10px;
         font-size: 1.1rem;
       }
-      
+
       .widget-title>button {
         font-size: initial;
         color: @text-color;
@@ -242,17 +230,17 @@ in
         border-radius: 100px;
         background: @noti-bg;
       }
-      
+
       .widget-title>button:hover {
         background: @noti-bg-hover;
       }
-      
+
       .widget-dnd {
         color: @text-color;
         margin: 10px;
         font-size: 1.1rem;
       }
-      
+
       .widget-dnd>switch {
         font-size: initial;
         border-radius: 100px;
@@ -260,27 +248,27 @@ in
         box-shadow: none;
         background: @noti-bg;
       }
-      
+
       .widget-dnd>switch:checked {
         border: 1px solid @noti-button-border;
         background: @bg-selected;
       }
-      
+
       .widget-dnd>switch slider {
         border: 1px solid @noti-button-border;
         border-radius: 100px;
         background: @noti-bg-hover;
       }
-      
+
       .widget-label {
         margin: 10px;
       }
-      
+
       .widget-label>label {
         font-size: 1.5rem;
         color: @text-color;
       }
-      
+
       .widget-mpris .widget-mpris-player {
         padding: 8px;
         padding: 16px;
@@ -289,51 +277,51 @@ in
         border-radius: 0px;
         box-shadow: none;
       }
-      
+
       .widget-mpris .widget-mpris-player .widget-mpris-album-art {
         border-radius: 12px;
         box-shadow: none;
       }
-      
+
       .widget-mpris .widget-mpris-player .widget-mpris-title {
         font-weight: 700;
         font-size: 1.25rem;
       }
-      
+
       .widget-mpris .widget-mpris-player .widget-mpris-subtitle {
         font-size: 1.1rem;
       }
-      
+
       .widget-mpris .widget-mpris-player button:hover {
         /* The media player buttons (play, pause, next, etc...) */
         border: 1px solid @noti-button-border;
         background: @noti-bg-hover;
       }
-      
+
       /* .widget-mpris .widget-mpris-player > box > button { */
       /*   /\* Change player control buttons *\/ */
       /*   border: 0px; */
       /*   background-color: @noti-bg-darker; */
       /* } */
-      
+
       .widget-mpris > box > button {
         /* Change player side buttons */
         border: 0px;
         background-color: transparent;
       }
-      
+
       .widget-mpris > box > button:hover {
         /* Change player side buttons */
         border: 0px;
         background-color: transparent;
       }
-      
+
       .widget-mpris > box > button:disabled {
         /* Change player side buttons insensitive */
         border: 0px;
         background-color: transparent;
       }
-      
+
       .widget-volume {
         background: @noti-bg-darker;
         padding: 8px;
@@ -341,12 +329,12 @@ in
         border-radius: 100px;
         color: @text-color;
       }
-      
+
       .widget-volume>box>button {
         background: transparent;
         border: none
       }
-      
+
       .per-app-volume {
         padding: 4px 8px 8px;
         margin: 0 8px 8px;
@@ -354,7 +342,7 @@ in
         background: transparent;
         border: none;
       }
-      
+
       .widget-backlight {
         background: @noti-bg-darker;
         padding: 8px;
@@ -363,12 +351,12 @@ in
         font-size: 1.5rem;
         color: @text-color;
       }
-      
+
       .widget-inhibitors {
         margin: 8px;
         font-size: 1.0rem
       }
-      
+
       .widget-inhibitors>button {
         font-size: initial;
         color: @text-color;
@@ -378,7 +366,7 @@ in
         border-radius: 100px;
         background: @noti-bg;
       }
-      
+
       .widget-inhibitors>button:hover {
         background: @noti-bg-hover;
       }
@@ -387,15 +375,15 @@ in
         background: transparent;
         opacity: 0.9;
       }
-      
+
       .floating-notifications .notification {
         box-shadow: none;
       }
-      
+
       .notification-row {
         outline: none;
       }
-      
+
       .notification {
         /* padding: 10px; */
         margin: 0;
@@ -408,13 +396,13 @@ in
         min-height: 80px;
         background: @noti-bg;
       }
-      
+
       .notification:hover {
         -gtk-icon-effect: none;
         background: @noti-bg-hover;
         border: 1px solid @warning_color;
       }
-      
+
       .notification-default-action,
       .notification-action {
         box-shadow: none;
@@ -424,45 +412,45 @@ in
         border-radius: 4px;
         background: @noti-bg;
       }
-      
+
       .notification-default-action:hover,
       .notification-action:hover {
         -gtk-icon-effect: none;
         background: @noti-bg-hover;
         /* border: 1px solid @warning_color; */
       }
-      
+
       .notification-default-action:not(:only-child) {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
       }
-      
+
       .notification-content {
         padding: 15px;
       }
-      
+
       .notification-action:first-child {
         border-bottom-left-radius: 10px;
         background: @noti-bg-darker;
       }
-      
+
       .notification-action:last-child {
         border-bottom-right-radius: 10px;
         background: @noti-bg-darker;
       }
-      
+
       .notification-group .notification-group-buttons, .notification-group .notification-group-headers {
         margin: 0 16px;
         color: @text-color;
       }
-      
+
       .notification-group .notification-group-collapse-button,
       .notification-group .notification-group-close-all-button {
         /* Notification Group Buttons */
         border: 1px solid transparent;
         background: transparent;
       }
-      
+
       .notification-group .notification-group-collapse-button:hover,
       .notification-group .notification-group-close-all-button:hover {
         border: 1px solid @noti-button-border;

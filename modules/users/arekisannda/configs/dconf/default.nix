@@ -1,9 +1,7 @@
 { config, ... }:
 
-let
-  gui = config.setup.gui.theme;
-in
-{
+let gui = config.setup.gui.theme;
+in {
   dconf = {
     enable = true;
     settings = {
@@ -16,9 +14,7 @@ in
         monospace-font-name = "${gui.font.mono} ${toString gui.font.size}";
       };
 
-      "org/gnome/desktop/input-sources" = {
-        show-all-sources = true;
-      };
+      "org/gnome/desktop/input-sources" = { show-all-sources = true; };
     };
   };
 }

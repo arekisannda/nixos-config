@@ -21,12 +21,16 @@
       };
 
       format = {
-        output_format = "{name:{:<70.70}}<span alpha=\"20000\">{id:{:>6.6}}</span>";
-        workspace_format = "{name:{:70.70}}<span alpha=\"20000\">{id:{:>6.6}}</span>";
-        container_format = "<b>Container</b> on workspace {workspace_name:{:<70.70}}";
-        window_format = "{workspace_name:{:<10.10}}▓{urgency_start}{name}{urgency_end}";
+        output_format =
+          ''{name:{:<70.70}}<span alpha="20000">{id:{:>6.6}}</span>'';
+        workspace_format =
+          ''{name:{:70.70}}<span alpha="20000">{id:{:>6.6}}</span>'';
+        container_format =
+          "<b>Container</b> on workspace {workspace_name:{:<70.70}}";
+        window_format =
+          "{workspace_name:{:<10.10}}▓{urgency_start}{name}{urgency_end}";
         indent = "    ";
-        urgency_start = "<span background=\"darkred\" foreground=\"yellow\">";
+        urgency_start = ''<span background="darkred" foreground="yellow">'';
         urgency_end = "</span>";
         html_escape = true;
       };

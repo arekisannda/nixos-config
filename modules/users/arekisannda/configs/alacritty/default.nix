@@ -4,8 +4,7 @@ let
   terminal = config.setup.terminal;
   hexString = hex: "#${hex}";
   addHashToColors = colors: builtins.mapAttrs (_: v: hexString v) colors;
-in
-{
+in {
   programs.alacritty = {
     enable = true;
     settings = {
@@ -190,7 +189,7 @@ in
       };
 
       terminal.shell = {
-        args = ["new-session" "-c" "."];
+        args = [ "new-session" "-c" "." ];
         program = "${pkgs.tmux}/bin/tmux";
       };
 
@@ -206,7 +205,7 @@ in
       };
 
       general.working_directory = "None";
-      terminal = {};
+      terminal = { };
     };
   };
 }

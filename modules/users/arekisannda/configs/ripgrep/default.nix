@@ -1,11 +1,8 @@
 { ... }:
 
 {
-  programs.ripgrep ={
+  programs.ripgrep = {
     enable = true;
-    arguments = [
-      "--hidden"
-      "--glob=!.git/*"
-    ];
+    arguments = [ "--hidden" "--glob=!.git/*" ];
   };
 }

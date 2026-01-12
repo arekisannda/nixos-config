@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  notify-send = (pkgs.callPackage ./scripts/notify-send.nix {});
+  notify-send = (pkgs.callPackage ./scripts/notify-send.nix { });
 
   mpv-unwrapped = pkgs.mpv-unwrapped.override {
     waylandSupport = true;
@@ -10,18 +10,13 @@ let
   };
 
   mpv = (pkgs.mpv-unwrapped.wrapper {
-    scripts = with pkgs.mpvScripts; [
-      mpris
-    ];
+    scripts = with pkgs.mpvScripts; [ mpris ];
 
     mpv = mpv-unwrapped;
   });
 
   mpv-service = (pkgs.mpv-unwrapped.wrapper {
-    scripts = with pkgs.mpvScripts; [
-      mpris
-      notify-send
-    ];
+    scripts = with pkgs.mpvScripts; [ mpris notify-send ];
 
     mpv = mpv-unwrapped;
   });
@@ -42,9 +37,7 @@ in {
       After = [ "graphical-session.target" ];
       PartOf = [ "graphical-session.target" ];
     };
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
-    };
+    Install = { WantedBy = [ "graphical-session.target" ]; };
     Service = {
       Type = "simple";
       ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p %t/mpv";

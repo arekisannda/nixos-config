@@ -74,7 +74,9 @@ in {
                                   ${hexString gui.style.background.focused}
         client.background         ${hexString gui.style.foreground.focused}
 
-        output * bg ${wallpaper.image} ${wallpaper.scaling} ${hexString wallpaper.color}
+        output * bg ${wallpaper.image} ${wallpaper.scaling} ${
+          hexString wallpaper.color
+        }
         font pango:${gui.font.mono} ${toString gui.font.size}
       '';
     };
@@ -86,9 +88,7 @@ in {
         Description = "Waybar Mode Clock";
         After = [ "sway-session.target" ];
       };
-      Install = {
-        WantedBy = [ "sway-session.target" ];
-      };
+      Install = { WantedBy = [ "sway-session.target" ]; };
       Service = {
         Type = "simple";
         ExecStart = pkgs.writeShellScript "sway-mode-clock" ''
