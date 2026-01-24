@@ -2,8 +2,6 @@
 
 let
   terminal = config.setup.terminal;
-  hexString = hex: "#${hex}";
-  addHashToColors = colors: builtins.mapAttrs (_: v: hexString v) colors;
 in {
   programs.alacritty = {
     enable = true;
@@ -11,29 +9,29 @@ in {
       colors = {
         draw_bold_text_with_bright_colors = false;
 
-        dim = addHashToColors terminal.theme.colors.dim;
-        bright = addHashToColors terminal.theme.colors.bright;
-        normal = addHashToColors terminal.theme.colors.normal;
+        dim = terminal.theme.colors.dim;
+        bright = terminal.theme.colors.bright;
+        normal = terminal.theme.colors.normal;
 
-        footer_bar = addHashToColors terminal.theme.colors.footer;
-        search.matches = addHashToColors terminal.theme.colors.search;
-        selection = addHashToColors terminal.theme.colors.selection;
+        footer_bar = terminal.theme.colors.footer;
+        search.matches = terminal.theme.colors.search;
+        selection = terminal.theme.colors.selection;
 
         primary = {
-          background = hexString terminal.theme.colors.background.normal;
-          dim_foreground = hexString terminal.theme.colors.foreground.dim;
-          bright_foreground = hexString terminal.theme.colors.foreground.bright;
-          foreground = hexString terminal.theme.colors.foreground.normal;
+          background = terminal.theme.colors.background.normal;
+          dim_foreground = terminal.theme.colors.foreground.dim;
+          bright_foreground = terminal.theme.colors.foreground.bright;
+          foreground = terminal.theme.colors.foreground.normal;
         };
 
         cursor = {
-          cursor = hexString terminal.theme.colors.cursor.background;
-          text = hexString terminal.theme.colors.cursor.foreground;
+          cursor = terminal.theme.colors.cursor.background;
+          text = terminal.theme.colors.cursor.foreground;
         };
 
         vi_mode_cursor = {
-          cursor = hexString terminal.theme.colors.cursor.background;
-          text = hexString terminal.theme.colors.cursor.foreground;
+          cursor = terminal.theme.colors.cursor.background;
+          text = terminal.theme.colors.cursor.foreground;
         };
       };
 

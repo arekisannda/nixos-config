@@ -9,7 +9,7 @@
       fcitx5-with-addons = pkgs.qt6Packages.fcitx5-with-addons;
       waylandFrontend = true;
       addons = with pkgs; [
-        fcitx5-configtool
+        qt6Packages.fcitx5-configtool
         fcitx5-gtk
         fcitx5-hangul
         fcitx5-mozc-ut

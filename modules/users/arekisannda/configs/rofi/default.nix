@@ -14,13 +14,13 @@ in {
       text = ''
         /* -*- mode: css; -*- */
         * {
-            background:     #${gui.style.background.focused};
-            background-alt: #${gui.style.background.focusedAlt};
-            foreground:     #${gui.style.foreground.focused};
-            selected:       #${gui.style.background.highlighted};
-            accent:         #${gui.style.accent};
-            active:         #${gui.style.accentAlt};
-            urgent:         #${gui.style.urgent};
+            background:     ${gui.style.background.focused};
+            background-alt: ${gui.style.background.focusedAlt};
+            foreground:     ${gui.style.foreground.focused};
+            selected:       ${gui.style.background.highlighted};
+            accent:         ${gui.style.accent};
+            active:         ${gui.style.accentAlt};
+            urgent:         ${gui.style.urgent};
         }
       '';
     };

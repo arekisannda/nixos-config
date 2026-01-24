@@ -93,20 +93,20 @@ in {
         ui.table.showSeparator = true;
         colors = {
           text = {
-            primary = "#${terminal.colors.foreground.normal}";
-            secondary = "#${terminal.colors.normal.cyan}";
-            inverted = "#${terminal.colors.bright.black}";
-            faint = "#${terminal.colors.foreground.dim}";
-            warning = "#${terminal.colors.normal.red}";
-            success = "#${terminal.colors.normal.green}";
+            primary = "${terminal.colors.foreground.normal}";
+            secondary = "${terminal.colors.normal.cyan}";
+            inverted = "${terminal.colors.bright.black}";
+            faint = "${terminal.colors.foreground.dim}";
+            warning = "${terminal.colors.normal.red}";
+            success = "${terminal.colors.normal.green}";
           };
 
-          background = { selected = "#${terminal.colors.background.bright}"; };
+          background = { selected = "${terminal.colors.background.bright}"; };
 
           border = {
-            primary = "#${terminal.colors.background.bright}";
-            secondary = "#${terminal.colors.background.bright}";
-            faint = "#${terminal.colors.background.dim}";
+            primary = "${terminal.colors.background.bright}";
+            secondary = "${terminal.colors.background.bright}";
+            faint = "${terminal.colors.background.dim}";
           };
         };
       };

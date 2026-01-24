@@ -18,9 +18,9 @@ in {
 
       wallpaper = {
         image = "$XDG_CONFIG_HOME/swaybg/gruvbox_cave.png";
-        color = "282828";
+        color = "#282828";
         scaling = "center";
-        lockscreenColor = "282828";
+        lockscreenColor = "#282828";
         lockscreenScaling = "center";
       };
     };

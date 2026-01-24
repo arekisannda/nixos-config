@@ -13,9 +13,11 @@ buildPythonPackage rec {
     sha256 = "sha256-FFQawil0JRTp3bfBWq8mypkCMiHuxozyblVcTBToTso=";
   };
 
-  patchPhase = ''
-    echo "from setuptools import setup; setup()" > setup.py
-  '';
+  # patchPhase = ''
+  #   echo "from setuptools import setup; setup()" > setup.py
+  # '';
+
+  pyproject = true;
 
   buildInputs = [ python3 setuptools ];
 }
