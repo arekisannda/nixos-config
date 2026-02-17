@@ -1,4 +1,9 @@
-{ pkgs, stateVersion, inputs, ... }:
+{
+  pkgs,
+  stateVersion,
+  inputs,
+  ...
+}:
 
 let
   modules = ../modules;
@@ -20,27 +25,36 @@ let
     "network-tools"
     "system-tools"
 
-    # configuration 
+    # configuration
     "networking-steam"
   ];
 
   importUsers = [ ../modules/users/arekisannda/default.nix ];
 
   importHardware = [ ./hardware-configuration.nix ];
-in {
+in
+{
   nixpkgs.config.allowUnfree = true;
   imports = importHardware ++ importSystem ++ importUsers;
   disabledModules = [ ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = [ "console=tty1" "quiet" ];
+  boot.kernelParams = [
+    "console=tty1"
+    "quiet"
+  ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Nix Settings
-  nix.nixPath =
-    [ "nixpkgs=${inputs.nixpkgs}" "nixpkgs-unstable=${inputs.nixpkgs-latest}" ];
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.nixPath = [
+    "nixpkgs=${inputs.nixpkgs}"
+    "nixpkgs-unstable=${inputs.nixpkgs-latest}"
+  ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   # nix.settings.auto-optimize-store = true;
   nix.gc = {
     automatic = true;
@@ -77,7 +91,13 @@ in {
     udisks2.enable = true;
     devmon.enable = true;
     gvfs.enable = true;
-    logind = { settings = { Login = { HandlePowerKey = "ignore"; }; }; };
+    logind = {
+      settings = {
+        Login = {
+          HandlePowerKey = "ignore";
+        };
+      };
+    };
   };
 
   time.timeZone = "America/Los_Angeles";

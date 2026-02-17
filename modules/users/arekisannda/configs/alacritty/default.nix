@@ -2,7 +2,8 @@
 
 let
   terminal = config.setup.terminal;
-in {
+in
+{
   programs.alacritty = {
     enable = true;
     settings = {
@@ -187,7 +188,11 @@ in {
       };
 
       terminal.shell = {
-        args = [ "new-session" "-c" "." ];
+        args = [
+          "new-session"
+          "-c"
+          "."
+        ];
         program = "${pkgs.tmux}/bin/tmux";
       };
 

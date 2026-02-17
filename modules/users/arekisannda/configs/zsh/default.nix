@@ -1,4 +1,9 @@
-{ pkgs, inputs, lib, ... }:
+{
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 
 {
   programs.zsh = {
@@ -31,11 +36,9 @@
       ll = "ls -l";
       edit = "sudo -e";
       update = "sudo nixos-rebuild switch --flake /etc/nixos#$(hostname)";
-      update-dry =
-        "sudo nixos-rebuild dry-build --flake /etc/nixos#$(hostname)";
-      hmup = "nix run /etc/nixos#home.$(hostname).$USER.activationPackage";
-      hmup-dry =
-        "nix build --dry-run /etc/nixos#home.$(hostname).$USER.activationPackage";
+      update-dry = "sudo nixos-rebuild dry-build --flake /etc/nixos#$(hostname)";
+      hmup = "nix run /etc/nixos#homeConfigurations.$(hostname).$USER.activationPackage";
+      hmup-dry = "nix build --dry-run /etc/nixos#homeConfigurations.$(hostname).$USER.activationPackage";
       nixls = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
       nixgc = "sudo nix-collect-garbage -d -v && nix-collect-garbage -d -v";
 
@@ -62,16 +65,22 @@
       size = 10000;
       ignoreAllDups = true;
       path = "$HOME/.zsh_history";
-      ignorePatterns = [ "rm *" "pkill *" "cp *" ];
+      ignorePatterns = [
+        "rm *"
+        "pkill *"
+        "cp *"
+      ];
     };
 
-    initContent = let
-      dev_shell_prompt = lib.mkOrder 1000 ''
-        prompt_dev_shell() {
-          [[ -n "$DEV_SHELL" ]] || return
-          p10k segment -b blue -f white -t "($DEV_SHELL)"
-        }
-      '';
-    in lib.mkMerge [ dev_shell_prompt ];
+    initContent =
+      let
+        dev_shell_prompt = lib.mkOrder 1000 ''
+          prompt_dev_shell() {
+            [[ -n "$DEV_SHELL" ]] || return
+            p10k segment -b blue -f white -t "($DEV_SHELL)"
+          }
+        '';
+      in
+      lib.mkMerge [ dev_shell_prompt ];
   };
 }

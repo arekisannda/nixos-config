@@ -21,9 +21,18 @@
     fontconfig = {
       enable = true;
       defaultFonts = {
-        serif = [ "Fira Sans" "Source Han Sans" ];
-        sansSerif = [ "Fira Sans" "Source Han Sans" ];
-        monospace = [ "SauceCodePro NFM" "Source Han Mono" ];
+        serif = [
+          "Fira Sans"
+          "Source Han Sans"
+        ];
+        sansSerif = [
+          "Fira Sans"
+          "Source Han Sans"
+        ];
+        monospace = [
+          "SauceCodePro NFM"
+          "Source Han Mono"
+        ];
       };
     };
   };
@@ -34,8 +43,12 @@
     extraPackages = with pkgs; [
       (pass-wayland.withExtensions (exts: with exts; [ pass-otp ]))
 
-      (pkgs.python3.withPackages
-        (python-pkgs: with python-pkgs; [ i3ipc argparse ]))
+      (pkgs.python3.withPackages (
+        python-pkgs: with python-pkgs; [
+          i3ipc
+          argparse
+        ]
+      ))
 
       alacritty
       cameractrls

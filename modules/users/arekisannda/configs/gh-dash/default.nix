@@ -1,7 +1,9 @@
 { config, ... }:
 
-let terminal = config.setup.terminal.theme;
-in {
+let
+  terminal = config.setup.terminal.theme;
+in
+{
   programs.gh-dash = {
     enable = true;
     settings = {
@@ -101,7 +103,9 @@ in {
             success = "${terminal.colors.normal.green}";
           };
 
-          background = { selected = "${terminal.colors.background.bright}"; };
+          background = {
+            selected = "${terminal.colors.background.bright}";
+          };
 
           border = {
             primary = "${terminal.colors.background.bright}";

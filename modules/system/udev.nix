@@ -10,7 +10,8 @@ let
       '';
     };
   };
-in {
+in
+{
   nixpkgs.overlays = [ vial-udev-rules ];
 
   services.udev.packages = [ pkgs.vial-udev-rules ];

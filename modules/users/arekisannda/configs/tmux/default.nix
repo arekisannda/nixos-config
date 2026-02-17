@@ -1,7 +1,9 @@
 { config, pkgs, ... }:
 
-let terminal = config.setup.terminal;
-in {
+let
+  terminal = config.setup.terminal;
+in
+{
   programs.tmux = {
     enable = true;
     prefix = "C-Space";

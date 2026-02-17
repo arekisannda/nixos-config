@@ -1,19 +1,28 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
-  mkStringOption = desc: value: mkOption {
-    type = types.str;
-    default = if value != null then value else "";
-    description = desc;
-  };
+  mkStringOption =
+    desc: value:
+    mkOption {
+      type = types.str;
+      default = if value != null then value else "";
+      description = desc;
+    };
 
-  mkIntegerOption = desc: value: mkOption {
-    type = types.int;
-    default = if value != null then value else 0;
-    description = desc;
-  };
+  mkIntegerOption =
+    desc: value:
+    mkOption {
+      type = types.int;
+      default = if value != null then value else 0;
+      description = desc;
+    };
 
   colorDescription = color: "Color ${color}.";
 
@@ -46,7 +55,7 @@ in
           kvantum = mkStringOption "Kvantum theme." "";
           icon = mkStringOption "Icon theme." "";
           cursor = mkStringOption "Cursor theme." "";
-          
+
           font = {
             size = mkIntegerOption "GUI font size." "";
             name = mkStringOption "GUI font name." "";
@@ -98,7 +107,7 @@ in
         theme = {
           font = {
             size = mkIntegerOption "Terminal font size." 0;
-            name= mkStringOption "Terminal font name." "";
+            name = mkStringOption "Terminal font name." "";
           };
 
           colors = {
@@ -143,5 +152,5 @@ in
     };
   };
 
-  config = {};
+  config = { };
 }

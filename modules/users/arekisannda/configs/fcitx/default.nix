@@ -105,7 +105,9 @@
               EnableLongPress = false;
             };
 
-            sections = { LongPressBlocklist."0" = "konsole"; };
+            sections = {
+              LongPressBlocklist."0" = "konsole";
+            };
           };
 
           hangul = {

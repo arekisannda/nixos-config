@@ -1,10 +1,17 @@
-{ config, pkgs, nixpkgs-unstable, stateVersion, ... }@attr:
+{
+  config,
+  pkgs,
+  nixpkgs-unstable,
+  stateVersion,
+  ...
+}@attr:
 
 let
   username = "arekisannda";
   homeDirectory = "/home/${username}";
   importWithArgs = path: import path attr;
-in {
+in
+{
   nixpkgs.config.allowUnfree = true;
 
   setup = {
@@ -81,14 +88,15 @@ in {
     LSP_USE_PLISTS = "true";
   };
 
-  home.file = let
-    session-vars-file =
-      "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh";
-  in {
-    ".profile".text = ''
-      [ -f "${session-vars-file}" ] && . "${session-vars-file}"
-    '';
-  };
+  home.file =
+    let
+      session-vars-file = "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh";
+    in
+    {
+      ".profile".text = ''
+        [ -f "${session-vars-file}" ] && . "${session-vars-file}"
+      '';
+    };
 
   home.packages = with pkgs; [
     anki-bin
@@ -113,7 +121,12 @@ in {
     xdg-user-dirs
     zathura
 
-    (aspellWithDicts (dicts: with dicts; [ en en-computers ]))
+    (aspellWithDicts (
+      dicts: with dicts; [
+        en
+        en-computers
+      ]
+    ))
 
     #lsp
     nixpkgs-unstable.bash-language-server

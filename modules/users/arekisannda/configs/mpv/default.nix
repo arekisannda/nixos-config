@@ -9,22 +9,30 @@ let
     jackaudioSupport = true;
   };
 
-  mpv = (pkgs.mpv-unwrapped.wrapper {
-    scripts = with pkgs.mpvScripts; [ mpris ];
+  mpv = (
+    pkgs.mpv-unwrapped.wrapper {
+      scripts = with pkgs.mpvScripts; [ mpris ];
 
-    mpv = mpv-unwrapped;
-  });
+      mpv = mpv-unwrapped;
+    }
+  );
 
-  mpv-service = (pkgs.mpv-unwrapped.wrapper {
-    scripts = with pkgs.mpvScripts; [ mpris notify-send ];
+  mpv-service = (
+    pkgs.mpv-unwrapped.wrapper {
+      scripts = with pkgs.mpvScripts; [
+        mpris
+        notify-send
+      ];
 
-    mpv = mpv-unwrapped;
-  });
+      mpv = mpv-unwrapped;
+    }
+  );
 
   mpv-script = pkgs.writeShellScript "mpv-daemon" ''
     ${mpv-service}/bin/mpv --input-ipc-server=$1 --idle=yes --msg-level=all=warn
   '';
-in {
+in
+{
   programs.mpv = {
     enable = true;
     package = mpv;
@@ -37,7 +45,9 @@ in {
       After = [ "graphical-session.target" ];
       PartOf = [ "graphical-session.target" ];
     };
-    Install = { WantedBy = [ "graphical-session.target" ]; };
+    Install = {
+      WantedBy = [ "graphical-session.target" ];
+    };
     Service = {
       Type = "simple";
       ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p %t/mpv";

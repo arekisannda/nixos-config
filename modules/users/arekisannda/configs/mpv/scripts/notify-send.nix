@@ -1,4 +1,8 @@
-{ lib, libnotify, stdenv, }:
+{
+  lib,
+  libnotify,
+  stdenv,
+}:
 
 stdenv.mkDerivation rec {
   pname = "mpv-notify-send";
@@ -9,8 +13,12 @@ stdenv.mkDerivation rec {
   dontBuild = true;
   dontUnpack = true;
 
-  passthru.extraWrapperArgs =
-    [ "--prefix" "PATH" ":" (lib.makeBinPath [ libnotify ]) ];
+  passthru.extraWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [ libnotify ])
+  ];
 
   installPhase = ''
     install -Dm644 ${src} $out/share/mpv/scripts/notify-lua.lua
@@ -18,4 +26,3 @@ stdenv.mkDerivation rec {
 
   passthru.scriptName = "notify-lua.lua";
 }
-

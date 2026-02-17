@@ -1,7 +1,9 @@
 { config, ... }:
 
-let gui = config.setup.gui.theme;
-in {
+let
+  gui = config.setup.gui.theme;
+in
+{
   xdg.configFile = {
     "rofi/config.rasi" = {
       enable = true;
@@ -38,4 +40,3 @@ in {
     };
   };
 }
-

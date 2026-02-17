@@ -9,9 +9,9 @@ let
       text = builtins.readFile ../scripts/pinentry-rofi;
     };
   };
-in {
+in
+{
   nixpkgs.overlays = [ pinentry-rofi ];
 
   environment.systemPackages = [ pkgs.pinentry-rofi ];
 }
-

@@ -6,4 +6,11 @@ let
   swayrst = self: super: { swayrst = pkgs.callPackage ./swayrst.nix { }; };
 
   rass = self: super: { rass = pkgs.callPackage ./rass.nix { }; };
-in { nixpkgs.overlays = [ lspx swayrst rass ]; }
+in
+{
+  nixpkgs.overlays = [
+    lspx
+    swayrst
+    rass
+  ];
+}

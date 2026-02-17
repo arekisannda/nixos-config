@@ -17,7 +17,8 @@ let
       fill_shape = "false";
     };
   };
-in {
+in
+{
   xdg.configFile."swappy/config" = {
     source = iniFormat.generate "swappy-config" settings;
   };

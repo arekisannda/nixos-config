@@ -3,7 +3,21 @@
 let
   wallpaper = config.setup.gui.wallpaper;
   gui = config.setup.gui.theme;
-in {
+  systemdTarget = "sway-session.target";
+
+  sway-systemd-unit =
+    { desc }:
+    {
+      Description = desc;
+      After = [ systemdTarget ];
+      PartOf = [ systemdTarget ];
+      ConditionEnvironment = "WAYLAND_DISPLAY";
+    };
+  sway-systemd-install = {
+    WantedBy = [ "sway-session.target" ];
+  };
+in
+{
   xdg.configFile = {
     "sway/config" = {
       enable = true;
@@ -81,11 +95,8 @@ in {
 
   systemd.user.services = {
     "sway-mode-clock" = {
-      Unit = {
-        Description = "Waybar Mode Clock";
-        After = [ "sway-session.target" ];
-      };
-      Install = { WantedBy = [ "sway-session.target" ]; };
+      Unit = sway-systemd-unit { desc = "Waybar Mode Clock"; };
+      Install = sway-systemd-install;
       Service = {
         Type = "simple";
         ExecStart = pkgs.writeShellScript "sway-mode-clock" ''
@@ -97,14 +108,38 @@ in {
     };
 
     "sway-audio-idle-inhibit" = {
-      Unit = {
-        Description = "Sway Audio Idle Inhibit";
-        After = [ "sway-session.target" ];
-      };
-      Install = { WantedBy = [ "sway-session.target" ]; };
+      Unit = sway-systemd-unit { desc = "Sway Audio Idle Inhibit"; };
+      Install = sway-systemd-install;
       Service = {
         Type = "simple";
+        Restart = "always";
         ExecStart = "${pkgs.sway-audio-idle-inhibit}/bin/sway-audio-idle-inhibit";
+      };
+    };
+
+    "swaylock" = {
+      Unit = sway-systemd-unit { desc = "Sway lockscreen process"; };
+      Service = {
+        Type = "simple";
+        # Environment = [ "WAYLAND_DISPLAY=wayland-1" ];
+        ExecStart = "${pkgs.swaylock-effects}/bin/swaylock";
+        Restart = "on-failure";
+        TimeoutSec = "infinity";
+        RestartSec = 1;
+      };
+    };
+
+    "gpg-agent-reset" = {
+      Unit = {
+        Description = "Reset gpg-agent";
+        Before = [ "swaylock.service" ];
+      };
+      Install = {
+        WantedBy = [ "swaylock.service" ];
+      };
+      Service = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.gnupg}/bin/gpgconf --kill gpg-agent";
       };
     };
   };

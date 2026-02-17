@@ -3,7 +3,8 @@
 let
   wallpaper = config.setup.gui.wallpaper;
   gui = config.setup.gui.theme;
-in {
+in
+{
   programs.swaylock = {
     enable = true;
     package = pkgs.swaylock-effects;

@@ -1,16 +1,20 @@
-{ fetchFromGitHub, python3, python3Packages, }:
+{
+  fetchFromGitHub,
+  python3,
+  python3Packages,
+}:
 
 with python3Packages;
 
 buildPythonPackage rec {
   pname = "rass";
-  version = "0.3.1";
+  version = "0.3.3";
 
   src = fetchFromGitHub {
     owner = "joaotavora";
     repo = "rassumfrassum";
     rev = "v${version}";
-    sha256 = "sha256-FFQawil0JRTp3bfBWq8mypkCMiHuxozyblVcTBToTso=";
+    sha256 = "sha256-3Hcews5f7o45GUmFdpLwkAHf0bthC1tUikkxau952Ec=";
   };
 
   # patchPhase = ''
@@ -19,5 +23,8 @@ buildPythonPackage rec {
 
   pyproject = true;
 
-  buildInputs = [ python3 setuptools ];
+  buildInputs = [
+    python3
+    setuptools
+  ];
 }

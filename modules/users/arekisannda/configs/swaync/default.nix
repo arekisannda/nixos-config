@@ -1,7 +1,9 @@
 { pkgs, config, ... }:
 
-let gui = config.setup.gui.theme;
-in {
+let
+  gui = config.setup.gui.theme;
+in
+{
   services.swaync = {
     enable = true;
     settings = {
@@ -39,8 +41,14 @@ in {
       scripts = { };
       notification-visibility = { };
 
-      widgets =
-        [ "mpris" "volume" "backlight" "inhibitors" "dnd" "notifications" ];
+      widgets = [
+        "mpris"
+        "volume"
+        "backlight"
+        "inhibitors"
+        "dnd"
+        "notifications"
+      ];
 
       widget-config = {
         inhibitors = {
@@ -53,7 +61,9 @@ in {
           button-text = "Clear";
           clear-all-button = false;
         };
-        dnd = { text = "Do Not Disturb"; };
+        dnd = {
+          text = "Do Not Disturb";
+        };
         label = {
           text = "Notification Center";
           max-lines = 1;
@@ -70,7 +80,9 @@ in {
           show-per-app = true;
           show-per-app-label = true;
         };
-        backlight = { label = "󰃟"; };
+        backlight = {
+          label = "󰃟";
+        };
       };
     };
 

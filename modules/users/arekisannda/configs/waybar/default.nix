@@ -1,5 +1,10 @@
-{ config, lib, pkgs, ... }:
-# waybar modules 
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+# waybar modules
 # modules:
 #   wireplumber: &wireplumber
 #     scroll-step: 5.0
@@ -21,7 +26,7 @@
 #     signal: 3
 
 #   sway/workspaces: &sway-workspaces
-#     disable-scroll: false 
+#     disable-scroll: false
 #     format: '{name}'
 #     format-icons:
 #       "1": 
@@ -443,5 +448,7 @@
 #     modules-right: []
 #     sway/workspaces: *sway-workspaces
 
-let modules = { };
-in { }
+let
+  modules = { };
+in
+{ }

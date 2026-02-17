@@ -1,4 +1,9 @@
-{ stdenv, fetchFromGitHub, python3, python3Packages, }:
+{
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  python3Packages,
+}:
 
 with python3Packages;
 
@@ -16,7 +21,11 @@ stdenv.mkDerivation rec {
   dontPatchELF = true;
   dontStrip = true;
 
-  nativeBuildInputs = [ python3 i3ipc pyinstaller ];
+  nativeBuildInputs = [
+    python3
+    i3ipc
+    pyinstaller
+  ];
 
   installPhase = ''
     mkdir -p $out/bin

@@ -15,7 +15,11 @@
       "--inline-info"
       "--bind alt-k:preview-up,alt-j:preview-down,ctrl-u:clear-query"
     ];
-    historyWidgetOptions = [ "--reverse" "--sort" "--height=8" ];
+    historyWidgetOptions = [
+      "--reverse"
+      "--sort"
+      "--height=8"
+    ];
     fileWidgetOptions = [
       "--preview 'bat -n --color=always {}'"
       "--bind 'ctrl-/:change-preview-window(down|hidden|)'"

@@ -13,57 +13,99 @@
     };
   };
 
-  outputs = { nixpkgs, nixpkgs-latest, nixpkgs-emacs, nixos-hardware, home-manager, ... }@inputs:
+  outputs =
+    {
+      nixpkgs,
+      nixpkgs-latest,
+      nixpkgs-emacs,
+      nixos-hardware,
+      home-manager,
+      ...
+    }@inputs:
     let
       stateVersion = "25.11";
 
-      allSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
-      forAllSystems = f: nixpkgs.lib.genAttrs allSystems (system: f {
-        inherit system;
-        pkgs = import nixpkgs { inherit system; };
-      });
-    in {
-      devShells = forAllSystems({ pkgs, ... }:
+      allSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+      forAllSystems =
+        f:
+        nixpkgs.lib.genAttrs allSystems (
+          system:
+          f {
+            inherit system;
+            pkgs = import nixpkgs { inherit system; };
+          }
+        );
+    in
+    {
+      devShells = forAllSystems (
+        { pkgs, ... }:
         {
           default = pkgs.mkShell {
             name = "nix development shell";
             buildInputs = with pkgs; [
-              nixfmt-classic
+              gitleaks
+              nixfmt
+              treefmt
               statix
               deadnix
             ];
 
-            DEV_SHELL="nixos";
+            DEV_SHELL = "nixos";
 
-            shellHook = ''
-            '';
+            shellHook = "";
           };
-        });
+        }
+      );
 
-      nixosConfigurations.fw13 = let
-        system = "x86_64-linux";
-      in nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = { inherit inputs stateVersion; };
-
-        modules = [
-          ./fw13/configuration.nix
-          nixos-hardware.nixosModules.framework-amd-ai-300-series
-        ];
-      };
-
-      home.fw13.arekisannda = let
-        system = "x86_64-linux";
-      in home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages."${system}";
-        extraSpecialArgs = {
-          inherit inputs stateVersion;
-          nixpkgs = nixpkgs.legacyPackages."${system}";
-          nixpkgs-unstable = nixpkgs-latest.legacyPackages."${system}";
-          nixpkgs-emacs = nixpkgs-emacs.legacyPackages."${system}";
+      lspConfigurations.linux =
+        let
+          opts = {
+            system = "x86_64-linux";
+            modules = [ ];
+          };
+        in
+        {
+          nixpkgs = nixpkgs.lib.nixosSystem opts;
+          nixpkgs-latest = nixpkgs-latest.lib.nixosSystem opts;
+          nixpkgs-emacs = nixpkgs-emacs.lib.nixosSystem opts;
         };
 
-        modules = [ ./options.nix ./modules/users/arekisannda/home.nix ];
-      };
+      nixosConfigurations.fw13 =
+        let
+          system = "x86_64-linux";
+        in
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs stateVersion; };
+
+          modules = [
+            ./fw13/configuration.nix
+            nixos-hardware.nixosModules.framework-amd-ai-300-series
+          ];
+        };
+
+      homeConfigurations.fw13.arekisannda =
+        let
+          system = "x86_64-linux";
+        in
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages."${system}";
+          extraSpecialArgs = {
+            inherit inputs stateVersion;
+            nixpkgs = nixpkgs.legacyPackages."${system}";
+            nixpkgs-unstable = nixpkgs-latest.legacyPackages."${system}";
+            nixpkgs-emacs = nixpkgs-emacs.legacyPackages."${system}";
+          };
+
+          modules = [
+            ./options.nix
+            ./modules/users/arekisannda/home.nix
+          ];
+        };
     };
 }

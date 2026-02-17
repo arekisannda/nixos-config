@@ -1,16 +1,29 @@
 { pkgs, nixpkgs-emacs, ... }:
 
 let
-  emacs = (nixpkgs-emacs.emacs30.override {
-    withPgtk = true;
-    withNativeCompilation = true;
-    withTreeSitter = true;
-  });
+  epkgs = nixpkgs-emacs.emacsPackagesFor (
+    nixpkgs-emacs.emacs30.override {
+      withPgtk = true;
+      withNativeCompilation = true;
+      withTreeSitter = true;
+    }
+  );
 
-  load-custom-packages = package:
-    nixpkgs-emacs.callPackage package { epkgs = nixpkgs-emacs.emacsPackages; };
+  load-custom-packages = package: nixpkgs-emacs.callPackage package { inherit epkgs; };
 
-  org-dev = load-custom-packages ({ epkgs }:
+  # custom package structure:
+  # <package-name> =
+  #   (load-custom-packages (
+  #     { epkgs }:
+  #     epkgs.melpaBuild {
+  #       pname, ename, version;
+  #       src = builtins.fetchGit { };
+  #       packageRequires = [ ];
+  #     }
+  #   )).overrideAttrs (previousAttrs: { });
+
+  org-dev = load-custom-packages (
+    { epkgs }:
     epkgs.melpaBuild {
       pname = "org";
       ename = "org";
@@ -21,22 +34,11 @@ let
         rev = "f9f909681a051c73c64cc7b030aa54d70bb78f80";
       };
       packageRequires = [ ];
-    });
+    }
+  );
 
-  org-typst-preview = load-custom-packages ({ epkgs }:
-    epkgs.melpaBuild {
-      pname = "org-typst-preview";
-      ename = "org-typst-preview";
-      version = "0.1.0";
-      src = builtins.fetchGit {
-        url = "git@github.com:remimimimimi/org-typst-preview.el.git";
-        ref = "main";
-        rev = "de334cf3daa84b23ceea2a9fc70b6787f7c6af5b";
-      };
-      packageRequires = [ ];
-    });
-
-  edraw = load-custom-packages ({ epkgs }:
+  edraw = load-custom-packages (
+    { epkgs }:
     epkgs.melpaBuild {
       pname = "edraw";
       ename = "edraw";
@@ -47,9 +49,11 @@ let
         rev = "8007f50c1c1734325c47939904f486753c7dd8ee";
       };
       packageRequires = [ ];
-    });
+    }
+  );
 
-  scad-dbus = load-custom-packages ({ epkgs }:
+  scad-dbus = load-custom-packages (
+    { epkgs }:
     epkgs.melpaBuild {
       pname = "scad-dbus";
       ename = "scad-dbus";
@@ -59,10 +63,15 @@ let
         ref = "v0.1";
         rev = "143768dc769f74e5c5c396a75529bb17202f9e1a";
       };
-      packageRequires = [ epkgs.scad-mode epkgs.hydra ];
-    });
+      packageRequires = [
+        epkgs.scad-mode
+        epkgs.hydra
+      ];
+    }
+  );
 
-  lazytab = load-custom-packages ({ epkgs }:
+  lazytab = load-custom-packages (
+    { epkgs }:
     epkgs.melpaBuild {
       pname = "lazytab";
       ename = "lazytab";
@@ -73,9 +82,11 @@ let
         rev = "1cc4969c81cfa5ca87db598417c4193ada1470e4";
       };
       packageRequires = [ epkgs.cdlatex ];
-    });
+    }
+  );
 
-  eglot-booster = load-custom-packages ({ epkgs }:
+  eglot-booster = load-custom-packages (
+    { epkgs }:
     epkgs.melpaBuild {
       pname = "eglot-booster";
       ename = "eglot-booster";
@@ -86,9 +97,11 @@ let
         rev = "cab7803c4f0adc7fff9da6680f90110674bb7a22";
       };
       packageRequires = [ ];
-    });
+    }
+  );
 
-  exercism = load-custom-packages ({ epkgs }:
+  exercism = load-custom-packages (
+    { epkgs }:
     epkgs.melpaBuild {
       pname = "exercism";
       ename = "exercism";
@@ -99,9 +112,11 @@ let
         rev = "5dfc236cc440d7084a5ce5240438a8f253c18327";
       };
       packageRequires = [ ];
-    });
+    }
+  );
 
-  activities = load-custom-packages ({ epkgs }:
+  activities = load-custom-packages (
+    { epkgs }:
     epkgs.melpaBuild {
       pname = "activities";
       ename = "activities";
@@ -112,49 +127,11 @@ let
         rev = "d735c0f2c714ac98248ee17d765bfa8310201d53";
       };
       packageRequires = [ epkgs.persist ];
-    });
+    }
+  );
 
-  windex = load-custom-packages ({ epkgs }:
-    epkgs.melpaBuild {
-      pname = "windex";
-      version = "0.0.7";
-      src = builtins.fetchGit {
-        url = "git@github.com:arekisannda/emacs-windex.git";
-        ref = "v0.0.7";
-        rev = "7923a015285a5c3e58db2a53a71d84f18ff45c9b";
-      };
-      packageRequires = [ epkgs.posframe ];
-    });
-
-  doom-code-review = (load-custom-packages ({ epkgs }:
-    epkgs.melpaBuild {
-      pname = "code-review";
-      ename = "code-review";
-      version = "0.0.8";
-      src = builtins.fetchGit {
-        url = "git@github.com:doomelpa/code-review.git";
-        ref = "master";
-        rev = "303edcfbad8190eccb9a9269dfc58ed26d386ba5";
-      };
-
-      packageRequires = [
-        epkgs.a
-        epkgs.closql
-        epkgs.deferred
-        epkgs.emojify
-        epkgs.forge
-        epkgs.ghub
-        epkgs.magit
-        epkgs.markdown-mode
-        epkgs.transient
-        epkgs.uuidgen
-      ];
-    })).overrideAttrs (previousAttrs: {
-      nativeBuildInputs = previousAttrs.nativeBuildInputs or [ ]
-        ++ [ pkgs.git ];
-    });
-
-  corfu-latest = load-custom-packages ({ epkgs }:
+  corfu-latest = load-custom-packages (
+    { epkgs }:
     epkgs.melpaBuild {
       pname = "corfu";
       ename = "corfu";
@@ -166,9 +143,11 @@ let
       };
       files = ''("*.el")'';
       packageRequires = [ epkgs.compat ];
-    });
+    }
+  );
 
-  cape-latest = load-custom-packages ({ epkgs }:
+  cape-latest = load-custom-packages (
+    { epkgs }:
     epkgs.melpaBuild {
       pname = "cape";
       ename = "cape";
@@ -179,22 +158,11 @@ let
         rev = "a3f190328df26f89046b9bfd2ae0adb859c102bd";
       };
       packageRequires = [ epkgs.compat ];
-    });
+    }
+  );
 
-  leetcode-latest = load-custom-packages ({ epkgs }:
-    epkgs.melpaBuild {
-      pname = "leetcode";
-      ename = "leetcode";
-      version = "0.1.28";
-      src = builtins.fetchGit {
-        url = "git@github.com:kaiwk/leetcode.el.git";
-        ref = "v0.1.28";
-        rev = "02eb6ff9c75ba8f0a7196f34665e9ed43c4d7598";
-      };
-      packageRequires = [ epkgs.aio epkgs.log4e epkgs.s ];
-    });
-
-  gptel-latest = load-custom-packages ({ epkgs }:
+  gptel-latest = load-custom-packages (
+    { epkgs }:
     epkgs.melpaBuild {
       pname = "gptel";
       ename = "gptel";
@@ -204,19 +172,68 @@ let
         ref = "v0.9.9.3";
         rev = "d0c392bbb0a1f7775d3a1e98220f4bdc043ab63b";
       };
-      packageRequires = [ epkgs.compat epkgs.transient ];
-    });
+      packageRequires = [
+        epkgs.compat
+        epkgs.transient
+      ];
+    }
+  );
 
-in {
-  programs.emacs = {
-    enable = true;
+  leetcode-latest = load-custom-packages (
+    { epkgs }:
+    epkgs.melpaBuild {
+      pname = "leetcode";
+      ename = "leetcode";
+      version = "0.1.28";
+      src = builtins.fetchGit {
+        url = "git@github.com:arekisannda/leetcode.el.git";
+        ref = "feature/use-question-list-v2";
+        rev = "65313d6144b8d15bb42b2ca8e11c7e21f284d6fe";
+      };
+      packageRequires = [
+        epkgs.aio
+        epkgs.log4e
+        epkgs.s
+        epkgs.persist
+      ];
+    }
+  );
 
-    package = emacs;
+  windex = load-custom-packages (
+    { epkgs }:
+    epkgs.melpaBuild {
+      pname = "windex";
+      version = "0.0.8";
+      src = builtins.fetchGit {
+        url = "git@github.com:arekisannda/emacs-windex.git";
+        ref = "v0.0.8";
+        rev = "0e2cd16f79e613adfebd303b80116a20773b5210";
+      };
+      packageRequires = [
+        epkgs.posframe
+      ];
+    }
+  );
 
-    extraPackages = epkgs:
-      with epkgs; [
-        (treesit-grammars.with-grammars (grammars:
-          with pkgs.tree-sitter-grammars; [
+  emacs = epkgs.overrideScope (
+    self: super: rec {
+      org = org-dev;
+      activities = activities;
+      corfu = corfu-latest;
+      cape = cape-latest;
+      leetcode = leetcode-latest;
+      gptel = gptel-latest;
+    }
+  );
+
+in
+{
+
+  home.packages = [
+    (emacs.emacsWithPackages (
+      epkgs: with epkgs; [
+        (treesit-grammars.with-grammars (
+          grammars: with pkgs.tree-sitter-grammars; [
             tree-sitter-bash
             tree-sitter-c
             tree-sitter-c-sharp
@@ -244,7 +261,8 @@ in {
             tree-sitter-typescript
             tree-sitter-typst
             tree-sitter-yaml
-          ]))
+          ]
+        ))
 
         doom-themes
         doom-modeline
@@ -281,12 +299,10 @@ in {
         evil
         evil-args
         evil-collection
-        evil-easymotion
         evil-lion
         evil-matchit
         evil-mc
         evil-nerd-commenter
-        evil-snipe
         flymake-clippy
         flymake-golangci
         flymake-ruff
@@ -369,22 +385,12 @@ in {
         yasnippet-snippets
 
         # custom packages
-        org-typst-preview
         edraw
         eglot-booster
         lazytab
         scad-dbus
-        code-review
-      ];
-
-    overrides = self: super: rec {
-      org = org-dev;
-      activities = activities;
-      code-review = doom-code-review;
-      corfu = corfu-latest;
-      cape = cape-latest;
-      leetcode = leetcode-latest;
-      gptel = gptel-latest;
-    };
-  };
+        pr-review
+      ]
+    ))
+  ];
 }
