@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ nixpkgs-emacs, ... }:
 
 {
   i18n.inputMethod = {
@@ -6,9 +6,9 @@
     type = "fcitx5";
 
     fcitx5 = {
-      fcitx5-with-addons = pkgs.qt6Packages.fcitx5-with-addons;
+      fcitx5-with-addons = nixpkgs-emacs.qt6Packages.fcitx5-with-addons;
       waylandFrontend = true;
-      addons = with pkgs; [
+      addons = with nixpkgs-emacs; [
         qt6Packages.fcitx5-configtool
         fcitx5-gtk
         fcitx5-hangul
