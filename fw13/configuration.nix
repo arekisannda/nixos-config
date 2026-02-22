@@ -41,7 +41,6 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelParams = [
-    "console=tty1"
     "quiet"
   ];
   boot.kernelPackages = pkgs.linuxPackages_latest;

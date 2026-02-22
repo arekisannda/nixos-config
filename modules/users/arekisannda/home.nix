@@ -107,11 +107,13 @@ in
     gparted
     imv
     nixpkgs-unstable.brave
+    nixpkgs-unstable.exercism
     nixpkgs-unstable.firefoxpwa
     nixpkgs-unstable.openscad-unstable
     nixpkgs-unstable.yt-dlp
     polkit_gnome
     protonmail-bridge-gui
+    readability-cli
     steam
     thunderbird
     tridactyl-native

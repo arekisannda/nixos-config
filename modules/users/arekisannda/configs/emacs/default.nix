@@ -100,21 +100,6 @@ let
     }
   );
 
-  exercism = load-custom-packages (
-    { epkgs }:
-    epkgs.melpaBuild {
-      pname = "exercism";
-      ename = "exercism";
-      version = "0.1.0";
-      src = builtins.fetchGit {
-        url = "git@github.com:arekisannda/exercism.el.git";
-        ref = "main";
-        rev = "5dfc236cc440d7084a5ce5240438a8f253c18327";
-      };
-      packageRequires = [ ];
-    }
-  );
-
   activities = load-custom-packages (
     { epkgs }:
     epkgs.melpaBuild {
@@ -179,7 +164,7 @@ let
     }
   );
 
-  leetcode-latest = load-custom-packages (
+  leetcode = load-custom-packages (
     { epkgs }:
     epkgs.melpaBuild {
       pname = "leetcode";
@@ -198,6 +183,22 @@ let
       ];
     }
   );
+
+  exercism = load-custom-packages (
+    { epkgs }:
+    epkgs.melpaBuild {
+      pname = "exercism";
+      ename = "exercism";
+      version = "0.1.0";
+      src = builtins.fetchGit {
+        url = "git@github.com:arekisannda/exercism.el.git";
+        ref = "main";
+        rev = "5dfc236cc440d7084a5ce5240438a8f253c18327";
+      };
+      packageRequires = [ ];
+    }
+  );
+
 
   windex = load-custom-packages (
     { epkgs }:
@@ -221,8 +222,9 @@ let
       activities = activities;
       corfu = corfu-latest;
       cape = cape-latest;
-      leetcode = leetcode-latest;
+      leetcode = leetcode;
       gptel = gptel-latest;
+      exercism = exercism;
     }
   );
 
