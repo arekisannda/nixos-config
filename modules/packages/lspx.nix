@@ -15,7 +15,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ ];
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/bin
     cp lspx $out/bin
+    runHook postInstall
   '';
 }

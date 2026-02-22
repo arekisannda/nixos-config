@@ -28,8 +28,10 @@ stdenv.mkDerivation rec {
   ];
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/bin
     python3 -m PyInstaller --onefile swayrst/swayrst.py
     cp dist/swayrst $out/bin
+    runHook postInstall
   '';
 }

@@ -21,7 +21,9 @@ stdenv.mkDerivation rec {
   ];
 
   installPhase = ''
+    runHook preInstall
     install -Dm644 ${src} $out/share/mpv/scripts/notify-lua.lua
+    runHook postInstall
   '';
 
   passthru.scriptName = "notify-lua.lua";
