@@ -26,7 +26,7 @@
           _module.args.pkgs = import inputs.nixpkgs { inherit system; };
 
           devShells.default = pkgs.mkShell {
-            name = "<description of devshell>";
+            name = "devshell";
             buildInputs = getPackages pkgs;
 
             DEV_SHELL = "<devshell tag>";

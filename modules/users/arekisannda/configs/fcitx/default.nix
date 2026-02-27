@@ -1,7 +1,7 @@
-{ nixpkgs-unstable, ... }:
+{ nixpkgs-emacs, ... }:
 
 let
-  packages = nixpkgs-unstable;
+  packages = nixpkgs-emacs;
 in
 {
   i18n.inputMethod = {

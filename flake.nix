@@ -6,7 +6,7 @@
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-emacs.url = "github:NixOS/nixpkgs/4eaa9a5a6aa1b7772519af4d8b25e7c44177d3d6";
+    nixpkgs-emacs.url = "github:NixOS/nixpkgs/5e4522be6bdf1600682a6f383434b057b2d77a37";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
     home-manager = {

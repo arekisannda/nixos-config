@@ -1,15 +1,15 @@
 {
   pkgs,
   nixpkgs-emacs,
-  nixpkgs-unstable,
   ...
 }:
 
 let
-  inherit (nixpkgs-unstable) emacsPackagesFor callPackage;
+  packages = nixpkgs-emacs;
+  inherit (packages) emacsPackagesFor callPackage;
 
   epkgs = emacsPackagesFor (
-    nixpkgs-unstable.emacs30.override {
+    packages.emacs30.override {
       withPgtk = true;
       withNativeCompilation = true;
       withTreeSitter = true;

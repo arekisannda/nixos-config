@@ -159,7 +159,6 @@ in
     nix-index
     nixf
     nixfmt
-    nixpkgs-unstable.rustup
     nodePackages.prettier
     nodejs
     octave
