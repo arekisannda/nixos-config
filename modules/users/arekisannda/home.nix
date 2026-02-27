@@ -12,8 +12,6 @@ let
   importWithArgs = path: import path attr;
 in
 {
-  nixpkgs.config.allowUnfree = true;
-
   setup = {
     terminal = {
       type = "xterm-256color";
@@ -47,7 +45,6 @@ in
   };
 
   imports = [
-    (import ../../packages)
     (importWithArgs ./configs/mime)
     (importWithArgs ./configs/firefox)
     (importWithArgs ./configs/gpg-agent)
@@ -160,12 +157,15 @@ in
     meson
     ninja
     nix-index
+    nixf
+    nixfmt
     nixpkgs-unstable.rustup
     nodePackages.prettier
     nodejs
     octave
     ruff
     strace
+    treefmt
     uv
     valgrind
     zlib

@@ -1,6 +1,6 @@
 {
+  self,
   pkgs,
-  inputs,
   lib,
   ...
 }:
@@ -22,7 +22,7 @@
       }
       {
         name = "powerlevel10k-config";
-        src = "${inputs.self}/modules/users/arekisannda/configs/zsh";
+        src = "${self}/modules/users/arekisannda/configs/zsh";
         file = "p10k.zsh";
       }
       {
@@ -37,8 +37,8 @@
       edit = "sudo -e";
       update = "sudo nixos-rebuild switch --flake /etc/nixos#$(hostname)";
       update-dry = "sudo nixos-rebuild dry-build --flake /etc/nixos#$(hostname)";
-      hmup = "nix run /etc/nixos#homeConfigurations.$(hostname).$USER.activationPackage";
-      hmup-dry = "nix build --dry-run /etc/nixos#homeConfigurations.$(hostname).$USER.activationPackage";
+      hmup = "nix run /etc/nixos#homeConfigurations.$USER";
+      hmup-dry = "nix build --dry-run /etc/nixos#homeConfigurations.$USER";
       nixls = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
       nixgc = "sudo nix-collect-garbage -d -v && nix-collect-garbage -d -v";
 

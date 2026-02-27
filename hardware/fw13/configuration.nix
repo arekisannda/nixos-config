@@ -1,22 +1,28 @@
 {
+  users ? [ ],
+  ...
+}:
+
+{
   pkgs,
+  lib,
   stateVersion,
-  inputs,
+  nixos-hardware,
   ...
 }:
 
 let
-  modules = ../modules;
-  system = "${modules}/system";
+  modules = ../../modules;
+  featuresDir = "${modules}/features";
+  usersDir = "${modules}/users";
 
-  importSystem = builtins.map (e: system + "/${e}.nix") [
+  importFeatures = map (e: featuresDir + "/${e}.nix") [
     # system
     "base"
     "amd"
     "ssh"
     "sway"
     "pipewire"
-    "scripts"
     "docker"
     "udev"
 
@@ -29,43 +35,48 @@ let
     "networking-steam"
   ];
 
-  importUsers = [ ../modules/users/arekisannda/default.nix ];
+  importUsers = map (u: usersDir + "/${u}/default.nix") users;
 
-  importHardware = [ ./hardware-configuration.nix ];
+  importHardware = [
+    nixos-hardware.framework-amd-ai-300-series
+    ./hardware-configuration.nix
+    (
+      { pkgs, ... }:
+      {
+        environment.systemPackages = with pkgs; [
+          fw-fanctrl
+        ];
+      }
+    )
+  ];
 in
 {
-  nixpkgs.config.allowUnfree = true;
-  imports = importHardware ++ importSystem ++ importUsers;
+  imports = importHardware ++ importFeatures ++ importUsers;
   disabledModules = [ ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.availableKernelModules = [
+    "uas"
+  ];
   boot.kernelParams = [
     "quiet"
   ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  # Nix Settings
-  nix.nixPath = [
-    "nixpkgs=${inputs.nixpkgs}"
-    "nixpkgs-unstable=${inputs.nixpkgs-latest}"
-  ];
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-  # nix.settings.auto-optimize-store = true;
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 30d";
-  };
 
   hardware.bluetooth.enable = true;
 
   # Network Settings
   networking.hostName = "fw13";
   networking.networkmanager.enable = true;
+
+  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # still possible to use this option, but it's recommended to use it in conjunction
+  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+  networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp195s0f3u1u1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp192s0.useDHCP = lib.mkDefault true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";

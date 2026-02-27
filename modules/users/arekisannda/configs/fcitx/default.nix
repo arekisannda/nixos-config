@@ -1,14 +1,17 @@
-{ nixpkgs-emacs, ... }:
+{ nixpkgs-unstable, ... }:
 
+let
+  packages = nixpkgs-unstable;
+in
 {
   i18n.inputMethod = {
     enable = true;
     type = "fcitx5";
 
     fcitx5 = {
-      fcitx5-with-addons = nixpkgs-emacs.qt6Packages.fcitx5-with-addons;
+      fcitx5-with-addons = packages.qt6Packages.fcitx5-with-addons;
       waylandFrontend = true;
-      addons = with nixpkgs-emacs; [
+      addons = with packages; [
         qt6Packages.fcitx5-configtool
         fcitx5-gtk
         fcitx5-hangul

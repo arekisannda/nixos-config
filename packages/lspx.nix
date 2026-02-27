@@ -4,7 +4,7 @@ stdenv.mkDerivation rec {
   pname = "lspx";
   version = "0.3.1";
 
-  src = builtins.fetchTarball {
+  src = fetchTarball {
     url = "https://github.com/thefrontside/lspx/releases/download/v${version}/lspx-x86_64-unknown-linux-gnu.tar.gz";
     sha256 = "sha256-/Q1Hs6h/2R47jjhMgRVKlrEqJUmtTs/yY3e11nbZ/vE=";
   };

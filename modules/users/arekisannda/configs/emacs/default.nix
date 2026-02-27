@@ -1,15 +1,22 @@
-{ pkgs, nixpkgs-emacs, ... }:
+{
+  pkgs,
+  nixpkgs-emacs,
+  nixpkgs-unstable,
+  ...
+}:
 
 let
-  epkgs = nixpkgs-emacs.emacsPackagesFor (
-    nixpkgs-emacs.emacs30.override {
+  inherit (nixpkgs-unstable) emacsPackagesFor callPackage;
+
+  epkgs = emacsPackagesFor (
+    nixpkgs-unstable.emacs30.override {
       withPgtk = true;
       withNativeCompilation = true;
       withTreeSitter = true;
     }
   );
 
-  load-custom-packages = package: nixpkgs-emacs.callPackage package { inherit epkgs; };
+  load-custom-packages = package: callPackage package { inherit epkgs; };
 
   # custom package structure:
   # <package-name> =
@@ -17,7 +24,7 @@ let
   #     { epkgs }:
   #     epkgs.melpaBuild {
   #       pname, ename, version;
-  #       src = builtins.fetchGit { };
+  #       src = fetchGit { };
   #       packageRequires = [ ];
   #     }
   #   )).overrideAttrs (previousAttrs: { });
@@ -28,7 +35,7 @@ let
       pname = "org";
       ename = "org";
       version = "9.8";
-      src = builtins.fetchGit {
+      src = fetchGit {
         url = "https://code.tecosaur.net/tec/org-mode.git";
         ref = "dev";
         rev = "f9f909681a051c73c64cc7b030aa54d70bb78f80";
@@ -43,7 +50,7 @@ let
       pname = "edraw";
       ename = "edraw";
       version = "1.2.1";
-      src = builtins.fetchGit {
+      src = fetchGit {
         url = "git@github.com:misohena/el-easydraw.git";
         ref = "master";
         rev = "8007f50c1c1734325c47939904f486753c7dd8ee";
@@ -58,7 +65,7 @@ let
       pname = "scad-dbus";
       ename = "scad-dbus";
       version = "0.1.0";
-      src = builtins.fetchGit {
+      src = fetchGit {
         url = "git@github.com:Lenbok/scad-dbus.git";
         ref = "v0.1";
         rev = "143768dc769f74e5c5c396a75529bb17202f9e1a";
@@ -76,7 +83,7 @@ let
       pname = "lazytab";
       ename = "lazytab";
       version = "0.1.0";
-      src = builtins.fetchGit {
+      src = fetchGit {
         url = "git@github.com:karthink/lazytab.git";
         ref = "master";
         rev = "1cc4969c81cfa5ca87db598417c4193ada1470e4";
@@ -91,7 +98,7 @@ let
       pname = "eglot-booster";
       ename = "eglot-booster";
       version = "0.1.0";
-      src = builtins.fetchGit {
+      src = fetchGit {
         url = "git@github.com:jdtsmith/eglot-booster.git";
         ref = "main";
         rev = "cab7803c4f0adc7fff9da6680f90110674bb7a22";
@@ -121,7 +128,7 @@ let
       pname = "corfu";
       ename = "corfu";
       version = "2.5.0";
-      src = builtins.fetchGit {
+      src = fetchGit {
         url = "git@github.com:minad/corfu.git";
         ref = "2.5";
         rev = "2d7d5d25a9003077329d3469b64d81a60a629aba";
@@ -137,7 +144,7 @@ let
       pname = "cape";
       ename = "cape";
       version = "2.3.0";
-      src = builtins.fetchGit {
+      src = fetchGit {
         url = "git@github.com:minad/cape.git";
         ref = "2.3";
         rev = "a3f190328df26f89046b9bfd2ae0adb859c102bd";
@@ -152,7 +159,7 @@ let
       pname = "gptel";
       ename = "gptel";
       version = "0.9.9";
-      src = builtins.fetchGit {
+      src = fetchGit {
         url = "git@github.com:karthink/gptel.git";
         ref = "v0.9.9.3";
         rev = "d0c392bbb0a1f7775d3a1e98220f4bdc043ab63b";
@@ -170,7 +177,7 @@ let
       pname = "leetcode";
       ename = "leetcode";
       version = "0.1.28";
-      src = builtins.fetchGit {
+      src = fetchGit {
         url = "git@github.com:arekisannda/leetcode.el.git";
         ref = "feature/use-question-list-v2";
         rev = "65313d6144b8d15bb42b2ca8e11c7e21f284d6fe";
@@ -184,13 +191,13 @@ let
     }
   );
 
-  exercism = load-custom-packages (
+  exercism-dev = load-custom-packages (
     { epkgs }:
     epkgs.melpaBuild {
       pname = "exercism";
       ename = "exercism";
       version = "0.1.0";
-      src = builtins.fetchGit {
+      src = fetchGit {
         url = "git@github.com:arekisannda/exercism.el.git";
         ref = "main";
         rev = "5dfc236cc440d7084a5ce5240438a8f253c18327";
@@ -199,13 +206,12 @@ let
     }
   );
 
-
   windex = load-custom-packages (
     { epkgs }:
     epkgs.melpaBuild {
       pname = "windex";
       version = "0.0.8";
-      src = builtins.fetchGit {
+      src = fetchGit {
         url = "git@github.com:arekisannda/emacs-windex.git";
         ref = "v0.0.8";
         rev = "0e2cd16f79e613adfebd303b80116a20773b5210";
@@ -224,7 +230,7 @@ let
       cape = cape-latest;
       leetcode = leetcode;
       gptel = gptel-latest;
-      exercism = exercism;
+      exercism = exercism-dev;
     }
   );
 

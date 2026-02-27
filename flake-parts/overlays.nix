@@ -1,0 +1,48 @@
+args:
+
+{ ... }:
+
+let
+  inherit (builtins)
+    readDir
+    listToAttrs
+    attrValues
+    mapAttrs
+    match
+    ;
+
+  packagesDir = ../packages;
+  packages = readDir packagesDir;
+
+  # packagePath =
+  #   package:
+  #   "${packagesDir}${if match ".*\\.nix$" name == null then "${package}/default.nix" else package}";
+
+  # makeOverlay =
+  #   { package, ... }:
+  #   listToAttrs {
+  #     name = package;
+  #     value = self: super: { ${name} = self.callPackage (packagePath package) { }; };
+  #   };
+
+in
+{
+  flake.overlays.default =
+    self: super:
+    let
+      makePackage =
+        name: type:
+        let
+          pkgName =
+            if type == "regular" && builtins.match ".*\\.nix$" name != null then
+              builtins.replaceStrings [ ".nix" ] [ "" ] name
+            else
+              name;
+        in
+        {
+          name = pkgName;
+          value = self.callPackage (packagesDir + "/${name}") { };
+        };
+    in
+    listToAttrs (attrValues (mapAttrs makePackage packages));
+}
