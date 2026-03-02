@@ -66,7 +66,7 @@ in
                                   ${gui.style.background.unfocused} \
                                   ${gui.style.foreground.unfocused}
         client.focused_inactive   ${gui.style.foreground.unfocusedAlt} \
-                                  ${gui.style.background.unfocused} \
+                                  ${gui.style.background.unfocusedAlt} \
                                   ${gui.style.foreground.unfocused} \
                                   ${gui.style.background.unfocused}
                                   ${gui.style.background.unfocused}
