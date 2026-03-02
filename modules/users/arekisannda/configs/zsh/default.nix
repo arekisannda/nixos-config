@@ -35,19 +35,9 @@
     shellAliases = {
       ll = "ls -l";
       edit = "sudo -e";
-      update = "sudo nixos-rebuild switch --flake /etc/nixos#$(hostname)";
-      update-dry = "sudo nixos-rebuild dry-build --flake /etc/nixos#$(hostname)";
-      hmup = "nix run /etc/nixos#homeConfigurations.$USER";
-      hmup-dry = "nix build --dry-run /etc/nixos#homeConfigurations.$USER";
       nixls = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
       nixgc = "sudo nix-collect-garbage -d -v && nix-collect-garbage -d -v";
-
       nsch = "nix search nixpkgs";
-      ndev = "nix develop --command zsh";
-      ndevr = "nix develop --command";
-      nbld = "nix build";
-      nrun = "nix run";
-      nflk = "nix flake";
 
       ec = "emacsclient -c -n";
       er = "emacsclient -r -n";

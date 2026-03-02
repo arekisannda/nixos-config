@@ -161,8 +161,8 @@ let
       version = "0.9.9";
       src = fetchGit {
         url = "git@github.com:karthink/gptel.git";
-        ref = "v0.9.9.3";
-        rev = "d0c392bbb0a1f7775d3a1e98220f4bdc043ab63b";
+        ref = "v0.9.9.4";
+        rev = "d221329ee3aa0198ad51c003a8d94b2af3a72dce";
       };
       packageRequires = [
         epkgs.compat
@@ -210,11 +210,11 @@ let
     { epkgs }:
     epkgs.melpaBuild {
       pname = "windex";
-      version = "0.0.8";
+      version = "0.0.9";
       src = fetchGit {
         url = "git@github.com:arekisannda/emacs-windex.git";
-        ref = "v0.0.8";
-        rev = "0e2cd16f79e613adfebd303b80116a20773b5210";
+        ref = "v0.0.9";
+        rev = "ec73d78afb52684b3aa7eeab1e85dee8c8b0e870";
       };
       packageRequires = [
         epkgs.posframe

@@ -20,7 +20,10 @@
       perSystem =
         { system, pkgs, ... }:
         let
-          getPackages = { pkgs, ... }: with pkgs; [ ];
+          getPackages =
+            pkgs: with pkgs; [
+              pkgs.hello
+            ];
         in
         {
           _module.args.pkgs = import inputs.nixpkgs { inherit system; };

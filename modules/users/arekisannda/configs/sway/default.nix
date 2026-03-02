@@ -55,31 +55,31 @@ in
         #                         foreground
         #                         indicator
         #                         child border
-        client.focused            ${gui.style.accentAlt} \
-                                  ${gui.style.background.focused} \
+        client.focused            ${gui.style.foreground.unfocused} \
+                                  ${gui.style.background.unfocused} \
                                   ${gui.style.foreground.focused} \
                                   ${gui.style.foreground.unfocused} \
-                                  ${gui.style.accentAlt}
-        client.focused_tab_title  ${gui.style.accentAlt} \
-                                  ${gui.style.background.focused} \
+                                  ${gui.style.foreground.unfocused}
+        client.focused_tab_title  ${gui.style.foreground.unfocused} \
+                                  ${gui.style.background.unfocused} \
                                   ${gui.style.foreground.focused} \
                                   ${gui.style.background.unfocused} \
-                                  ${gui.style.accentAlt}
-        client.focused_inactive   ${gui.style.foreground.unfocused} \
+                                  ${gui.style.foreground.unfocused}
+        client.focused_inactive   ${gui.style.foreground.unfocusedAlt} \
                                   ${gui.style.background.unfocused} \
                                   ${gui.style.foreground.unfocused} \
                                   ${gui.style.background.unfocused}
                                   ${gui.style.background.unfocused}
-        client.unfocused          ${gui.style.foreground.unfocused} \
-                                  ${gui.style.background.unfocused} \
+        client.unfocused          ${gui.style.background.unfocused} \
+                                  ${gui.style.background.unfocusedAlt} \
                                   ${gui.style.foreground.unfocused} \
                                   ${gui.style.background.unfocused} \
                                   ${gui.style.background.unfocused}
-        client.urgent             ${gui.style.urgent} \
+        client.urgent             ${gui.style.accentAlt} \
                                   ${gui.style.background.unfocused} \
-                                  ${gui.style.urgent} \
                                   ${gui.style.accentAlt} \
-                                  ${gui.style.urgent}
+                                  ${gui.style.accentAlt} \
+                                  ${gui.style.accentAlt}
         client.placeholder        ${gui.style.background.focused} \
                                   ${gui.style.background.focused} \
                                   ${gui.style.background.focused} \
