@@ -27,13 +27,13 @@ in
 
         include $XDG_CONFIG_HOME/sway/gui.sway
         include $XDG_CONFIG_HOME/sway/config.d/*.sway
+        include $XDG_CONFIG_HOME/sway/term.sway
         include $XDG_CONFIG_HOME/sway/modes/*.sway
         include $XDG_CONFIG_HOME/sway/inputs/*.sway
         include $XDG_CONFIG_HOME/sway/local/*.sway
         include $XDG_CONFIG_HOME/sway/autostarts.sway
 
         exec_always ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &
-        exec sleep 5; systemctl --user start kanshi.service
       '';
     };
 

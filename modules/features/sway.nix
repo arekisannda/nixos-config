@@ -50,7 +50,7 @@
         ]
       ))
 
-      alacritty
+      foot
       cameractrls
       cliphist
       glib
@@ -99,6 +99,8 @@
   };
 
   services.playerctld.enable = true;
+
+  services.input-remapper.enable = true;
 
   xdg = {
     portal = {

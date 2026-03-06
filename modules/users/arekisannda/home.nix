@@ -50,7 +50,7 @@ in
     (importWithArgs ./configs/gpg-agent)
     (importWithArgs ./configs/dconf)
     (importWithArgs ./configs/qt)
-    (importWithArgs ./configs/alacritty)
+    (importWithArgs ./configs/foot)
     (importWithArgs ./configs/fzf)
     (importWithArgs ./configs/gh)
     (importWithArgs ./configs/gh-dash)
@@ -101,7 +101,6 @@ in
     dict
     discord-canary
     farge
-    gparted
     imv
     nixpkgs-unstable.brave
     nixpkgs-unstable.exercism

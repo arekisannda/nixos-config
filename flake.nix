@@ -74,5 +74,8 @@
             shellHook = "";
           };
         };
+
+      # hack to access home-manager options for lsp;
+      debug = true;
     };
 }

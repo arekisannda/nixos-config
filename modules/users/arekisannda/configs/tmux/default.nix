@@ -15,33 +15,7 @@ in
     aggressiveResize = true;
     mouse = true;
 
-    extraConfig = ''
-      set -ga terminal-overrides ',xterm*:Tc:smcup@:rmcup@'
-      set -g display-time 4000
-
-      # Refresh 'status-left' and 'status-right' more often, from every 15s to 5s
-      set -g status-interval 5
-
-      unbind -T prefix d
-      unbind -T prefix \"
-      unbind -T prefix \%
-
-      bind-key -T prefix w choose-tree -Zs
-      bind-key -T prefix W choose-tree -Zw
-      bind-key -T prefix c new-window -c "#{pane_current_path}"
-      bind-key -T prefix C new-window
-      bind-key -T prefix v split-pane -h -c "#{pane_current_path}"
-      bind-key -T prefix V split-pane -h
-      bind-key -T prefix s split-pane -v -c "#{pane_current_path}"
-      bind-key -T prefix S split-pane -v
-      bind-key -T prefix \+ setw synchronize-panes
-      bind-key -T prefix C-s command-prompt -p "Swap with pane:" "swap-pane -t '%%'"
-
-      bind-key -T root C-Up    select-pane -U
-      bind-key -T root C-Down  select-pane -D
-      bind-key -T root C-Left  select-pane -L
-      bind-key -T root C-Right select-pane -R
-    '';
+    extraConfig = builtins.readFile ./tmux.conf;
 
     plugins = with pkgs; [
       {

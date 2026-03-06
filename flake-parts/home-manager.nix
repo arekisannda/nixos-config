@@ -27,7 +27,7 @@ let
         self.homeModules.userOptions
         (import "${usersDir}/${user}/home.nix")
       ];
-    }).activationPackage;
+    });
 in
 {
   imports = [

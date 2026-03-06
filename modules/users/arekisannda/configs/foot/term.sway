@@ -1,0 +1,19 @@
+set $term foot
+
+set $toggle_term_cmd $HOME/.config/sway/scripts/term-toggle.py \
+    --toggle \
+    --marker $toggle_term_mark \
+    --app-id $toggle_term_class
+
+set $term_float $term \
+  --app-id=floating_shell \
+  --window-size-pixels='1600x900'
+
+set $term_fullscreen $term \
+  --app-id=fullscreen_shell
+
+set $term_toggle $term \
+  --title="Dropdown Terminal" \
+  --window-size-pixels='1600x900' \
+  --app-id=$toggle_term_class \
+  sh -c "tmux attach-session -t toggle || tmux new-session -s toggle"

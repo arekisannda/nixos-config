@@ -40,14 +40,6 @@ let
   importHardware = [
     nixos-hardware.framework-amd-ai-300-series
     ./hardware-configuration.nix
-    (
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [
-          fw-fanctrl
-        ];
-      }
-    )
   ];
 in
 {
@@ -61,10 +53,19 @@ in
   ];
   boot.kernelParams = [
     "quiet"
+    "amdgpu.mes=0"
   ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   hardware.bluetooth.enable = true;
+
+  hardware.fw-fanctrl = {
+    enable = true;
+    config = {
+      defaultStrategy = "lazy";
+      strategyOnDischarging = "lazy";
+    };
+  };
 
   # Network Settings
   networking.hostName = "fw13";

@@ -171,6 +171,23 @@ let
     }
   );
 
+  diff-hl-latest = load-custom-packages (
+    { epkgs }:
+    epkgs.melpaBuild {
+      pname = "diff-hl";
+      ename = "diff-hl";
+      version = "1.11.0";
+      src = fetchGit {
+        url = "git@github.com:dgutov/diff-hl";
+        ref = "master";
+        rev = "bb9af85441b0cbb3281268d30256d50f0595ebfe";
+      };
+      packageRequires = [
+      ];
+    }
+  );
+
+
   leetcode = load-custom-packages (
     { epkgs }:
     epkgs.melpaBuild {
@@ -210,11 +227,11 @@ let
     { epkgs }:
     epkgs.melpaBuild {
       pname = "windex";
-      version = "0.0.9";
+      version = "0.0.10";
       src = fetchGit {
         url = "git@github.com:arekisannda/emacs-windex.git";
-        ref = "v0.0.9";
-        rev = "ec73d78afb52684b3aa7eeab1e85dee8c8b0e870";
+        ref = "v0.0.10";
+        rev = "c07a423bd88f2b8eb280db01ae1e33e9c60ae8d6";
       };
       packageRequires = [
         epkgs.posframe
@@ -224,19 +241,18 @@ let
 
   emacs = epkgs.overrideScope (
     self: super: rec {
-      org = org-dev;
       activities = activities;
-      corfu = corfu-latest;
       cape = cape-latest;
-      leetcode = leetcode;
-      gptel = gptel-latest;
+      corfu = corfu-latest;
+      diff-hl = diff-hl-latest;
       exercism = exercism-dev;
+      gptel = gptel-latest;
+      leetcode = leetcode;
+      org = org-dev;
     }
   );
-
 in
 {
-
   home.packages = [
     (emacs.emacsWithPackages (
       epkgs: with epkgs; [
@@ -297,10 +313,11 @@ in
         diff-hl
         diminish
         editorconfig
+        edraw
+        eglot-booster
         eldoc-box
         embark
         embark-consult
-        embrace
         emojify
         envrc
         ess
@@ -311,6 +328,8 @@ in
         evil-matchit
         evil-mc
         evil-nerd-commenter
+        evil-surround
+        expreg
         flymake-clippy
         flymake-golangci
         flymake-ruff
@@ -332,6 +351,7 @@ in
         kotlin-ts-mode
         latex-math-preview
         latex-preview-pane
+        lazytab
         leetcode
         magit
         marginalia
@@ -361,14 +381,17 @@ in
         persist
         plantuml-mode
         posframe
+        pr-review
         prettier-js
         rainbow-delimiters
         rainbow-mode
         rfc-mode
         rmsbolt
         rust-mode
+        scad-dbus
         scad-mode
         shackle
+        smartparens
         tmux-mode
         transient
         treemacs
@@ -391,13 +414,6 @@ in
         yasnippet
         yasnippet-capf
         yasnippet-snippets
-
-        # custom packages
-        edraw
-        eglot-booster
-        lazytab
-        scad-dbus
-        pr-review
       ]
     ))
   ];

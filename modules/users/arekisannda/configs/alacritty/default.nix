@@ -1,9 +1,20 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   terminal = config.setup.terminal;
 in
 {
+  xdg.configFile."sway/term.sway" = {
+    enable = true;
+    force = true;
+    text = builtins.readFile ./term.sway;
+  };
+
   programs.alacritty = {
     enable = true;
     settings = {
@@ -86,99 +97,11 @@ in
           mods = "Control";
         }
         {
-          action = "ScrollLineUp";
-          key = "PageUp";
-          mode = "~Vi";
-          mods = "Control";
-        }
-        {
-          action = "ScrollLineDown";
-          key = "PageDown";
-          mode = "~Vi";
-          mods = "Control";
-        }
-        {
-          action = "ScrollPageUp";
-          key = "PageUp";
-          mode = "~Vi";
-          mods = "Shift|Control";
-        }
-        {
-          action = "ScrollPageDown";
-          key = "PageDown";
-          mode = "~Vi";
-          mods = "Shift|Control";
-        }
-        {
-          action = "ScrollToTop";
-          key = "Home";
-          mode = "~Vi";
-          mods = "Control";
-        }
-        {
-
-          action = "ScrollToBottom";
-          key = "End";
-          mode = "~Vi";
-          mods = "Control";
-        }
-
-        {
-          action = "ToggleViMode";
+          # action = "ToggleViMode";
+          chars = "\\u0000[";
           key = "Z";
           mode = "~Vi";
           mods = "Control";
-        }
-
-        {
-          action = "ScrollLineDown";
-          key = "Down";
-          mode = "Vi";
-        }
-
-        {
-          action = "ScrollPageUp";
-          key = "PageUp";
-          mode = "Vi";
-        }
-
-        {
-          action = "ScrollPageDown";
-          key = "PageDown";
-          mode = "Vi";
-        }
-
-        {
-          action = "ScrollToTop";
-          key = "Home";
-          mode = "Vi";
-        }
-
-        {
-          action = "ScrollToBottom";
-          key = "End";
-          mode = "Vi";
-        }
-
-        {
-          action = "ToggleViMode";
-          key = "Z";
-          mode = "Vi";
-          mods = "Control";
-        }
-
-        {
-          action = "None";
-          key = "Space";
-          mode = "Vi";
-          mods = "Shift|Control";
-
-        }
-        {
-          action = "ClearSelection";
-          key = "Escape";
-          mode = "Vi|~Search";
-          mods = "None";
         }
       ];
 
