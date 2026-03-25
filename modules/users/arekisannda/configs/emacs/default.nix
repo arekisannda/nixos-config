@@ -1,6 +1,7 @@
 {
   pkgs,
   nixpkgs-emacs,
+  lib,
   ...
 }:
 
@@ -38,7 +39,7 @@ let
       src = fetchGit {
         url = "https://code.tecosaur.net/tec/org-mode.git";
         ref = "dev";
-        rev = "f9f909681a051c73c64cc7b030aa54d70bb78f80";
+        rev = "1ef59f0aa02e3cff40bae68b756a29bc2001739e";
       };
       packageRequires = [ ];
     }
@@ -113,7 +114,7 @@ let
       pname = "activities";
       ename = "activities";
       version = "0.8.0";
-      src = builtins.fetchGit {
+      src = fetchGit {
         url = "git@github.com:alphapapa/activities.el.git";
         ref = "master";
         rev = "d735c0f2c714ac98248ee17d765bfa8310201d53";
@@ -171,22 +172,22 @@ let
     }
   );
 
-  diff-hl-latest = load-custom-packages (
+  diff-hl-stable = load-custom-packages (
     { epkgs }:
     epkgs.melpaBuild {
       pname = "diff-hl";
       ename = "diff-hl";
-      version = "1.11.0";
+      version = "1.10.0";
       src = fetchGit {
-        url = "git@github.com:dgutov/diff-hl";
-        ref = "master";
-        rev = "bb9af85441b0cbb3281268d30256d50f0595ebfe";
+        url = "git@github.com:dgutov/diff-hl.git";
+        ref = "1.10.0";
+        rev = "57d9d4e3e17397bf178c3aa5c369b5edd24523e0";
       };
       packageRequires = [
+        epkgs.cl-lib
       ];
     }
   );
-
 
   leetcode = load-custom-packages (
     { epkgs }:
@@ -244,7 +245,7 @@ let
       activities = activities;
       cape = cape-latest;
       corfu = corfu-latest;
-      diff-hl = diff-hl-latest;
+      diff-hl = diff-hl-stable;
       exercism = exercism-dev;
       gptel = gptel-latest;
       leetcode = leetcode;
@@ -298,6 +299,7 @@ in
         aio
         auctex
         cape
+        casual
         cdlatex
         closql
         compat
@@ -414,6 +416,7 @@ in
         yasnippet
         yasnippet-capf
         yasnippet-snippets
+
       ]
     ))
   ];

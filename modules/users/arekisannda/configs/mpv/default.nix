@@ -29,7 +29,7 @@ let
   );
 
   mpv-script = pkgs.writeShellScript "mpv-daemon" ''
-    ${mpv-service}/bin/mpv --input-ipc-server=$1 --idle=yes --msg-level=all=warn
+    ${mpv-service}/bin/mpv --video=no --input-ipc-server=$1 --idle=yes --msg-level=all=warn
   '';
 in
 {
@@ -52,7 +52,7 @@ in
       Type = "simple";
       ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p %t/mpv";
       ExecStart = "${mpv-script} %t/mpv/socket";
-      Restart = "on-failure";
+      Restart = "always";
       WorkingDirectory = "%h";
     };
   };

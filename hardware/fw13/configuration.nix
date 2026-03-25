@@ -53,7 +53,6 @@ in
   ];
   boot.kernelParams = [
     "quiet"
-    "amdgpu.mes=0"
   ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -113,6 +112,8 @@ in
 
   time.timeZone = "America/Los_Angeles";
   i18n.defaultLocale = "en_US.UTF-8";
+
+  users.mutableUsers = false;
 
   documentation.man.generateCaches = true;
   documentation.dev.enable = true;

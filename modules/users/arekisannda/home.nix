@@ -72,6 +72,8 @@ in
     (importWithArgs ./configs/latex)
     (importWithArgs ./configs/mpv)
     (importWithArgs ./configs/swappy)
+    (importWithArgs ./configs/wayprompt)
+    (importWithArgs ./configs/borgmatic)
   ];
 
   home.sessionVariables = {
@@ -101,6 +103,7 @@ in
     dict
     discord-canary
     farge
+    git-remote-gcrypt
     imv
     nixpkgs-unstable.brave
     nixpkgs-unstable.exercism

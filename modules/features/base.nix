@@ -40,7 +40,6 @@
 
   environment.variables = {
     EDITOR = "nvim";
-    PATH = "/run/current-system/sw/bin:$PATH";
   };
 
   environment.localBinInPath = true;

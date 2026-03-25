@@ -64,7 +64,6 @@
       papirus-maia-icon-theme
       pavucontrol
       pcmanfm
-      pinentry-rofi
       playerctl
       pulseaudio
       qjackctl

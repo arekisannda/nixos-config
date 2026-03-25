@@ -1,5 +1,8 @@
-{ ... }:
+{ pkgs, ... }:
 
+let
+  pinentry-bin = "${pkgs.wayprompt}/bin/pinentry-wayprompt";
+in
 {
   services.gpg-agent = {
     enable = true;
@@ -7,7 +10,7 @@
     extraConfig = ''
       ttyname $GPG_TTY
       allow-loopback-pinentry
-      pinentry-program /run/current-system/sw/bin/pinentry-rofi
+      pinentry-program ${pinentry-bin}
       default-cache-ttl 2147483647
       max-cache-ttl 2147483647
     '';

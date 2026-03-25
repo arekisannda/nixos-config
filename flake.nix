@@ -2,17 +2,22 @@
   description = "NixOS Configuration";
 
   inputs = {
-    flake-parts.url = "github:hercules-ci/flake-parts";
-
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-emacs.url = "github:NixOS/nixpkgs/5e4522be6bdf1600682a6f383434b057b2d77a37";
+
+    secrets.url = "git+ssh://git@github.com/arekisannda/nixos-secrets.git?ref=main&shallow=1";
+    secrets.flake = false;
+
     nixos-hardware.url = "github:NixOS/nixos-hardware";
 
-    home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =

@@ -25,6 +25,7 @@ let
       inherit pkgs extraSpecialArgs;
       modules = [
         self.homeModules.userOptions
+        self.homeModules.sops
         (import "${usersDir}/${user}/home.nix")
       ];
     });
@@ -35,6 +36,22 @@ in
   ];
 
   flake.homeModules.userOptions = import ../options.nix;
+
+  flake.homeModules.sops =
+    { username, ... }:
+    {
+      imports = [
+        inputs.sops-nix.homeManagerModules.sops
+      ];
+
+      sops = {
+        defaultSopsFile = "${inputs.secrets}/secrets/${username}.yaml";
+        validateSopsFiles = false;
+
+        gnupg.home = "/home/${username}/.gnupg";
+        gnupg.sshKeyPaths = [];
+      };
+    };
 
   perSystem =
     {
@@ -53,6 +70,7 @@ in
             extraSpecialArgs = {
               inherit self nixpkgs-unstable nixpkgs-emacs;
               stateVersion = args.stateVersion;
+              username = user;
             };
           };
         }) users

@@ -58,7 +58,7 @@ in
         client.focused            ${gui.style.foreground.unfocused} \
                                   ${gui.style.background.unfocused} \
                                   ${gui.style.foreground.focused} \
-                                  ${gui.style.foreground.unfocused} \
+                                  ${gui.style.accentAlt} \
                                   ${gui.style.foreground.unfocused}
         client.focused_tab_title  ${gui.style.foreground.unfocused} \
                                   ${gui.style.background.unfocused} \
@@ -92,6 +92,9 @@ in
       '';
     };
   };
+
+  services.network-manager-applet.enable = true;
+  services.blueman-applet.enable = true;
 
   systemd.user.services = {
     "sway-mode-clock" = {

@@ -30,6 +30,7 @@ let
       modules = [
         self.nixosModules.nixSettings
         self.nixosModules.configureHardware
+        self.nixosModules.sops
         self.nixosModules.pinNixpkgs
       ];
     };
@@ -67,6 +68,24 @@ in
       imports = [
         (import ../hardware/${hardwareType}/configuration.nix { users = [ ] ++ args.users; })
       ];
+    };
+
+  flake.nixosModules.sops =
+    { hardwareType, ... }:
+    {
+      imports = [
+        inputs.sops-nix.nixosModules.sops
+      ];
+
+      sops = {
+        defaultSopsFile = "${inputs.secrets}/secrets/${hardwareType}.yaml";
+
+        age = {
+          sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+          keyFile = "/var/lib/sops-nix/key.txt";
+          generateKey = true;
+        };
+      };
     };
 
   flake.nixosConfigurations = listToAttrs (

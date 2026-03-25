@@ -10,22 +10,5 @@
         firefoxpwa
       ];
     };
-
-    # nativeMessagingHosts = {
-    #   packages = [
-    #     tridactyl-native
-    #     firefoxpwa
-    #   ];
-    # };
-
-    # wrapperConfig = {
-    #   pipewireSupport = true;
-    # };
   };
-
-  # uncomment for firefox < 121
-  # environment.sessionVariables = {
-  #   MOZ_DBUS_REMOTE = "1";
-  #   MOZ_ENABLE_WAYLAND = "1";
-  # };
 }

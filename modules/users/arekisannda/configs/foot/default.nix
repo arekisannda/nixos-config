@@ -70,10 +70,14 @@ in
 
       text-bindings = {
         "\\x00[" = "Control+z";
+        "\\x00:" = "Alt+colon";
         "\\x00\\x1b[A" = "Control+Up";
         "\\x00\\x1b[B" = "Control+Down";
         "\\x00\\x1b[C" = "Control+Left";
         "\\x00\\x1b[D" = "Control+Right";
+        "\\x1b[5;5~" = "Control+Page_Up";
+        "\\x1b[6;5~" = "Control+Page_Down";
+        "\\x00\\x0c" = "Control+Shift+l";
       };
 
       key-bindings = {
