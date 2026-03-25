@@ -28,6 +28,7 @@ let
       };
 
       modules = [
+        inputs.sops-nix.nixosModules.sops
         inputs.disko.nixosModules.disko
 
         self.nixosModules.nixSettings
@@ -68,7 +69,7 @@ in
     { hardwareType, ... }:
     {
       imports = [
-        (import ../hardware/${hardwareType}/disko.nix)
+        # (import ../hardware/${hardwareType}/disko.nix)
         (import ../hardware/${hardwareType}/configuration.nix { users = [ ] ++ args.users; })
       ];
     };
@@ -76,10 +77,6 @@ in
   flake.nixosModules.sops =
     { hardwareType, ... }:
     {
-      imports = [
-        inputs.sops-nix.nixosModules.sops
-      ];
-
       sops = {
         defaultSopsFile = "${inputs.secrets}/secrets/${hardwareType}.yaml";
 

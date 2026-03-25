@@ -28,7 +28,7 @@ in
         };
 
         storage = {
-          encryptionPasscommand = "cat ${config.sops.secrets.borg.path}";
+          encryptionPasscommand = "${pkgs.coreutils}/bin/cat ${config.sops.secrets.borg.path}";
         };
 
         retention = {
@@ -46,20 +46,20 @@ in
                 before = "action";
                 when = [ "create" ];
                 run = [
-                  "${notify-send} -t 2000 \"Borg {repository_label}\" \"Creating backup {name}\""
+                  "${notify-send} -t 2000 \"Borg {repository_label}\" \"Creating backup {repository}\""
                 ];
               }
               {
                 after = "action";
                 when = [ "create" ];
                 run = [
-                  "${notify-send} -t 2000 \"Borg {repository_label}\" \"Completed backup {name}\""
+                  "${notify-send} -t 2000 \"Borg {repository_label}\" \"Completed backup {repository}\""
                 ];
               }
               {
                 after = "error";
                 run = [
-                  "${notify-send} -t 2000 \"Borg {repository_label}\" \"Error: {error}\""
+                  "${notify-send} -t 2000 \"Borg {repository_label} {log_file}\" \"Error: {output}\""
                 ];
               }
             ];
