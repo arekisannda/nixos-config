@@ -1,9 +1,16 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 
 let
   gui = config.setup.gui.theme;
 in
 {
+  programs.rofi = with pkgs; {
+    enable = true;
+    package = rofi.override {
+      plugins = [ rofi-calc ];
+    };
+  };
+
   xdg.configFile = {
     "rofi/config.rasi" = {
       enable = true;
