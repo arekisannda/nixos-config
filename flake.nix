@@ -16,6 +16,9 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
+    disko.url = "github:nix-community/disko/latest";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -49,6 +52,7 @@
           lib,
           system,
           pkgs,
+          inputs',
           ...
         }:
 
@@ -77,6 +81,29 @@
             DEV_SHELL = "nixos";
 
             shellHook = "";
+          };
+
+          apps.format = {
+            type = "app";
+            program = toString (
+              pkgs.writeShellScript "format" ''
+                if [ -z "$1" ]; then
+                  echo "Usage: nix run .#format -- <path-to-disko-config>"
+                  exit 1
+                fi
+
+                echo "WARNING: This will destroy all data on the disks defined in $1"
+                read -p "Are you sure? (yes/no): " confirm
+                if [ "$confirm" != "yes" ]; then
+                  echo "Aborting"
+                  exit 1
+                fi
+
+                sudo ${inputs'.disko.packages.disko}/bin/disko \
+                  --mode destroy,format,mount \
+                 "$1"
+              ''
+            );
           };
         };
 

@@ -28,6 +28,8 @@ let
       };
 
       modules = [
+        inputs.disko.nixosModules.disko
+
         self.nixosModules.nixSettings
         self.nixosModules.configureHardware
         self.nixosModules.sops
@@ -66,6 +68,7 @@ in
     { hardwareType, ... }:
     {
       imports = [
+        (import ../hardware/${hardwareType}/disko.nix)
         (import ../hardware/${hardwareType}/configuration.nix { users = [ ] ++ args.users; })
       ];
     };
