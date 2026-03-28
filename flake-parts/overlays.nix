@@ -11,12 +11,12 @@ let
     match
     ;
 
-  packagesDir = ../packages;
-  packages = readDir packagesDir;
+  overlaysDir = ../overlays;
+  overlays = readDir overlaysDir;
 
   # packagePath =
   #   package:
-  #   "${packagesDir}${if match ".*\\.nix$" name == null then "${package}/default.nix" else package}";
+  #   "${overlaysDir}${if match ".*\\.nix$" name == null then "${package}/default.nix" else package}";
 
   # makeOverlay =
   #   { package, ... }:
@@ -41,8 +41,8 @@ in
         in
         {
           name = pkgName;
-          value = self.callPackage (packagesDir + "/${name}") { };
+          value = self.callPackage (overlaysDir + "/${name}") { };
         };
     in
-    listToAttrs (attrValues (mapAttrs makePackage packages));
+    listToAttrs (attrValues (mapAttrs makePackage overlays));
 }

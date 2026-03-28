@@ -21,6 +21,7 @@
         {
           packages.swayrst = pkgs.callPackage ./swayrst.nix { };
           packages.rass = pkgs.callPackage ./rass.nix { };
+          packages.action-languageserver = pkgs.callPackage ./action-languageserver { };
         };
     };
 }

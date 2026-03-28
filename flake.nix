@@ -13,6 +13,9 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
+    custompkgs.url = "path:./packages";
+    custompkgs.inputs.nixpkgs.follows = "nixpkgs";
+
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -69,6 +72,7 @@
           _module.args.pkgs = mkPackages inputs.nixpkgs;
           _module.args.nixpkgs-unstable = mkPackages inputs.nixpkgs-unstable;
           _module.args.nixpkgs-emacs = mkPackages inputs.nixpkgs-emacs;
+          _module.args.custompkgs = inputs'.custompkgs.packages;
 
           devShells.default = pkgs.mkShell {
             name = "nix development shell";

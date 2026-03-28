@@ -2,6 +2,7 @@
   config,
   pkgs,
   nixpkgs-unstable,
+  custompkgs,
   stateVersion,
   ...
 }@attr:
@@ -130,18 +131,20 @@ in
     ))
 
     #lsp
+    custompkgs.action-languageserver
+    custompkgs.rass
     nixpkgs-unstable.bash-language-server
     nixpkgs-unstable.emacs-lsp-booster
+    nixpkgs-unstable.ltex-ls-plus
     nixpkgs-unstable.lua-language-server
     nixpkgs-unstable.metals
     nixpkgs-unstable.nixd
-    nixpkgs-unstable.ltex-ls-plus
-    nixpkgs-unstable.pyrefly
-    nixpkgs-unstable.ty
     nixpkgs-unstable.openscad-lsp
-    rass
+    nixpkgs-unstable.pyrefly
     nixpkgs-unstable.terraform-ls
     nixpkgs-unstable.texlab
+    nixpkgs-unstable.ty
+    nixpkgs-unstable.yaml-language-server
     nixpkgs-unstable.zls
 
     # enchant2

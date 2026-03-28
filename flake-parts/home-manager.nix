@@ -58,6 +58,7 @@ in
       pkgs,
       nixpkgs-unstable,
       nixpkgs-emacs,
+      custompkgs,
       ...
     }:
     {
@@ -68,7 +69,7 @@ in
             inherit pkgs user;
 
             extraSpecialArgs = {
-              inherit self nixpkgs-unstable nixpkgs-emacs;
+              inherit self nixpkgs-unstable nixpkgs-emacs custompkgs;
               stateVersion = args.stateVersion;
               username = user;
             };
