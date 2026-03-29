@@ -18,6 +18,11 @@ in
             "- ${config.home.homeDirectory}/Downloads"
             "- ${config.home.homeDirectory}/.thunderbird"
             "- ${config.home.homeDirectory}/.local/share/Steam"
+            "- ${config.home.homeDirectory}/.local/share/docker/overlay2"
+            "- ${config.home.homeDirectory}/.local/share/docker/image"
+            "- ${config.home.homeDirectory}/.local/share/docker/containers"
+            "- ${config.home.homeDirectory}/.local/share/docker/buildkit"
+            "- ${config.home.homeDirectory}/.local/share/docker/tmp"
           ];
           repositories = [
             {

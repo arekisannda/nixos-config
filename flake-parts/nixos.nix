@@ -43,6 +43,14 @@ in
     { ... }:
     {
       # Nix Settings
+      nix.settings.trusted-users = [
+        "arekisannda"
+      ];
+
+      security.sudo.extraConfig = ''
+        Defaults timestamp_type=global
+      '';
+
       nix.nixPath = [
         "nixpkgs=${inputs.nixpkgs}"
         "nixpkgs-unstable=${inputs.nixpkgs-unstable}"
