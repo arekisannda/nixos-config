@@ -111,6 +111,8 @@ in
     nixpkgs-unstable.firefoxpwa
     nixpkgs-unstable.openscad-unstable
     nixpkgs-unstable.yt-dlp
+    nixpkgs-unstable.claude-code
+    nixpkgs-unstable.claude-agent-acp
     polkit_gnome
     protonmail-bridge-gui
     readability-cli

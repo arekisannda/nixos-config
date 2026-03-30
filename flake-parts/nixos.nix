@@ -55,6 +55,11 @@ in
         "nixpkgs=${inputs.nixpkgs}"
         "nixpkgs-unstable=${inputs.nixpkgs-unstable}"
       ];
+
+      nix.registry = {
+        nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
+      };
+
       nix.settings.experimental-features = [
         "nix-command"
         "flakes"

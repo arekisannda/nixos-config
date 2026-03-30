@@ -1,7 +1,6 @@
 {
   pkgs,
   nixpkgs-emacs,
-  lib,
   ...
 }:
 
@@ -172,6 +171,54 @@ let
     }
   );
 
+  acp-latest = load-custom-packages (
+    { epkgs }:
+    epkgs.melpaBuild {
+      pname = "acp";
+      ename = "acp";
+      version = "0.11.1";
+      src = fetchGit {
+        url = "git@github.com:xenodium/acp.el.git";
+        ref = "v0.11.1";
+        rev = "784b00017262260c2c718c98af98f16a2cc7bfdd";
+      };
+      packageRequires = [ ];
+    }
+  );
+
+  shell-maker-latest = load-custom-packages (
+    { epkgs }:
+    epkgs.melpaBuild {
+      pname = "shell-maker";
+      ename = "shell-maker";
+      version = "0.89.2";
+      src = fetchGit {
+        url = "git@github.com:xenodium/shell-maker.git";
+        ref = "v0.89.2";
+        rev = "ea186d05578a3b005b035df5042dff931aa72cb6";
+      };
+      packageRequires = [ ];
+    }
+  );
+
+  agent-shell-latest = load-custom-packages (
+    { epkgs }:
+    epkgs.melpaBuild {
+      pname = "agent-shell";
+      ename = "agent-shell";
+      version = "0.49.1";
+      src = fetchGit {
+        url = "git@github.com:xenodium/agent-shell.git";
+        ref = "v0.49.1";
+        rev = "c974b58cdf2f5051658cd20cda3216d708259927";
+      };
+      packageRequires = [
+        shell-maker-latest
+        acp-latest
+      ];
+    }
+  );
+
   diff-hl-stable = load-custom-packages (
     { epkgs }:
     epkgs.melpaBuild {
@@ -242,7 +289,9 @@ let
 
   emacs = epkgs.overrideScope (
     self: super: rec {
+      acp = acp-latest;
       activities = activities;
+      agent-shell = agent-shell-latest;
       cape = cape-latest;
       corfu = corfu-latest;
       diff-hl = diff-hl-stable;
@@ -250,6 +299,7 @@ let
       gptel = gptel-latest;
       leetcode = leetcode;
       org = org-dev;
+      shell-maker = shell-maker-latest;
     }
   );
 in
@@ -294,8 +344,10 @@ in
 
         a
         ace-window
+        acp
         activities
         affe
+        agent-shell
         aio
         auctex
         cape
@@ -393,6 +445,7 @@ in
         scad-dbus
         scad-mode
         shackle
+        shell-maker
         smartparens
         tmux-mode
         transient

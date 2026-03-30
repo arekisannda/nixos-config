@@ -37,7 +37,7 @@
       edit = "sudo -e";
       nixls = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
       nixgc = "sudo nix-collect-garbage -d -v && nix-collect-garbage -d -v";
-      nsch = "nix search nixpkgs";
+      nsch = "nix search";
 
       ec = "emacsclient -c -n";
       er = "emacsclient -r -n";
