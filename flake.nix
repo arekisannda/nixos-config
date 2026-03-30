@@ -13,7 +13,7 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    custompkgs.url = "path:./packages";
+    custompkgs.url = "github:arekisannda/nixos-packages";
     custompkgs.inputs.nixpkgs.follows = "nixpkgs";
 
     sops-nix.url = "github:Mic92/sops-nix";

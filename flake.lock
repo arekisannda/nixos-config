@@ -8,14 +8,18 @@
         ]
       },
       "locked": {
-        "path": "./packages",
-        "type": "path"
+        "lastModified": 1774830374,
+        "narHash": "sha256-yNIkm0Y00HlAY5ZwJNsZPpRuLlZUFM3xnaKK4VzrtH8=",
+        "owner": "arekisannda",
+        "repo": "nixos-packages",
+        "rev": "22f02e6a98bca4b808d5717d0542e9339f44bc47",
+        "type": "github"
       },
       "original": {
-        "path": "./packages",
-        "type": "path"
-      },
-      "parent": []
+        "owner": "arekisannda",
+        "repo": "nixos-packages",
+        "type": "github"
+      }
     },
     "disko": {
       "inputs": {
