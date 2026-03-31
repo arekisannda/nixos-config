@@ -3,7 +3,7 @@
       . ( :Lua ( :workspace ( :checkThirdParty nil
                               :ignoreDir [ ".direnv" "result" ] ))
 
-          :nixd ( :nixpkgs ( :expr "import <nixpkgs> { }" )
+          :nixd ( :nixpkgs ( :expr "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs { }" )
                   :formatting ( :command [ "nixfmt" ] )
                   :options
                   ( :nixos
