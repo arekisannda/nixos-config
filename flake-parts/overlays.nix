@@ -41,7 +41,7 @@ in
         in
         {
           name = pkgName;
-          value = self.callPackage (overlaysDir + "/${name}") { };
+          value = self.callPackage (overlaysDir + "/${name}") { inherit super; };
         };
     in
     listToAttrs (attrValues (mapAttrs makePackage overlays));

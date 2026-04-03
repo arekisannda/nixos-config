@@ -22,6 +22,7 @@
       "users"
       "video"
       "wheel"
+      "wireshark"
     ];
     shell = pkgs.zsh;
   };
