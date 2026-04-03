@@ -11,7 +11,7 @@ let
     match
     ;
 
-  overlaysDir = ../overlays;
+  overlaysDir = ../modules/overlays;
   overlays = readDir overlaysDir;
 
   # packagePath =
