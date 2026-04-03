@@ -13,6 +13,6 @@
       };
     };
 
-    extensions = with pkgs; [ ];
+    extensions = [ ];
   };
 }

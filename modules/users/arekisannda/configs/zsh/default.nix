@@ -59,6 +59,10 @@
         "rm *"
         "pkill *"
         "cp *"
+        "zathura *"
+        "imv *"
+        "mpv *"
+        "yt-dlp *"
       ];
     };
 

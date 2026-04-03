@@ -98,6 +98,7 @@ in
       '';
     };
 
+  sops.secrets.yt-dlp-cookies.key = "applications/yt-dlp/cookies";
   services.gnome-keyring.enable = true;
   services.protonmail-bridge.enable = true;
   services.protonmail-bridge.extraPackages = with pkgs; [ gnome-keyring ];
@@ -110,16 +111,18 @@ in
     farge
     gcr
     git-remote-gcrypt
+    imagemagick
     imv
     nixpkgs-unstable.brave
+    nixpkgs-unstable.claude-agent-acp
+    nixpkgs-unstable.claude-code
     nixpkgs-unstable.exercism
     nixpkgs-unstable.firefoxpwa
     nixpkgs-unstable.openscad-unstable
+    nixpkgs-unstable.proton-vpn
+    nixpkgs-unstable.transmission_4-gtk
     nixpkgs-unstable.yt-dlp
-    nixpkgs-unstable.claude-code
-    nixpkgs-unstable.claude-agent-acp
     polkit_gnome
-    protonmail-bridge-gui
     readability-cli
     steam
     thunderbird
