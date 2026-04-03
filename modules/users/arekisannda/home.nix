@@ -98,12 +98,17 @@ in
       '';
     };
 
+  services.gnome-keyring.enable = true;
+  services.protonmail-bridge.enable = true;
+  services.protonmail-bridge.extraPackages = with pkgs; [ gnome-keyring ];
+
   home.packages = with pkgs; [
     anki-bin
     calibre
     dict
     discord-canary
     farge
+    gcr
     git-remote-gcrypt
     imv
     nixpkgs-unstable.brave
@@ -170,6 +175,7 @@ in
     nodejs
     octave
     ruff
+    shfmt
     strace
     treefmt
     uv

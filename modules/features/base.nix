@@ -19,6 +19,7 @@
     neovim
     patsh
     pkg-config
+    psmisc
     ranger
     rclone
     ripgrep
@@ -32,6 +33,7 @@
     unzip
     wget
     yq-go
+    zip
     zsh
     zsh-powerlevel10k
   ];

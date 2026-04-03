@@ -9,6 +9,7 @@ in
     enableZshIntegration = true;
     extraConfig = ''
       ttyname $GPG_TTY
+      allow-preset-passphrase
       allow-loopback-pinentry
       pinentry-program ${pinentry-bin}
       default-cache-ttl 2147483647

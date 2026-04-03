@@ -16,6 +16,7 @@ in
             "- ${config.home.homeDirectory}/Books"
             "- ${config.home.homeDirectory}/Music"
             "- ${config.home.homeDirectory}/Downloads"
+            "- ${config.home.homeDirectory}/.encrypted"
             "- ${config.home.homeDirectory}/.thunderbird"
             "- ${config.home.homeDirectory}/.local/share/Steam"
             "- ${config.home.homeDirectory}/.local/share/docker/overlay2"

@@ -91,6 +91,13 @@ in
   # Security Settings
   security.rtkit.enable = true;
   security.polkit.enable = true;
+  security.pam.enableFscrypt = true;
+  security.pam.services.greetd.enableGnomeKeyring = true;
+  security.pam.services.greetd.gnupg = {
+    enable = true;
+    noAutostart = true;
+    storeOnly = true;
+  };
 
   # Default Services
   services = {
