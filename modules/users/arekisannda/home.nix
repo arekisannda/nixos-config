@@ -107,21 +107,20 @@ in
     anki-bin
     calibre
     dict
-    discord-canary
+    discord
     farge
     gcr
     git-remote-gcrypt
     imagemagick
     imv
-    nixpkgs-unstable.brave
+    brave
     nixpkgs-unstable.claude-agent-acp
     nixpkgs-unstable.claude-code
-    nixpkgs-unstable.exercism
-    nixpkgs-unstable.firefoxpwa
+    exercism
     nixpkgs-unstable.openscad-unstable
     nixpkgs-unstable.proton-vpn
-    nixpkgs-unstable.transmission_4-gtk
-    nixpkgs-unstable.yt-dlp
+    transmission_4-gtk
+    yt-dlp
     polkit_gnome
     readability-cli
     steam

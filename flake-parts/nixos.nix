@@ -60,6 +60,8 @@ in
         nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
       };
 
+      nix.settings.download-buffer-size = 536870912;
+
       nix.settings.experimental-features = [
         "nix-command"
         "flakes"
