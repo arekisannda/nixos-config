@@ -105,31 +105,32 @@ in
 
   home.packages = with pkgs; [
     anki-bin
+    brave
     calibre
     dict
     discord
+    exercism
     farge
     gcr
     git-remote-gcrypt
     imagemagick
     imv
-    brave
+    (nixpkgs-unstable.bottles.override { removeWarningPopup = true; })
     nixpkgs-unstable.claude-agent-acp
     nixpkgs-unstable.claude-code
-    exercism
     nixpkgs-unstable.openscad-unstable
     nixpkgs-unstable.proton-vpn
-    transmission_4-gtk
-    yt-dlp
     polkit_gnome
     readability-cli
     steam
     thunderbird
+    transmission_4-gtk
     tridactyl-native
     vial
     vlc
     w3m
     xdg-user-dirs
+    yt-dlp
     zathura
 
     (aspellWithDicts (

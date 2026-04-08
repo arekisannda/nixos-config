@@ -88,6 +88,7 @@ in
         client.background         ${gui.style.foreground.focused}
 
         output * bg ${wallpaper.image} ${wallpaper.scaling} ${wallpaper.color}
+        output * scale 1.0
         font pango:${gui.font.mono} ${toString gui.font.size}
       '';
     };

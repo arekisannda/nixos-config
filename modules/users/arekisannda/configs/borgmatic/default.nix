@@ -39,7 +39,6 @@ in
 
         retention = {
           keepWithin = "3H";
-          keepHourly = 24;
           keepDaily = 7;
           keepWeekly = 4;
           keepMonthly = 6;
