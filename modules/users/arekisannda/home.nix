@@ -47,6 +47,7 @@ in
 
   imports = [
     (importWithArgs ./configs/mime)
+    (importWithArgs ./configs/git)
     (importWithArgs ./configs/firefox)
     (importWithArgs ./configs/gpg-agent)
     (importWithArgs ./configs/dconf)
