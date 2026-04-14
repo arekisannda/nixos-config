@@ -116,7 +116,6 @@ in
     git-remote-gcrypt
     imagemagick
     imv
-    (nixpkgs-unstable.bottles.override { removeWarningPopup = true; })
     nixpkgs-unstable.claude-agent-acp
     nixpkgs-unstable.claude-code
     nixpkgs-unstable.openscad-unstable
