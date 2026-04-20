@@ -63,6 +63,7 @@
         "imv *"
         "mpv *"
         "yt-dlp *"
+        "pass *"
       ];
     };
 

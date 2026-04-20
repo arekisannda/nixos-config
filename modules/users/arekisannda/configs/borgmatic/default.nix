@@ -51,20 +51,20 @@ in
                 before = "action";
                 when = [ "create" ];
                 run = [
-                  "${notify-send} -t 2000 \"Borg {repository_label}\" \"Creating backup {repository}\""
+                  "${notify-send} -e -t 2000 \"Borg {repository_label}\" \"Creating backup {repository}\""
                 ];
               }
               {
                 after = "action";
                 when = [ "create" ];
                 run = [
-                  "${notify-send} -t 2000 \"Borg {repository_label}\" \"Completed backup {repository}\""
+                  "${notify-send} -e -t 2000 \"Borg {repository_label}\" \"Completed backup {repository}\""
                 ];
               }
               {
                 after = "error";
                 run = [
-                  "${notify-send} -t 2000 \"Borg {repository_label} {log_file}\" \"Error: {output}\""
+                  "${notify-send} -e -t 2000 \"Borg {repository_label} {log_file}\" \"Error: {output}\""
                 ];
               }
             ];
