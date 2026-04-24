@@ -275,11 +275,11 @@ let
     { epkgs }:
     epkgs.melpaBuild {
       pname = "windex";
-      version = "0.0.10";
+      version = "0.0.11";
       src = fetchGit {
         url = "git@github.com:arekisannda/emacs-windex.git";
-        ref = "v0.0.10";
-        rev = "c07a423bd88f2b8eb280db01ae1e33e9c60ae8d6";
+        ref = "v0.0.11";
+        rev = "ce381af69cd1cec3b24e01649f15a5217a895961";
       };
       packageRequires = [
         epkgs.posframe
