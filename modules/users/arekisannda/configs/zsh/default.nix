@@ -11,6 +11,9 @@
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    syntaxHighlighting.styles = {
+      comment = "fg=8,bold";
+    };
 
     oh-my-zsh.enable = true;
 

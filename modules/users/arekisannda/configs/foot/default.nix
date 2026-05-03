@@ -45,6 +45,7 @@ in
 
       cursor = {
         style = "block";
+        color="${toIniHex colors.cursor.foreground} ${toIniHex colors.cursor.background}";
         beam-thickness = 1;
       };
 
@@ -73,11 +74,13 @@ in
         "\\x00:" = "Alt+colon";
         "\\x00\\x1b[A" = "Control+Up";
         "\\x00\\x1b[B" = "Control+Down";
-        "\\x00\\x1b[C" = "Control+Left";
-        "\\x00\\x1b[D" = "Control+Right";
+        "\\x00\\x1b[C" = "Control+Right";
+        "\\x00\\x1b[D" = "Control+Left";
         "\\x1b[5;5~" = "Control+Page_Up";
         "\\x1b[6;5~" = "Control+Page_Down";
         "\\x00\\x0c" = "Control+Shift+l";
+        "\\x00q" = "Control+slash";
+        "\\x00?" = "Control+question";
       };
 
       key-bindings = {
@@ -89,7 +92,7 @@ in
         scrollback-down-line = "none";
         scrollback-home = "none";
         scrollback-end = "none";
-        search-start = "Control+slash";
+        search-start = "none";
         clipboard-copy = "Control+Shift+c XF86Copy";
         clipboard-paste = "Control+Shift+v XF86Paste";
         primary-paste = "none";
