@@ -101,20 +101,16 @@ in
   };
 
   # Default Services
-  services = {
-    fprintd.enable = true;
-    fwupd.enable = true;
-    libinput.enable = true;
-    printing.enable = true;
-    udisks2.enable = true;
-    devmon.enable = true;
-    gvfs.enable = true;
-    logind = {
-      settings = {
-        Login = {
-          HandlePowerKey = "ignore";
-        };
-      };
+  services.fprintd.enable = true;
+  services.fwupd.enable = true;
+  services.libinput.enable = true;
+  services.printing.enable = true;
+  services.udisks2.enable = true;
+  services.devmon.enable = true;
+  services.gvfs.enable = true;
+  services.logind.settings = {
+    Login = {
+      HandlePowerKey = "ignore";
     };
   };
 
