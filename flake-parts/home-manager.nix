@@ -26,6 +26,7 @@ let
       modules = [
         self.homeModules.userOptions
         self.homeModules.sops
+        self.homeModules.flatpak
         (import "${usersDir}/${user}/home.nix")
       ];
     });
@@ -49,8 +50,21 @@ in
         validateSopsFiles = false;
 
         gnupg.home = "/home/${username}/.gnupg";
-        gnupg.sshKeyPaths = [];
+        gnupg.sshKeyPaths = [ ];
       };
+    };
+
+  flake.homeModules.flatpak =
+    { pkgs, username, ... }:
+    {
+      imports = [
+        inputs.nix-flatpak.homeManagerModules.nix-flatpak
+        (import "${usersDir}/${username}/flatpak/default.nix")
+      ];
+
+      home.packages = with pkgs; [
+        flatpak
+      ];
     };
 
   perSystem =
@@ -69,7 +83,12 @@ in
             inherit pkgs user;
 
             extraSpecialArgs = {
-              inherit self nixpkgs-unstable nixpkgs-emacs custompkgs;
+              inherit
+                self
+                nixpkgs-unstable
+                nixpkgs-emacs
+                custompkgs
+                ;
               stateVersion = args.stateVersion;
               username = user;
             };
