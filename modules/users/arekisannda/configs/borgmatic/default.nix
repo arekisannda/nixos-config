@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   notify-send = "${pkgs.libnotify}/bin/notify-send";
@@ -8,30 +13,26 @@ in
 
   programs.borgmatic = {
     enable = true;
-    backups = {
-      data = {
-        location = {
-          patterns = [
-            "R ${config.home.homeDirectory}"
-            "- ${config.home.homeDirectory}/Books"
-            "- ${config.home.homeDirectory}/Music"
-            "- ${config.home.homeDirectory}/Downloads"
-            "- ${config.home.homeDirectory}/.encrypted"
-            "- ${config.home.homeDirectory}/.thunderbird"
-            "- ${config.home.homeDirectory}/.local/share/Steam"
-            "- ${config.home.homeDirectory}/.local/share/docker/overlay2"
-            "- ${config.home.homeDirectory}/.local/share/docker/image"
-            "- ${config.home.homeDirectory}/.local/share/docker/containers"
-            "- ${config.home.homeDirectory}/.local/share/docker/buildkit"
-            "- ${config.home.homeDirectory}/.local/share/docker/tmp"
-          ];
-          repositories = [
-            {
-              "path" = "/run/media/${config.home.username}/backup/borg";
-              "label" = "local";
-            }
-          ];
-        };
+    backups =
+      let
+        locationPatterns = [
+          "R ${config.home.homeDirectory}"
+          "- ${config.home.homeDirectory}/Books"
+          "- ${config.home.homeDirectory}/Music"
+          "- ${config.home.homeDirectory}/Downloads"
+          "- ${config.home.homeDirectory}/.var"
+          "- ${config.home.homeDirectory}/.cache"
+          "- ${config.home.homeDirectory}/.encrypted"
+          "- ${config.home.homeDirectory}/.thunderbird"
+          "- ${config.home.homeDirectory}/.local/share/Steam"
+          "- ${config.home.homeDirectory}/.local/share/flatpak"
+          "- ${config.home.homeDirectory}/.local/share/docker/overlay2"
+          "- ${config.home.homeDirectory}/.local/share/docker/image"
+          "- ${config.home.homeDirectory}/.local/share/docker/containers"
+          "- ${config.home.homeDirectory}/.local/share/docker/buildkit"
+          "- ${config.home.homeDirectory}/.local/share/docker/tmp"
+          "- ${config.home.homeDirectory}/.local/mnt"
+        ];
 
         storage = {
           encryptionPasscommand = "${pkgs.coreutils}/bin/cat ${config.sops.secrets.borg.path}";
@@ -57,25 +58,79 @@ in
               {
                 after = "action";
                 when = [ "create" ];
+                states = [ "finish" ];
                 run = [
-                  "${notify-send} -e -t 5000 \"Borg {repository_label}\" \"Completed backup {repository}\""
+                  "${notify-send} --transient -t 5000 \"Borg {repository_label}\" \"Completed backup {repository}\""
                 ];
               }
               {
                 after = "error";
                 run = [
-                  "${notify-send} -e -t 5000 \"Borg {repository_label} {log_file}\" \"Error: {output}\""
+                  "${notify-send} -t 5000 \"Borg {repository_label}\" {error}"
                 ];
               }
             ];
           };
         };
+      in
+      {
+        backup = {
+          inherit storage retention hooks;
+          location = {
+            patterns = locationPatterns;
+            repositories = [
+              {
+                "path" = "/run/media/${config.home.username}/backup/borg";
+                "label" = "backup";
+              }
+            ];
+          };
+        };
+
+        recovery_alpha = {
+          inherit storage retention hooks;
+          location = {
+            patterns = locationPatterns;
+            repositories = [
+              {
+                "path" = "/run/media/${config.home.username}/stasis_alpha";
+                "label" = "stasis alpha";
+              }
+            ];
+          };
+        };
+
+        recovery_beta = {
+          inherit storage retention hooks;
+          location = {
+            patterns = locationPatterns;
+            repositories = [
+              {
+                "path" = "/run/media/${config.home.username}/stasis_beta";
+                "label" = "stasis beta";
+              }
+            ];
+          };
+        };
       };
-    };
   };
 
   services.borgmatic = {
     enable = true;
     frequency = "*-*-* 12:00:00";
   };
+
+  systemd.user.services.borgmatic.Service.ExecStart = lib.mkForce ''
+    ${pkgs.systemd}/bin/systemd-inhibit \
+      --who="borgmatic" \
+      --what="sleep:shutdown" \
+      --why="Prevent interrupting scheduled backup" \
+      ${config.programs.borgmatic.package}/bin/borgmatic \
+        --config ${config.xdg.configHome}/borgmatic.d/backup.yaml \
+        --stats \
+        --verbosity -1 \
+        --list \
+        --syslog-verbosity 1
+  '';
+
 }
