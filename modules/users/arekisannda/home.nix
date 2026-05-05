@@ -55,7 +55,6 @@ in
     (importWithArgs ./configs/foot)
     (importWithArgs ./configs/fzf)
     (importWithArgs ./configs/gh)
-    (importWithArgs ./configs/gh-dash)
     (importWithArgs ./configs/ripgrep)
     (importWithArgs ./configs/swaylock)
     (importWithArgs ./configs/swayr)
@@ -88,11 +87,12 @@ in
     EMACS_USER_DIRECTORY = "$XDG_CONFIG_HOME/emacs";
     GOPATH = "$HOME/.go";
     LSP_USE_PLISTS = "true";
+    MISE_IGNORED_CONFIG_PATHS="${config.home.homeDirectory}/.local/mnt";
   };
 
   home.file =
     let
-      session-vars-file = "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh";
+      session-vars-file = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
     in
     {
       ".profile".text = ''

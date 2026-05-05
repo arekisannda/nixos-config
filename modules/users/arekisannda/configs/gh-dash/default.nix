@@ -92,15 +92,21 @@ in
       repoPaths = { };
 
       theme = {
-        ui.table.showSeparator = true;
+        ui.sectionsShowCount = true;
+        table = {
+          showSeparator = true;
+          compact = false;
+        };
+
         colors = {
           text = {
             primary = "${terminal.colors.foreground.normal}";
             secondary = "${terminal.colors.normal.cyan}";
             inverted = "${terminal.colors.bright.black}";
-            faint = "${terminal.colors.foreground.dim}";
+            faint = "${terminal.colors.foreground.bright}";
             warning = "${terminal.colors.normal.red}";
             success = "${terminal.colors.normal.green}";
+            actor = "${terminal.colors.dim.white}";
           };
 
           background = {
@@ -108,9 +114,9 @@ in
           };
 
           border = {
-            primary = "${terminal.colors.background.bright}";
-            secondary = "${terminal.colors.background.bright}";
-            faint = "${terminal.colors.background.dim}";
+            primary = "${terminal.colors.dim.white}";
+            secondary = "${terminal.colors.bright.black}";
+            faint = "${terminal.colors.background.bright}";
           };
         };
       };
