@@ -30,7 +30,7 @@ let
     "gpg"
     "network-tools"
     "system-tools"
-    "clamav"
+    "audit"
 
     # configuration
     "networking-steam"
