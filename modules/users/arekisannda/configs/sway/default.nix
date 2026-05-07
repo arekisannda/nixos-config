@@ -145,11 +145,6 @@ in
         Type = "oneshot";
         ExecStart = pkgs.writeShellScript "lock-agents.sh" ''
           ${pkgs.gnupg}/bin/gpgconf --kill gpg-agent
-          if [ -d $HOME/.encrypted ]; then
-            /run/current-system/sw/bin/find "$HOME/.encrypted" -print0 | \
-              /run/current-system/sw/bin/xargs -0 /run/current-system/sw/bin/fuser -k
-            /run/current-system/sw/bin/fscrypt lock --quiet $HOME/.encrypted 2>/dev/null || true
-          fi
         '';
       };
     };
