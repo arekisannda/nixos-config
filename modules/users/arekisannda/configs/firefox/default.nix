@@ -6,7 +6,6 @@
 
     package = firefox.override {
       nativeMessagingHosts = [
-        tridactyl-native
         firefoxpwa
       ];
     };

@@ -126,7 +126,6 @@ in
     steam
     thunderbird
     transmission_4-gtk
-    tridactyl-native
     vial
     vlc
     w3m
