@@ -7,17 +7,24 @@ let
     attrNames
     readDir
     listToAttrs
+    replaceStrings
     ;
 
   modulesDir = ../modules;
   usersDir = "${modulesDir}/users";
   users = (attrNames (readDir usersDir));
+  userProfiles =
+    user:
+    map (file: replaceStrings [ ".nix" ] [ "" ] file) (
+      attrNames (readDir "${usersDir}/${user}/profiles")
+    );
 
   makeConfiguration =
     {
       pkgs,
       extraSpecialArgs,
       user,
+      profile,
       ...
     }:
 
@@ -27,7 +34,7 @@ let
         self.homeModules.userOptions
         self.homeModules.sops
         self.homeModules.flatpak
-        (import "${usersDir}/${user}/home.nix")
+        (import "${usersDir}/${user}/profiles/${profile}.nix")
       ];
     });
 in
@@ -79,20 +86,26 @@ in
       legacyPackages.homeConfigurations = listToAttrs (
         map (user: {
           name = user;
-          value = makeConfiguration {
-            inherit pkgs user;
+          value = listToAttrs (
+            map (profile: {
+              name = profile;
+              value = makeConfiguration {
+                inherit pkgs user profile;
 
-            extraSpecialArgs = {
-              inherit
-                self
-                nixpkgs-unstable
-                nixpkgs-emacs
-                custompkgs
-                ;
-              stateVersion = args.stateVersion;
-              username = user;
-            };
-          };
+                extraSpecialArgs = {
+                  inherit
+                    self
+                    nixpkgs-unstable
+                    nixpkgs-emacs
+                    custompkgs
+                    ;
+                  stateVersion = args.stateVersion;
+                  username = user;
+                };
+              };
+            }) (userProfiles user)
+          );
+
         }) users
       );
     };

@@ -16,11 +16,11 @@ in
   setup = {
     terminal = {
       type = "xterm-256color";
-      theme = import ../../shared/themes/term/monokai-pro.nix;
+      theme = import ../../../shared/themes/term/monokai-pro.nix;
     };
 
     gui = {
-      theme = import ../../shared/themes/gui/yaru-grey.nix;
+      theme = import ../../../shared/themes/gui/yaru-grey.nix;
 
       wallpaper = {
         image = "$XDG_CONFIG_HOME/swaybg/gruvbox_cave.png";
@@ -46,36 +46,36 @@ in
   };
 
   imports = [
-    (importWithArgs ./configs/mime)
-    (importWithArgs ./configs/git)
-    (importWithArgs ./configs/firefox)
-    (importWithArgs ./configs/gpg-agent)
-    (importWithArgs ./configs/dconf)
-    (importWithArgs ./configs/qt)
-    (importWithArgs ./configs/foot)
-    (importWithArgs ./configs/fzf)
-    (importWithArgs ./configs/gh)
-    (importWithArgs ./configs/ripgrep)
-    (importWithArgs ./configs/swaylock)
-    (importWithArgs ./configs/swayr)
-    (importWithArgs ./configs/tmux)
-    (importWithArgs ./configs/zsh)
-    (importWithArgs ./configs/swayidle)
-    (importWithArgs ./configs/swaync)
-    (importWithArgs ./configs/rofi)
-    (importWithArgs ./configs/sway)
-    (importWithArgs ./configs/kvantum)
-    (importWithArgs ./configs/themes)
-    (importWithArgs ./configs/fcitx)
-    (importWithArgs ./configs/mise)
-    (importWithArgs ./configs/direnv)
-    (importWithArgs ./configs/emacs)
-    (importWithArgs ./configs/neovim)
-    (importWithArgs ./configs/latex)
-    (importWithArgs ./configs/mpv)
-    (importWithArgs ./configs/swappy)
-    (importWithArgs ./configs/wayprompt)
-    (importWithArgs ./configs/borgmatic)
+    (importWithArgs ../configs/mime)
+    (importWithArgs ../configs/git)
+    (importWithArgs ../configs/firefox)
+    (importWithArgs ../configs/gpg-agent)
+    (importWithArgs ../configs/dconf)
+    (importWithArgs ../configs/qt)
+    (importWithArgs ../configs/foot)
+    (importWithArgs ../configs/fzf)
+    (importWithArgs ../configs/gh)
+    (importWithArgs ../configs/ripgrep)
+    (importWithArgs ../configs/swaylock)
+    (importWithArgs ../configs/swayr)
+    (importWithArgs ../configs/tmux)
+    (importWithArgs ../configs/zsh)
+    (importWithArgs ../configs/swayidle)
+    (importWithArgs ../configs/swaync)
+    (importWithArgs ../configs/rofi)
+    (importWithArgs ../configs/sway)
+    (importWithArgs ../configs/kvantum)
+    (importWithArgs ../configs/themes)
+    (importWithArgs ../configs/fcitx)
+    (importWithArgs ../configs/mise)
+    (importWithArgs ../configs/direnv)
+    (importWithArgs ../configs/emacs)
+    (importWithArgs ../configs/neovim)
+    (importWithArgs ../configs/latex)
+    (importWithArgs ../configs/mpv)
+    (importWithArgs ../configs/swappy)
+    (importWithArgs ../configs/wayprompt)
+    (importWithArgs ../configs/borgmatic)
   ];
 
   home.sessionVariables = {

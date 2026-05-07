@@ -17,8 +17,8 @@
      (util/commands-command-list
       . (("Rebuild NixOS Configurations Test" . "nixos-rebuild --sudo dry-build --show-trace --flake /etc/nixos#${HOST}")
          ("Rebuild NixOS Configurations" . "nixos-rebuild --sudo switch --show-trace --flake /etc/nixos#${HOST}")
-         ("Rebuild Home Configurations" . "nix run --show-trace /etc/nixos#homeConfigurations.${USER}.activationPackage")
-         ("Rebuild Home Configurations Test" . "nix build --dry-run --show-trace /etc/nixos#homeConfigurations.${USER}.activationPackage")
+         ("Rebuild Home Configurations" . "nix run --show-trace /etc/nixos#homeConfigurations.${USER}.${HOST}.activationPackage")
+         ("Rebuild Home Configurations Test" . "nix build --dry-run --show-trace /etc/nixos#homeConfigurations.${USER}.${HOST}.activationPackage")
          ("Garbage Collect" . "sudo nix-collect-garbage -d -v && nix-collect-garbage -d -v")
          )))
   ))
