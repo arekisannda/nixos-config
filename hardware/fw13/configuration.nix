@@ -40,6 +40,7 @@ let
 
   importHardware = [
     nixos-hardware.framework-amd-ai-300-series
+    ./fixes/fingerprint.nix
     ./hardware-configuration.nix
   ];
 in
@@ -91,8 +92,26 @@ in
 
   # Security Settings
   security.rtkit.enable = true;
+
   security.polkit.enable = true;
-  security.pam.enableFscrypt = true;
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+        if ((action.id == "org.freedesktop.udisks2.filesystem-mount" ||
+            action.id == "org.freedesktop.udisks2.filesystem-mount-system") &&
+            (subject.user == "lightdm" ||
+            subject.user == "gdm" ||
+            subject.user == "sddm" ||
+            subject.user == "greeter")) {
+            return polkit.Result.NO;
+        }
+    });
+  '';
+
+  security.pam.services.sudo.fprintAuth = false;
+  security.pam.services.polkit-1.fprintAuth = false;
+  security.pam.services.swaylock = {};
+  security.pam.services.hyprlock = {};
+  security.pam.services.greetd.fprintAuth = false;
   security.pam.services.greetd.enableGnomeKeyring = true;
   security.pam.services.greetd.gnupg = {
     enable = true;

@@ -13,6 +13,7 @@ let
       PartOf = [ systemdTarget ];
       ConditionEnvironment = "WAYLAND_DISPLAY";
     };
+
   sway-systemd-install = {
     WantedBy = [ "sway-session.target" ];
   };
@@ -121,12 +122,17 @@ in
       };
     };
 
-    "swaylock" = {
-      Unit = sway-systemd-unit { desc = "Sway lockscreen process"; };
+    "sway-lockscreen" = {
+      Unit = {
+        Description = "Sway lockscreen process";
+        After = [ "sway-session.target" ];
+        PartOf = [ "sway-session.target" ];
+        ConditionEnvironment = "WAYLAND_DISPLAY";
+      };
       Service = {
         Type = "simple";
-        # Environment = [ "WAYLAND_DISPLAY=wayland-1" ];
-        ExecStart = "${pkgs.swaylock-effects}/bin/swaylock";
+        PassEnvironment = [ "PATH" ];
+        ExecStart = "${pkgs.hyprlock}/bin/hyprlock";
         Restart = "on-failure";
         TimeoutSec = "infinity";
         RestartSec = 1;
@@ -136,10 +142,10 @@ in
     "secure-session" = {
       Unit = {
         Description = "Lock GPG agent and lock encrypted directory on session lock";
-        Before = [ "swaylock.service" ];
+        Before = [ "sway-lockscreen.service" ];
       };
       Install = {
-        WantedBy = [ "swaylock.service" ];
+        WantedBy = [ "sway-lockscreen.service" ];
       };
       Service = {
         Type = "oneshot";

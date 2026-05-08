@@ -33,7 +33,7 @@ in
       }
       {
         event = "before-sleep";
-        command = "${bin.systemctl} --user start swaylock.service";
+        command = "${bin.systemctl} --user start sway-lockscreen.service";
       }
     ];
 

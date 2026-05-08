@@ -99,6 +99,7 @@ in
                     nixpkgs-emacs
                     custompkgs
                     ;
+                  utils = (import ../utils { });
                   stateVersion = args.stateVersion;
                   username = user;
                 };

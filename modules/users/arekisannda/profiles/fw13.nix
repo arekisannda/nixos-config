@@ -57,6 +57,7 @@ in
     (importWithArgs ../configs/gh)
     (importWithArgs ../configs/ripgrep)
     (importWithArgs ../configs/swaylock)
+    (importWithArgs ../configs/hyprlock)
     (importWithArgs ../configs/swayr)
     (importWithArgs ../configs/tmux)
     (importWithArgs ../configs/zsh)
