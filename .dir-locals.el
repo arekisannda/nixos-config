@@ -6,11 +6,12 @@
           :nixd ( :nixpkgs ( :expr "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs { }" )
                   :formatting ( :command [ "nixfmt" ] )
                   :options
-                  ( :nixos
-                    ( :expr "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${builtins.getEnv \"HOST\"}.options" )
-                    :home-manager
-                    ( :expr "(builtins.getFlake (builtins.toString ./.)).currentSystem.legacyPackages.homeConfigurations.${builtins.getEnv \"USER\"}.options" )
-                    ))
+                  (
+                   :nixos
+                   ( :expr "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.${builtins.replaceStrings [\"\n\"] [\"\"] (builtins.readFile /etc/hostname)}.options" )
+                   :home-manager
+                   ( :expr "(builtins.getFlake (builtins.toString ./.)).currentSystem.legacyPackages.homeConfigurations.${builtins.getEnv \"USER\"}.${builtins.replaceStrings [\"\n\"] [\"\"] (builtins.readFile /etc/hostname)}.options" )
+                   ))
           )
       )
 
