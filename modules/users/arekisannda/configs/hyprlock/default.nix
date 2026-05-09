@@ -19,7 +19,7 @@ let
       g = utils.hexToInt (substring 2 2 hex);
       b = utils.hexToInt (substring 4 2 hex);
       a = if len >= 8 then utils.hexToInt (substring 6 2 hex) else 255;
-      alpha = a / 255.0; 
+      alpha = a / 255.0;
     in
     "rgba(${toString r}, ${toString g}, ${toString b}, ${toString alpha})";
 
@@ -34,7 +34,6 @@ in
       general = {
         hide_cursor = true;
         ignore_empty_input = true;
-        hide_input = true;
       };
 
       auth = {
@@ -89,7 +88,7 @@ in
           inner_color = hexToRgba "${wallpaper.lockscreenColor}00";
           fail_text = "󱈸󱈸󱈸";
           check_color = hexToRgba gui.style.accent;
-          check_text = ""; 
+          check_text = "...";
           capslock_color = hexToRgba gui.style.accentAlt;
           numlock_color = hexToRgba gui.style.accentAlt;
           bothlock_color = hexToRgba gui.style.accentAlt;
