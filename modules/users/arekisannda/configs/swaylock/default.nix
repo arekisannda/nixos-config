@@ -6,7 +6,7 @@ let
 in
 {
   programs.swaylock = {
-    enable = true;
+    enable = false;
     package = pkgs.swaylock-effects;
     settings = {
       indicator = true;

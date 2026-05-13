@@ -40,7 +40,7 @@ in
         "fingerprint:enabled" = true;
         "fingerprint:ready_message" = "Scan fingerprint to unlock";
         "fingerprint:present_message" = "Scanning...";
-        "fingerprint:retry_delay" = 500;
+        "fingerprint:retry_delay" = 250;
       };
 
       animations = {

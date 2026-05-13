@@ -133,6 +133,7 @@ in
         Type = "simple";
         PassEnvironment = [ "PATH" ];
         ExecStart = "${pkgs.hyprlock}/bin/hyprlock";
+        ExecStopPost = "/bin/sh -c '[ \"$SERVICE_RESULT\" = success ] && ${pkgs.systemd}/bin/loginctl unlock-session'";
         Restart = "on-failure";
         TimeoutSec = "infinity";
         RestartSec = 1;
@@ -150,7 +151,11 @@ in
       Service = {
         Type = "oneshot";
         ExecStart = pkgs.writeShellScript "lock-agents.sh" ''
-          ${pkgs.gnupg}/bin/gpgconf --kill gpg-agent
+          ${pkgs.gnupg}/bin/gpgconf --kill gpg-agent;
+          ${pkgs.libnotify}/bin/notify-send  -e \
+            -i 'lock' \
+            'Secure Session' \
+            'Locked agents and encrypted directories'
         '';
       };
     };
