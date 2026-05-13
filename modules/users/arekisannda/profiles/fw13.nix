@@ -78,6 +78,7 @@ in
     (importWithArgs ../configs/swappy)
     (importWithArgs ../configs/wayprompt)
     (importWithArgs ../configs/borgmatic)
+    (importWithArgs ../configs/wireproxy)
   ];
 
   home.sessionVariables = {
