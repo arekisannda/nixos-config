@@ -39,7 +39,7 @@ in
   home.activation.reloadTmux = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if ${pkgs.tmux}/bin/tmux info &>/dev/null; then
       ${pkgs.tmux}/bin/tmux source-file ${config.xdg.configHome}/tmux/tmux.conf
-      ${pkgs.libnotify}/bin/notify-send --transient -t 5000 "Home-Manager Activation" "Reload tmux configuration."
+      ${pkgs.libnotify}/bin/notify-send --transient -h "string:synchronous:tmux" -t 5000 "Home-Manager Activation" "Reload tmux configuration."
     fi
   '';
 }

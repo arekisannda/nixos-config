@@ -35,7 +35,6 @@ in
         lock_cmd = "${bin.systemctl} --user is-active sway-lockscreen.service || ${bin.systemctl} --user start sway-lockscreen.service";
         unlock_cmd = "";
         before_sleep_cmd = "${bin.loginctl} lock-session";
-        after_sleep_cmd = "${bin.swaymsg} output * power on";
       };
 
       listener = [
@@ -47,11 +46,6 @@ in
         {
           timeout = timeout.lock;
           on-timeout = "${bin.loginctl} lock-session";
-        }
-        {
-          timeout = timeout.screen;
-          on-timeout = "${bin.swaymsg} output * power off";
-          on-resume = "${bin.swaymsg} output * power on";
         }
         {
           timeout = timeout.sleep;

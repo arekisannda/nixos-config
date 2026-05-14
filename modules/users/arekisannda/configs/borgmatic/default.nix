@@ -52,7 +52,7 @@ in
                 before = "action";
                 when = [ "create" ];
                 run = [
-                  "${notify-send} --transient -t 5000 \"Borg {repository_label}\" \"Creating backup {repository}\""
+                  "${notify-send} -h \"string:synchronous:borg\" --transient -t 5000 \"Borg {repository_label}\" \"Creating backup {repository}\""
                 ];
               }
               {
@@ -60,7 +60,7 @@ in
                 when = [ "create" ];
                 states = [ "finish" ];
                 run = [
-                  "${notify-send} --transient -t 5000 \"Borg {repository_label}\" \"Completed backup {repository}\""
+                  "${notify-send} -h \"string:synchronous:borg\" --transient -t 5000 \"Borg {repository_label}\" \"Completed backup {repository}\""
                 ];
               }
               {

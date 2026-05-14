@@ -153,6 +153,7 @@ in
         ExecStart = pkgs.writeShellScript "lock-agents.sh" ''
           ${pkgs.gnupg}/bin/gpgconf --kill gpg-agent;
           ${pkgs.libnotify}/bin/notify-send  -e \
+            -h "string:synchronous:secure-session" \
             -i 'lock' \
             'Secure Session' \
             'Locked agents and encrypted directories'
