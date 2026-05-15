@@ -124,6 +124,8 @@ in
     nixpkgs-unstable.claude-code
     nixpkgs-unstable.openscad-unstable
     nixpkgs-unstable.proton-vpn
+    nixpkgs-unstable.protontricks
+    nixpkgs-unstable.steam-run-free
     polkit_gnome
     readability-cli
     steam

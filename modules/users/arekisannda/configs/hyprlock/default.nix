@@ -41,6 +41,8 @@ in
         "fingerprint:ready_message" = "Scan fingerprint to unlock";
         "fingerprint:present_message" = "Scanning...";
         "fingerprint:retry_delay" = 250;
+        "pam:enabled" = true;
+        "pam:module" = "hyprlock";
       };
 
       animations = {
