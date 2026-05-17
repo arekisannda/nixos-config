@@ -3,6 +3,6 @@
 {
   programs.mise = {
     enable = true;
-    enableZshIntegration = true;
+    enableZshIntegration = false;
   };
 }
