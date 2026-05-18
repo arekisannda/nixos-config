@@ -91,7 +91,6 @@ in
     EMACS_USER_DIRECTORY = "$XDG_CONFIG_HOME/emacs";
     GOPATH = "$HOME/.go";
     LSP_USE_PLISTS = "true";
-    MISE_IGNORED_CONFIG_PATHS="${config.home.homeDirectory}/.local/mnt";
   };
 
   home.file =
@@ -110,6 +109,7 @@ in
   services.protonmail-bridge.extraPackages = with pkgs; [ gnome-keyring ];
 
   home.packages = with pkgs; [
+    cameractrls
     anki-bin
     brave
     calibre
