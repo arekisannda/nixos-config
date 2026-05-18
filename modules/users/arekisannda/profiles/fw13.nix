@@ -79,6 +79,7 @@ in
     (importWithArgs ../configs/wayprompt)
     (importWithArgs ../configs/borgmatic)
     (importWithArgs ../configs/wireproxy)
+    (importWithArgs ../configs/zathura)
   ];
 
   home.sessionVariables = {
@@ -134,7 +135,6 @@ in
     w3m
     xdg-user-dirs
     yt-dlp
-    zathura
 
     (aspellWithDicts (
       dicts: with dicts; [

@@ -5,10 +5,11 @@
     defaultApplications = {
       "application/mbox" = [ "thunderbird.desktop" ];
       "application/pdf" = [ "org.pwmt.zathura.desktop" ];
-      "application/x-7z-compressed" = [ "org.gnome.FileRoller.desktop" ];
-      "application/x-rar" = [ "org.gnome.FileRoller.desktop" ];
-      "application/x-tar" = [ "org.gnome.FileRoller.desktop" ];
-      "application/zip" = [ "org.gnome.FileRoller.desktop" ];
+      "application/vnd.comicbook+zip" = [ "org.pwmt.zathura.desktop" ];
+      "application/x-7z-compressed" = [ "xarchiver.desktop" ];
+      "application/x-rar" = [ "xarchiver.desktop" ];
+      "application/x-tar" = [ "xarchiver.desktop" ];
+      "application/zip" = [ "xarchiver.desktop" ];
       "audio/flac" = [ "mpv.desktop" ];
       "audio/mpeg" = [ "mpv.desktop" ];
       "audio/ogg" = [ "mpv.desktop" ];
