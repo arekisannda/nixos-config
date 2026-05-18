@@ -50,9 +50,8 @@
         ]
       ))
 
-      foot
-      cameractrls
       cliphist
+      foot
       glib
       grim
       inotify-tools
@@ -60,6 +59,7 @@
       kdePackages.breeze
       libnotify
       light
+      lxmenu-data
       networkmanagerapplet
       papirus-maia-icon-theme
       pavucontrol
@@ -68,6 +68,7 @@
       pulseaudio
       qjackctl
       rofi
+      shared-mime-info
       slurp
       swappy
       sway-audio-idle-inhibit
@@ -84,6 +85,7 @@
       wlroots
       wlsunset
       wtype
+      xarchiver
     ];
   };
 

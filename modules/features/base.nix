@@ -17,6 +17,7 @@
     man-pages
     man-pages-posix
     neovim
+    ouch
     patsh
     pkg-config
     psmisc
@@ -30,10 +31,8 @@
     stow
     tmux
     tree
-    unzip
     wget
     yq-go
-    zip
     zsh
     zsh-powerlevel10k
   ];
