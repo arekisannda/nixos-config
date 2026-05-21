@@ -10,8 +10,8 @@ in
   systemd.services."rebind-fingerprint-reader" = {
     unitConfig = {
       Description = "Run custom script after resume to restart fingerprint sensor";
-      Wants = [ "sleep.target" ];
-      After = [ "sleep.target" ];
+      Wants = [ "systemd-suspend.target" ];
+      After = [ "systemd-suspend.target" ];
     };
 
     serviceConfig = {
@@ -23,26 +23,35 @@ in
         DRIVER_PATH="/sys/bus/pci/drivers/xhci_hcd"
         ${logger} -t fp-rebind "Running after wake script for Goodix fingerprint reader"
         ${logger} -t fp-rebind "Checking PCI function $PCI_FUNC for Goodix device ID $GOODIX_ID"
-        # Give the system a moment to resume normally
-        ${sleep} 2
+
+        for i in $(seq 1 5); do
+            ${sleep} 1
+            if ${lsusb} -d "$GOODIX_ID" >/dev/null 2>&1; then
+                ${logger} -t fp-rebind "Fingerprint sensor available after ''\${i} s, nothing to do."
+                exit 0
+            fi
+        done
+
         # Check if the fingerprint reader is missing
-        if ! ${lsusb} -d "$GOODIX_ID" >/dev/null 2>&1; then
-          ${logger} -t fp-rebind "Goodix missing after resume, resetting xHCI controller $PCI_FUNC"
-          # Unbind and rebind only that PCI function
-          echo "$PCI_FUNC" >"$DRIVER_PATH/unbind"
-          ${sleep} 1
-          echo "$PCI_FUNC" >"$DRIVER_PATH/bind"
-          ${sleep} 2
-          # Restart fprintd so it picks up the reader again
-          ${systemctl} try-restart fprintd.service
+        ${logger} -t fp-rebind "Goodix missing after resume, resetting xHCI controller $PCI_FUNC"
+        # Unbind and rebind only that PCI function
+        echo "$PCI_FUNC" >"$DRIVER_PATH/unbind"
+        ${sleep} 1
+        echo "$PCI_FUNC" >"$DRIVER_PATH/bind"
+        ${sleep} 2
+        # Restart fprintd so it picks up the reader again
+        ${systemctl} try-restart fprintd.service
+
+        if ${lsusb} -d "$GOODIX_ID" >/dev/null 2>&1; then
+          ${logger} -t fp-rebind "Rebind successful, fingerprint reader restored."
         else
-          ${logger} -t fp-rebind "Fingerprint sensor appears available on the PCI bus, nothing to do."
+          ${logger} -t fp-rebind "Rebind failed, fingerprint reader missing."
         fi
       '';
 
       Type = "oneshot";
     };
 
-    wantedBy = [ "sleep.target" ];
+    wantedBy = [ "systemd-suspend.target" ];
   };
 }

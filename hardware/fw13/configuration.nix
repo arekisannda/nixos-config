@@ -110,8 +110,8 @@ in
   security.pam.services.sudo.fprintAuth = false;
   security.pam.services.login.fprintAuth = false;
   security.pam.services.polkit-1.fprintAuth = false;
-  security.pam.services.swaylock.fprintAuth = false;
-  security.pam.services.hyprlock.fprintAuth = false;
+  security.pam.services.swaylock.fprintAuth = true;
+  security.pam.services.hyprlock.fprintAuth = true;
   security.pam.services.greetd.fprintAuth = false;
   security.pam.services.greetd.enableGnomeKeyring = true;
   security.pam.services.greetd.gnupg = {
@@ -122,6 +122,10 @@ in
 
   # Default Services
   services.fprintd.enable = true;
+  services.fprintd.tod = {
+    enable = true;
+    driver = pkgs.libfprint-2-tod1-goodix;
+  };
   services.fwupd.enable = true;
   services.libinput.enable = true;
   services.printing.enable = true;
