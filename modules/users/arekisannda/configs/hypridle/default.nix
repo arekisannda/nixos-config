@@ -17,7 +17,6 @@ let
     swaymsg = "${pkgs.sway}/bin/swaymsg";
     systemctl = "${pkgs.systemd}/bin/systemctl";
     loginctl = "${pkgs.systemd}/bin/loginctl";
-    kanshictl = "${pkgs.kanshi}/bin/kanshictl";
     notify-send = "${pkgs.libnotify}/bin/notify-send";
   };
 in

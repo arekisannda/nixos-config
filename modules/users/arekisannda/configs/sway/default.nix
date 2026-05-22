@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, custompkgs, ... }:
 
 let
   wallpaper = config.setup.gui.wallpaper;
@@ -99,6 +99,19 @@ in
   services.blueman-applet.enable = true;
 
   systemd.user.services = {
+    "sway-display-manager" = {
+      Unit = sway-systemd-unit { desc = "Sway Display Manager"; };
+      Install = sway-systemd-install;
+      Service = {
+        Type = "simple";
+        PassEnvironment = [ "SWAYSOCK" ];
+        ExecStart = "${custompkgs.sway-display-manager}/bin/swaydm";
+        Restart = "on-failure";
+        TimeoutSec = "infinity";
+        RestartSec = 1;
+      };
+    };
+
     "sway-mode-clock" = {
       Unit = sway-systemd-unit { desc = "Waybar Mode Clock"; };
       Install = sway-systemd-install;

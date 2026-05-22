@@ -55,7 +55,6 @@
       glib
       grim
       inotify-tools
-      kanshi
       kdePackages.breeze
       libnotify
       light
