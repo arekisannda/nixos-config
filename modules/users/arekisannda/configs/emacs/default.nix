@@ -191,11 +191,11 @@ let
     epkgs.melpaBuild {
       pname = "shell-maker";
       ename = "shell-maker";
-      version = "0.89.2";
+      version = "0.91.1";
       src = fetchGit {
         url = "git@github.com:xenodium/shell-maker.git";
-        ref = "v0.89.2";
-        rev = "ea186d05578a3b005b035df5042dff931aa72cb6";
+        ref = "v0.91.1";
+        rev = "a0cbfede8a56efaff476c8e1f6f2477dfcaae354";
       };
       packageRequires = [ ];
     }
@@ -206,11 +206,11 @@ let
     epkgs.melpaBuild {
       pname = "agent-shell";
       ename = "agent-shell";
-      version = "0.49.1";
+      version = "0.50.1";
       src = fetchGit {
         url = "git@github.com:xenodium/agent-shell.git";
-        ref = "v0.49.1";
-        rev = "c974b58cdf2f5051658cd20cda3216d708259927";
+        ref = "v0.50.1";
+        rev = "68b8c394a4838fb54f7dbfc70cee38e7310f03a3";
       };
       packageRequires = [
         shell-maker-latest
