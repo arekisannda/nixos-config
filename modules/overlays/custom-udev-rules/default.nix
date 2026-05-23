@@ -13,11 +13,17 @@ let
     text = builtins.readFile ./42-flipperz.rules;
   };
 
+  elgato-rules = writeTextFile {
+    name = "elgato-udev-rules";
+    destination = "/etc/udev/rules.d/50-elgato.rules";
+    text = builtins.readFile ./50-elgato.rules;
+  };
 in
 symlinkJoin {
   name = "custom-udev-rules";
   paths = [
     vial-rules
     flipperz-rules
+    elgato-rules
   ];
 }
