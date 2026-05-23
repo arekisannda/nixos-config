@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ nixpkgs-unstable, ... }:
 
 {
-  programs.firefox = with pkgs; {
+  programs.firefox = with nixpkgs-unstable; {
     enable = true;
 
     package = firefox.override {
@@ -11,7 +11,7 @@
     };
   };
 
-  home.packages = with pkgs; [
-    firefoxpwa
+  home.packages = [
+    nixpkgs-unstable.firefoxpwa
   ];
 }
