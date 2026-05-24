@@ -10,9 +10,11 @@ in
   systemd.services."rebind-fingerprint-reader" = {
     unitConfig = {
       Description = "Run custom script after resume to restart fingerprint sensor";
-      Wants = [ "systemd-suspend.target" ];
-      After = [ "systemd-suspend.target" ];
+      Wants = [ "suspend.target" "sleep.target" ];
+      After = [ "suspend.target" "sleep.target" ];
     };
+
+    wantedBy = [ "suspend.target" "sleep.target" ];
 
     serviceConfig = {
       ExecStart = pkgs.writeShellScript "rebind-fingerprint-reader.sh" ''
@@ -51,7 +53,5 @@ in
 
       Type = "oneshot";
     };
-
-    wantedBy = [ "systemd-suspend.target" ];
   };
 }

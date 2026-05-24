@@ -8,11 +8,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779525236,
-        "narHash": "sha256-i2XmlgEBHapz928TFaPIEoWshewG890jyO4qGzM9rWo=",
+        "lastModified": 1779662355,
+        "narHash": "sha256-8uHj/pjFGJW6YpGL4ml/LMqLsugmbRc2WvyynKjlCxA=",
         "owner": "arekisannda",
         "repo": "nixos-packages",
-        "rev": "9c0106a52b8cdf1caae147356669434272a1919c",
+        "rev": "d2ad9bc2daba8925380939df2b9c9c355d3c11df",
         "type": "github"
       },
       "original": {

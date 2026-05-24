@@ -98,6 +98,10 @@ in
   services.network-manager-applet.enable = true;
   services.blueman-applet.enable = true;
 
+  home.packages = [
+    custompkgs.sway-display-manager
+  ];
+
   systemd.user.services = {
     "sway-display-manager" = {
       Unit = sway-systemd-unit { desc = "Sway Display Manager"; };
