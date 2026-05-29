@@ -1,4 +1,9 @@
-{ config, pkgs, custompkgs, ... }:
+{
+  config,
+  pkgs,
+  custompkgs,
+  ...
+}:
 
 let
   wallpaper = config.setup.gui.wallpaper;
@@ -109,7 +114,7 @@ in
       Service = {
         Type = "simple";
         PassEnvironment = [ "SWAYSOCK" ];
-        ExecStart = "${custompkgs.sway-display-manager}/bin/swaydm";
+        ExecStart = "${custompkgs.sway-display-manager}/bin/swaydm daemon";
         Restart = "on-failure";
         TimeoutSec = "infinity";
         RestartSec = 1;
