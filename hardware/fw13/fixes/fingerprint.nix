@@ -7,14 +7,27 @@ let
   lsusb = "${pkgs.usbutils}/bin/lsusb";
 in
 {
+  powerManagement.powerDownCommands = ''
+    ${pkgs.systemd}/bin/systemctl stop fprintd.service 2>/dev/null || true
+  '';
+
   systemd.services."rebind-fingerprint-reader" = {
     unitConfig = {
       Description = "Run custom script after resume to restart fingerprint sensor";
-      Wants = [ "suspend.target" "sleep.target" ];
-      After = [ "suspend.target" "sleep.target" ];
+      Wants = [
+        "suspend.target"
+        "sleep.target"
+      ];
+      After = [
+        "suspend.target"
+        "sleep.target"
+      ];
     };
 
-    wantedBy = [ "suspend.target" "sleep.target" ];
+    wantedBy = [
+      "suspend.target"
+      "sleep.target"
+    ];
 
     serviceConfig = {
       ExecStart = pkgs.writeShellScript "rebind-fingerprint-reader.sh" ''
@@ -43,6 +56,8 @@ in
         ${sleep} 2
         # Restart fprintd so it picks up the reader again
         ${systemctl} try-restart fprintd.service
+
+        sleep 1
 
         if ${lsusb} -d "$GOODIX_ID" >/dev/null 2>&1; then
           ${logger} -t fp-rebind "Rebind successful, fingerprint reader restored."

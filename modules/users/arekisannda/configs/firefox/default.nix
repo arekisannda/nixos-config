@@ -1,17 +1,24 @@
 { nixpkgs-unstable, ... }:
 
+let
+  inherit (nixpkgs-unstable) firefox firefoxpwa;
+
+  firefoxpwa-patched = firefoxpwa.overrideAttrs (prev: {
+    libs = "${firefox.libs}:${prev.libs}";
+  });
+in
 {
-  programs.firefox = with nixpkgs-unstable; {
+  programs.firefox = {
     enable = true;
 
     package = firefox.override {
       nativeMessagingHosts = [
-        firefoxpwa
+        firefoxpwa-patched
       ];
     };
   };
 
   home.packages = [
-    nixpkgs-unstable.firefoxpwa
+    firefoxpwa-patched
   ];
 }

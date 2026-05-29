@@ -45,7 +45,7 @@ in
 
       cursor = {
         style = "block";
-        color="${toIniHex colors.cursor.foreground} ${toIniHex colors.cursor.background}";
+        color = "${toIniHex colors.cursor.foreground} ${toIniHex colors.cursor.background}";
         beam-thickness = 1;
       };
 
