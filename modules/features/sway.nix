@@ -50,6 +50,7 @@
         ]
       ))
 
+      brightnessctl
       cliphist
       foot
       glib
@@ -57,7 +58,6 @@
       inotify-tools
       kdePackages.breeze
       libnotify
-      light
       lxmenu-data
       networkmanagerapplet
       papirus-maia-icon-theme
@@ -113,7 +113,6 @@
   };
 
   programs.dconf.enable = true;
-  programs.light.enable = true;
 
   environment.sessionVariables = {
     GTK_CSD = "0";

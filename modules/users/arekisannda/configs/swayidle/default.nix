@@ -9,12 +9,9 @@ let
   };
 
   bin = {
-    cat = "${pkgs.coreutils}/bin/cat";
-    light = "${pkgs.light}/bin/light";
-    pgrep = "${pkgs.procps}/bin/pgrep";
+    grep = "${pkgs.gnugrep}/bin/grep";
+    brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
     playerctl = "${pkgs.playerctl}/bin/playerctl";
-    sleep = "${pkgs.coreutils}/bin/sleep";
-    swaymsg = "${pkgs.sway}/bin/swaymsg";
     systemctl = "${pkgs.systemd}/bin/systemctl";
     loginctl = "${pkgs.systemd}/bin/loginctl";
   };
@@ -43,8 +40,13 @@ in
     timeouts = [
       {
         timeout = timeout.idle;
-        command = "${bin.light} -G > /tmp/brightness && ${bin.light} -S 10";
-        resumeCommand = "${bin.light} -S $([ -f /tmp/brightness ] && ${bin.cat} /tmp/brightness || echo 100%)";
+        command = "${bin.brightnessctl} -qs && ${bin.brightnessctl} -q set 0";
+        resumeCommand = ''
+          ${bin.brightnessctl} -qr 2>&1 | ${bin.grep} -q 'Error' \
+            && ${bin.brightnessctl} -q set 100% \
+            || ${bin.brightnessctl} -qr"
+        '';
+
       }
       {
         timeout = timeout.lock;
