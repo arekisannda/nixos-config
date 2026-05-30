@@ -2,7 +2,7 @@
   description = "NixOS Configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-emacs.url = "github:NixOS/nixpkgs/5e4522be6bdf1600682a6f383434b057b2d77a37";
 
@@ -22,7 +22,7 @@
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.7.0";
@@ -42,7 +42,7 @@
           (
             e:
             import e {
-              stateVersion = "25.11";
+              stateVersion = "26.05";
               users = [ "arekisannda" ];
             }
           )

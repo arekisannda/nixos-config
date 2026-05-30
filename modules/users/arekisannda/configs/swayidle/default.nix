@@ -20,7 +20,7 @@ in
   services.swayidle = {
     enable = false;
 
-    systemdTarget = "sway-session.target";
+    systemdTargets = [ "sway-session.target" ];
 
     events = [
       {
