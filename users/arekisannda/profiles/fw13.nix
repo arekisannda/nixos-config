@@ -16,11 +16,11 @@ in
   setup = {
     terminal = {
       type = "xterm-256color";
-      theme = import ../../../shared/themes/term/monokai-pro.nix;
+      theme = import ../../../modules/shared/themes/term/monokai-pro.nix;
     };
 
     gui = {
-      theme = import ../../../shared/themes/gui/yaru-grey.nix;
+      theme = import ../../../modules/shared/themes/gui/yaru-grey.nix;
 
       wallpaper = {
         image = "$XDG_CONFIG_HOME/swaybg/gruvbox_cave.png";
@@ -178,9 +178,9 @@ in
     nix-index
     nixf
     nixfmt
-    nodePackages.prettier
     nodejs
     octave
+    prettier
     ruff
     shfmt
     strace

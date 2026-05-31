@@ -58,7 +58,7 @@ in
         font-bold-italic = "${font.name}:weight=bold:slant=italic:size=${toString font.size}";
       };
 
-      colors = {
+      colors-dark = {
         alpha = 1.0;
         background = toIniHex colors.background.normal;
         foreground = toIniHex colors.foreground.normal;

@@ -1,5 +1,7 @@
 {
   users ? [ ],
+  modulesDir,
+  usersDir,
   ...
 }:
 
@@ -12,9 +14,7 @@
 }:
 
 let
-  modules = ../../modules;
-  featuresDir = "${modules}/features";
-  usersDir = "${modules}/users";
+  featuresDir = modulesDir + "/features";
 
   importFeatures = map (e: featuresDir + "/${e}.nix") [
     # system

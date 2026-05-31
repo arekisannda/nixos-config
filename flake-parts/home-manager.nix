@@ -10,8 +10,7 @@ let
     replaceStrings
     ;
 
-  modulesDir = ../modules;
-  usersDir = "${modulesDir}/users";
+  usersDir = self.outPath + "/users";
   users = (attrNames (readDir usersDir));
   userProfiles =
     user:

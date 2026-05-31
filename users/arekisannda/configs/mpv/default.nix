@@ -9,24 +9,18 @@ let
     jackaudioSupport = true;
   };
 
-  mpv = (
-    pkgs.mpv-unwrapped.wrapper {
-      scripts = with pkgs.mpvScripts; [ mpris ];
+  mpv = pkgs.mpv.override {
+    inherit mpv-unwrapped;
+    mpvScripts = with pkgs.mpvScripts; [ mpris ];
+  };
 
-      mpv = mpv-unwrapped;
-    }
-  );
-
-  mpv-service = (
-    pkgs.mpv-unwrapped.wrapper {
-      scripts = with pkgs.mpvScripts; [
-        mpris
-        notify-send
-      ];
-
-      mpv = mpv-unwrapped;
-    }
-  );
+  mpv-service = pkgs.mpv.override {
+    inherit mpv-unwrapped;
+    mpvScripts = with pkgs.mpvScripts; [
+      mpris
+      notify-send
+    ];
+  };
 
   mpv-script = pkgs.writeShellScript "mpv-daemon" ''
     ${mpv-service}/bin/mpv --video=no --input-ipc-server=$1 --idle=yes --msg-level=all=warn

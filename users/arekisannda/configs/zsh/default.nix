@@ -25,7 +25,7 @@
       }
       {
         name = "powerlevel10k-config";
-        src = "${self}/modules/users/arekisannda/configs/zsh";
+        src = "${self}/users/arekisannda/configs/zsh";
         file = "p10k.zsh";
       }
       {
