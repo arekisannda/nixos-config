@@ -12,19 +12,28 @@ let
     attrNames
     readDir
     listToAttrs
-    map
+    pathExists
     ;
 
-  hardwareDir = ../hardware;
+  hardwareDir = self.outPath + "/hardware";
   hardwares = (attrNames (readDir hardwareDir));
 
   makeConfiguration =
-    { type, ... }:
+    { hardwareName, ... }:
+    let
+      usersPath = "${hardwareDir}/${hardwareName}/users.nix";
+      defaultsUsersConfig = {
+        trusted-users = [ ];
+        users = [ ];
+      };
+    in
     inputs.nixpkgs.lib.nixosSystem {
       specialArgs = {
         nixos-hardware = inputs.nixos-hardware.nixosModules;
         stateVersion = args.stateVersion;
-        hardwareType = type;
+        hardwareName = hardwareName;
+        usersConfig =
+          defaultsUsersConfig // (if builtins.pathExists usersPath then import usersPath else { });
       };
 
       modules = [
@@ -40,12 +49,10 @@ let
 in
 {
   flake.nixosModules.nixSettings =
-    { ... }:
+    { usersConfig, ... }:
     {
       # Nix Settings
-      nix.settings.trusted-users = [
-        "arekisannda"
-      ];
+      nix.settings.trusted-users = usersConfig.trusted-users;
 
       security.sudo.extraConfig = ''
         Defaults timestamp_type=global
@@ -81,19 +88,28 @@ in
     };
 
   flake.nixosModules.configureHardware =
-    { hardwareType, ... }:
+    { lib, hardwareName, usersConfig, ... }:
+    let
+      diskoPath = "${hardwareDir}/${hardwareName}/disko.nix";
+      configurationPath = "${hardwareDir}/${hardwareName}/configuration.nix";
+    in
     {
-      imports = [
-        # (import ../hardware/${hardwareType}/disko.nix)
-        (import ../hardware/${hardwareType}/configuration.nix { users = [ ] ++ args.users; })
-      ];
+      imports =
+        lib.optional (pathExists diskoPath) (import diskoPath)
+        ++ lib.optional (pathExists configurationPath) (
+          import configurationPath {
+            users = usersConfig.users;
+            modulesDir = self.outPath + "/modules";
+            usersDir = self.outPath + "/users";
+          }
+        );
     };
 
   flake.nixosModules.sops =
-    { hardwareType, ... }:
+    { hardwareName, ... }:
     {
       sops = {
-        defaultSopsFile = "${inputs.secrets}/secrets/${hardwareType}.yaml";
+        defaultSopsFile = "${inputs.secrets}/secrets/${hardwareName}.yaml";
 
         age = {
           sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
@@ -106,7 +122,7 @@ in
   flake.nixosConfigurations = listToAttrs (
     map (hw: {
       name = hw;
-      value = makeConfiguration { type = hw; };
+      value = makeConfiguration { hardwareName = hw; };
     }) hardwares
   );
 }

@@ -43,7 +43,6 @@
             e:
             import e {
               stateVersion = "26.05";
-              users = [ "arekisannda" ];
             }
           )
           [
