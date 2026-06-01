@@ -3,6 +3,7 @@
 {
   programs.gh = {
     enable = true;
+    package = pkgs.gh;
 
     gitCredentialHelper.enable = false;
 
