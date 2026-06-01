@@ -1,0 +1,362 @@
+
+/* =============================================================================
+ *
+ * Waybar configuration
+ *
+ * Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
+ *
+ * =========================================================================== */
+
+/* import css definitions for current theme */
+
+/* -----------------------------------------------------------------------------
+ * Keyframes
+ * -------------------------------------------------------------------------- */
+
+@keyframes blink-warning {
+  70% {
+    color: @wm_icon_bg;
+  }
+
+  to {
+    color: @wm_icon_bg;
+    background-color: @warning_color;
+  }
+}
+
+@keyframes blink-critical {
+  70% {
+    color: @wm_icon_bg;
+  }
+
+  to {
+    color: @wm_icon_bg;
+    background-color: @error_color;
+  }
+}
+
+@keyframes blink-on {
+  70% {
+    color: @wm_icon_bg;
+  }
+
+  to {
+    color: @success_color;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+ * Base styles
+ * -------------------------------------------------------------------------- */
+
+* {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  font-family: @font-family@, "Roboto Mono", sans-serif;
+}
+
+/* general */
+window#waybar {
+  background: transparent;
+  color: @wm_icon_bg;
+  font-size: @font-size@px;
+}
+
+/* modules */
+
+/* main modules */
+#mode,
+#workspaces button,
+#custom-scratchpad,
+#idle_inhibitor,
+#custom-blank,
+#custom-mic,
+#custom-adaptive-light,
+#custom-sunset,
+#custom-pacman,
+#custom-github,
+#custom-lock,
+#custom-bluetooth-device-airloop,
+#custom-bluetooth-device-1000XM5,
+#custom-bluetooth-device-C710N,
+#custom-focus-follows-mouse,
+#custom-builtin-keyboard-fw13,
+#custom-vpn,
+#custom-mode-clock,
+#custom-menu,
+#custom-clipboard,
+#network,
+#bluetooth,
+#custom-dnd,
+#language,
+#custom-playerctl,
+#privacy,
+#custom-wf-recorder,
+#clock {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+#tray {
+  padding-left: 5px;
+  padding-right: 4px;
+}
+
+
+#cpu,
+#memory,
+#temperature {
+  padding-left: 2px;
+  padding-right: 4px;
+}
+
+#pulseaudio,
+#wireplumber,
+#backlight {
+  font-size: 1.15em;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+#battery {
+  padding-left: 6px;
+  padding-right: 2px;
+}
+
+#backlight {
+  padding-left: 6px;
+  padding-right: 0px;
+}
+
+#custom-notification {
+  font-size: 1.1em;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* -----------------------------------------------------------------------------
+ * Module styles
+ * -------------------------------------------------------------------------- */
+
+#privacy {
+  padding: 0px;
+}
+#privacy-item.screenshare {
+  margin-right: 0px;
+  margin-left: 5px;
+  padding-left: 7px;
+}
+
+#privacy-item.audio-in {
+  margin-left: 0px;
+  padding-left: 3px;
+  padding-right: 5px;
+}
+
+#privacy-item.audio-out {
+  margin-left: 0px;
+  padding-left: 3px;
+  padding-right: 5px;
+}
+
+#custom-lock {
+  padding-left: 14px;
+  padding-right: 14px;
+  color: @warning_color;
+}
+
+#custom-spacer {
+  color: @theme_selected_bg_color;
+}
+
+#custom-menu {
+  color: @theme_selected_bg_color;
+  padding-left: 8px;
+  padding-right: 13px;
+}
+
+#battery {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#battery.warning {
+  color: @warning_color;
+}
+
+#battery.critical {
+  color: @error_color;
+}
+
+#battery.warning.discharging {
+  animation-name: blink-warning;
+  animation-duration: 3s;
+}
+
+#battery.critical.discharging {
+  animation-name: blink-critical;
+  animation-duration: 2s;
+}
+
+#battery.charging {
+  animation-name: blink-on;
+  animation-duration: 3s;
+}
+
+#clock,
+#custom-mode-clock {
+  font-weight: bold;
+}
+
+#cpu.warning {
+  color: @warning_color;
+}
+
+#cpu.critical {
+  color: @error_color;
+}
+
+#memory {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#memory.warning {
+  color: @warning_color;
+}
+
+#memory.critical {
+  color: @error_color;
+  animation-name: blink-critical;
+  animation-duration: 2s;
+}
+
+#mode {
+  background: transparent;
+}
+
+#network.disconnected {
+  color: @warning_color;
+}
+
+#pulseaudio.muted {
+  color: @warning_color;
+}
+
+#temperature.warning {
+  color: @warning_color;
+}
+
+#temperature.critical {
+  color: @error_color;
+  animation-name: blink-critical;
+  animation-duration: 2s;
+}
+
+#custom-scratchpad {
+  color: @warning_color;
+}
+
+#idle_inhibitor.activated,
+#custom-sunset.on,
+#custom-vpn.secure,
+#custom-focus-follows-mouse.on,
+#custom-bluetooth-device-airloop.connected,
+#custom-bluetooth-device-1000XM5.connected,
+#custom-bluetooth-device-C710N.connected,
+#custom-builtin-keyboard-fw13.enabled {
+  color: @theme_fg_color;
+}
+
+#idle_inhibitor.deactivated,
+#custom-sunset.off,
+#custom-vpn.insecure,
+#custom-focus-follows-mouse.off,
+#custom-bluetooth-device-airloop.disconnected,
+#custom-bluetooth-device-1000XM5.disconnected,
+#custom-bluetooth-device-C710N.disconnected,
+#custom-builtin-keyboard-fw13.disabled {
+  color: @theme_selected_bg_color;
+}
+
+#custom-mic.off {
+  color: @success_color;
+}
+
+#custom-notification.none,
+#custom-notification.dnd-none,
+#custom-notification.inhibited-none,
+#custom-notification.dnd-inhibited-none {
+  color: @theme_selected_bg_color;
+}
+
+#custom-notification.notification,
+#custom-notification.dnd-notification,
+#custom-notification.inhibited-notification,
+#custom-notification.dnd-inhibited-notification {
+  color: @theme_fg_color;
+}
+
+#workspaces button {
+  /* To compensate for the top border and still have vertical centering */
+  padding-left: 0px;
+  padding-right: 0px;
+  color: @theme_selected_bg_color;
+}
+
+#workspaces button.urgent {
+  color: @warning_color;
+}
+
+#workspaces button.focused {
+  color: @theme_fg_color;
+}
+
+#workspaces button:hover {
+  font-size: 1.2em;
+  background-color: transparent;
+  background: transparent;
+}
+
+#workspaces button.focused:hover {
+  font-size: 1.2em;
+  color: @theme_fg_color;
+}
+
+#workspaces button.urgent:hover {
+  font-size: 1.2em;
+  color: @warning_color;
+}
+
+#custom-pacman {
+  color: @warning_color;
+}
+
+#custom-wf-recorder.active {
+  color: @error_color;
+}
+
+#custom-wf-recorder.inactive {
+  color: @warning_color;
+}
+
+#mpris.playing {
+  color: @theme_fg_color;
+}
+
+#mpris.paused {
+  color: @warning_color;
+}
+
+#mpris.stopped {
+  color: @error_color;
+}
+
+#wireplumber.muted {
+  color: @theme_selected_bg_color;
+}

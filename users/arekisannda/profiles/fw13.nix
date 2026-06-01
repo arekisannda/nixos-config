@@ -80,6 +80,7 @@ in
     (importWithArgs ../configs/borgmatic)
     (importWithArgs ../configs/wireproxy)
     (importWithArgs ../configs/zathura)
+    (importWithArgs ../configs/waybar)
   ];
 
   home.sessionVariables = {

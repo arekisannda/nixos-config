@@ -10,6 +10,9 @@ let
   gui = config.setup.gui.theme;
   systemdTarget = "sway-session.target";
 
+  signals = (import ../waybar/signals.nix);
+  emit = s: "${pkgs.procps}/bin/pkill -RTMIN+${toString s} waybar";
+
   sway-systemd-unit =
     { desc }:
     {
@@ -25,21 +28,52 @@ let
 in
 {
   xdg.configFile = {
-    "sway/config" = {
+    "sway/config" =
+      let
+        wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
+        cliphist = "${pkgs.cliphist}/bin/cliphist";
+      in
+      {
+        enable = true;
+        force = true;
+        text = ''
+          include /etc/sway/config.d/*
+
+          include $XDG_CONFIG_HOME/sway/gui.sway
+          include $XDG_CONFIG_HOME/sway/config.d/*.sway
+          include $XDG_CONFIG_HOME/sway/term.sway
+          include $XDG_CONFIG_HOME/sway/modes/*.sway
+          include $XDG_CONFIG_HOME/sway/inputs/*.sway
+          include $XDG_CONFIG_HOME/sway/local/*.sway
+          include $XDG_CONFIG_HOME/sway/autostarts.sway
+
+          exec [ -x "$(command -v ${wl-paste})" ] && \
+            [ -x "$(command -v ${cliphist})" ] && \
+            ${wl-paste} --watch ${emit signals.custom-clipboard}
+
+          exec [ -x "$(command -v ${wl-paste})" ] && \
+            [ -x "$(command -v ${cliphist})" ] && \
+            ${wl-paste} --watch ${cliphist} store'
+
+          exec_always ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &
+        '';
+      };
+
+    "sway/bar.sway" = {
       enable = true;
       force = true;
       text = ''
-        include /etc/sway/config.d/*
+        bar {
+            id main
+            swaybar_command true
+            position top
+        }
 
-        include $XDG_CONFIG_HOME/sway/gui.sway
-        include $XDG_CONFIG_HOME/sway/config.d/*.sway
-        include $XDG_CONFIG_HOME/sway/term.sway
-        include $XDG_CONFIG_HOME/sway/modes/*.sway
-        include $XDG_CONFIG_HOME/sway/inputs/*.sway
-        include $XDG_CONFIG_HOME/sway/local/*.sway
-        include $XDG_CONFIG_HOME/sway/autostarts.sway
-
-        exec_always ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &
+        bar {
+            id side
+            swaybar_command true
+            position top
+        }
       '';
     };
 
