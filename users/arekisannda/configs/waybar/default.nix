@@ -14,7 +14,8 @@ let
     "<span letter_spacing='10368'>${icon}</span><span color='#525153' rise='1500'>⣿</span><span letter_spacing='-20736' rise='1500'>{icon}</span>";
 
   level-format-icons = [
-    "<span color='#abc86a'>⡀</span>"
+    "<span color='#92bb69'>⠀</span>"
+    "<span color='#9cc771'>⡀</span>"
     "<span color='#a9c47f'>⣀</span>"
     "<span color='#bac276'>⣄</span>"
     "<span color='#cbc06c'>⣤</span>"
@@ -126,9 +127,10 @@ let
     temperature = {
       thermal-zone = 3;
       tooltip = true;
-      warning-threshold = 80;
-      critical-threshold = 100;
+      warning-threshold = 70;
+      critical-threshold = 90;
       format = level-format "󰔏";
+      format-critical = level-format "󰈸";
       format-icons = level-format-icons;
       tooltip-format = "{temperatureC}°C";
     };
@@ -140,7 +142,7 @@ let
         warning = 70;
         critical = 90;
       };
-      format = "<span letter_spacing='10368'>󰍛</span><span color='#525153' rise='1500'>⣿</span><span letter_spacing='-20736' rise='1500'>{icon}</span>";
+      format = level-format "󰍛";
       format-icons = level-format-icons;
     };
 
@@ -151,7 +153,7 @@ let
         warning = 70;
         critical = 90;
       };
-      format = "<span letter_spacing='10368'>󰘚</span><span color='#525153' rise='1500'>⣿</span><span letter_spacing='-20736' rise='1500'>{icon}</span>";
+      format = level-format "󰘚";
       format-icons = level-format-icons;
     };
 

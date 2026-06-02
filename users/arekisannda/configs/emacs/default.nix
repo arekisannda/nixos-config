@@ -444,7 +444,6 @@ in
         rust-mode
         scad-dbus
         scad-mode
-        shackle
         shell-maker
         smartparens
         tmux-mode

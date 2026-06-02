@@ -10,16 +10,20 @@ let
   };
 
   mpv = pkgs.mpv.override {
-    inherit mpv-unwrapped;
-    mpvScripts = with pkgs.mpvScripts; [ mpris ];
+    scripts = with pkgs.mpvScripts; [
+      mpris
+    ];
+
+    mpv-unwrapped = mpv-unwrapped;
   };
 
   mpv-service = pkgs.mpv.override {
-    inherit mpv-unwrapped;
-    mpvScripts = with pkgs.mpvScripts; [
+    scripts = with pkgs.mpvScripts; [
       mpris
       notify-send
     ];
+
+    mpv-unwrapped = mpv-unwrapped;
   };
 
   mpv-script = pkgs.writeShellScript "mpv-daemon" ''
