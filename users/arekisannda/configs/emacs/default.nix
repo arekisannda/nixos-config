@@ -344,10 +344,8 @@ in
 
         a
         ace-window
-        acp
         activities
         affe
-        agent-shell
         aio
         auctex
         cape
@@ -389,6 +387,7 @@ in
         flymake-ruff
         forge
         general
+        ghostel
         ghub
         gnuplot
         gnuplot-mode
@@ -444,7 +443,6 @@ in
         rust-mode
         scad-dbus
         scad-mode
-        shell-maker
         smartparens
         tmux-mode
         transient
@@ -460,7 +458,6 @@ in
         valign
         vertico
         vertico-posframe
-        vterm
         w3m
         windex
         writegood-mode

@@ -36,6 +36,7 @@
     ignores = [
       ".envrc"
       ".direnv"
+      ".claude"
 
       # python
 
