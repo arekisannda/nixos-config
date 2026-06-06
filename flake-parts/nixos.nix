@@ -46,21 +46,6 @@ let
         self.nixosModules.pinNixpkgs
       ];
     };
-
-  makeISO =
-    { hardwareName, ... }:
-    inputs.nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-
-      specialArgs = {
-        stateVersion = args.stateVersion;
-        hardwareName = hardwareName;
-      };
-
-      modules = [
-        self.nixosModules.configureISO
-      ];
-    };
 in
 {
   flake.nixosModules.nixSettings =
@@ -125,15 +110,6 @@ in
         );
     };
 
-  flake.nixosModules.configureISO =
-    { lib, hardwareName, ... }:
-    let
-      isoPath = "${hardwareDir}/${hardwareName}/iso.nix";
-    in
-    {
-      imports = lib.optional (pathExists isoPath) (import isoPath);
-    };
-
   flake.nixosModules.sops =
     { hardwareName, ... }:
     {
@@ -148,17 +124,10 @@ in
       };
     };
 
-  flake.nixosConfigurations =
-    listToAttrs (
-      map (hw: {
-        name = hw;
-        value = makeConfiguration { hardwareName = hw; };
-      }) hardwares
-    )
-    // listToAttrs (
-      map (hw: {
-        name = "${hw}-iso";
-        value = makeISO { hardwareName = hw; };
-      }) hardwares
-    );
+  flake.nixosConfigurations = listToAttrs (
+    map (hw: {
+      name = hw;
+      value = makeConfiguration { hardwareName = hw; };
+    }) hardwares
+  );
 }

@@ -49,6 +49,7 @@
             ./flake-parts/overlays.nix
             ./flake-parts/nixos.nix
             ./flake-parts/home-manager.nix
+            ./flake-parts/iso.nix
           ];
 
       perSystem =
