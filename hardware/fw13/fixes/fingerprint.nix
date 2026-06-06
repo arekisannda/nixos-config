@@ -7,10 +7,6 @@ let
   lsusb = "${pkgs.usbutils}/bin/lsusb";
 in
 {
-  powerManagement.powerDownCommands = ''
-    ${pkgs.systemd}/bin/systemctl stop fprintd.service 2>/dev/null || true
-  '';
-
   systemd.services."rebind-fingerprint-reader" = {
     unitConfig = {
       Description = "Run custom script after resume to restart fingerprint sensor";

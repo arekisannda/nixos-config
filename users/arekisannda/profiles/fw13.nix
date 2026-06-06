@@ -81,6 +81,7 @@ in
     (importWithArgs ../configs/wireproxy)
     (importWithArgs ../configs/zathura)
     (importWithArgs ../configs/waybar)
+    (importWithArgs ../configs/jellyfin)
   ];
 
   home.sessionVariables = {
@@ -110,10 +111,10 @@ in
   services.protonmail-bridge.extraPackages = with pkgs; [ gnome-keyring ];
 
   home.packages = with pkgs; [
-    cameractrls
     anki-bin
     brave
     calibre
+    cameractrls
     dict
     discord
     exercism
