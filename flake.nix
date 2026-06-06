@@ -81,6 +81,7 @@
               gitleaks
               statix
               deadnix
+              nixos-anywhere
             ];
 
             DEV_SHELL = "nixos";

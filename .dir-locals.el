@@ -21,5 +21,22 @@
          ("Rebuild Home Configurations" . "nix run --show-trace /etc/nixos#homeConfigurations.${USER}.${HOST}.activationPackage")
          ("Rebuild Home Configurations Test" . "nix build --dry-run --show-trace /etc/nixos#homeConfigurations.${USER}.${HOST}.activationPackage")
          ("Run Garbage Collection" . "sudo nix-collect-garbage -d -v && nix-collect-garbage -d -v")
-         )))
-  ))
+         ))
+     )
+  )
+
+ ("hardware/media"
+  . ((nil
+      . ((eval
+          . (setq-local
+             util/commands-command-list
+             (append
+              util/commands-command-list
+              '(("Rebuild Media Configurations Test" . "nixos-rebuild --sudo dry-build --target-host media.mgmt --show-trace --flake /etc/nixos#media")
+                ("Rebuild Media Configurations" . "nixos-rebuild --sudo switch --target-host media.mgmt --show-trace --flake /etc/nixos#media")
+                ))
+             ))
+         )
+      ))
+  )
+ )
