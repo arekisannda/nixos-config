@@ -32,6 +32,7 @@ in
       let
         wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
         cliphist = "${pkgs.cliphist}/bin/cliphist";
+        condition = ''[ -x "$(command -v ${wl-paste})" ] && [ -x "$(command -v ${cliphist})" ]'';
       in
       {
         enable = true;
@@ -47,14 +48,8 @@ in
           include $XDG_CONFIG_HOME/sway/local/*.sway
           include $XDG_CONFIG_HOME/sway/autostarts.sway
 
-          exec [ -x "$(command -v ${wl-paste})" ] && \
-            [ -x "$(command -v ${cliphist})" ] && \
-            ${wl-paste} --watch ${emit signals.custom-clipboard}
-
-          exec [ -x "$(command -v ${wl-paste})" ] && \
-            [ -x "$(command -v ${cliphist})" ] && \
-            ${wl-paste} --watch ${cliphist} store'
-
+          exec ${condition} && ${wl-paste} --watch ${emit signals.custom-clipboard}
+          exec ${condition} && ${wl-paste} --watch ${cliphist} store
           exec_always ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1 &
         '';
       };
