@@ -40,6 +40,7 @@ let
         inputs.sops-nix.nixosModules.sops
         inputs.disko.nixosModules.disko
 
+        self.nixosModules.customOptions
         self.nixosModules.nixSettings
         self.nixosModules.configureHardware
         self.nixosModules.sops
@@ -48,6 +49,16 @@ let
     };
 in
 {
+  flake.nixosModules.customOptions =
+    { lib, ... }:
+
+    {
+      options.useDisko = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+      };
+    };
+
   flake.nixosModules.nixSettings =
     { usersConfig, ... }:
     {

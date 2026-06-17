@@ -1,7 +1,9 @@
-{ ... }:
+{ config, lib, ... }:
 
 {
-  disko.devices = {
+  useDisko = true;
+
+  disko.devices = lib.mkIf config.useDisko {
     disk = {
       os = {
         type = "disk";
