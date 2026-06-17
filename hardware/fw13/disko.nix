@@ -1,11 +1,11 @@
 { config, lib, ... }:
 
-{
+ {
   useDisko = false;
 
   disko.devices = lib.mkIf config.useDisko {
     disk = {
-      main = {
+      os = {
         type = "disk";
         device = "/dev/nvme0n1";
         content = {

@@ -31,8 +31,10 @@
     stow
     tmux
     tree
+    unzip
     wget
     yq-go
+    zip
     zsh
     zsh-powerlevel10k
   ];

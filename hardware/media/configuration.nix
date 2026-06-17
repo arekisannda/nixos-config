@@ -52,6 +52,7 @@ in
     tctiEnvironment.enable = true;
   };
 
+  services.fwupd.enable = true;
   services.hardware.bolt.enable = true;
 
   services.openssh = {

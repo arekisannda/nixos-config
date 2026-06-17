@@ -23,7 +23,7 @@ in
       theme = import ../../../modules/shared/themes/gui/yaru-grey.nix;
 
       wallpaper = {
-        image = "$XDG_CONFIG_HOME/swaybg/gruvbox_cave.png";
+        image = "${config.xdg.configHome}/swaybg/gruvbox_cave.png";
         color = "#282828";
         scaling = "center";
         lockscreenColor = "#282828";
@@ -90,7 +90,7 @@ in
     BROWSER = "firefox";
     CALIBRE_USE_DARK_PALETTE = "1";
     DOCKER_HOST = "unix://$XDG_RUNTIME_DIR/docker.sock";
-    EMACS_USER_DIRECTORY = "$XDG_CONFIG_HOME/emacs";
+    EMACS_USER_DIRECTORY = "${config.xdg.configHome}/emacs";
     GOPATH = "$HOME/.go";
     LSP_USE_PLISTS = "true";
   };
@@ -119,6 +119,7 @@ in
     discord
     exercism
     farge
+    fscrypt-experimental
     gcr
     git-remote-gcrypt
     imagemagick
@@ -129,6 +130,7 @@ in
     nixpkgs-unstable.proton-vpn
     nixpkgs-unstable.streamcontroller
     polkit_gnome
+    python314Packages.python-kasa
     readability-cli
     steam
     thunderbird

@@ -40,13 +40,13 @@ in
         text = ''
           include /etc/sway/config.d/*
 
-          include $XDG_CONFIG_HOME/sway/gui.sway
-          include $XDG_CONFIG_HOME/sway/config.d/*.sway
-          include $XDG_CONFIG_HOME/sway/term.sway
-          include $XDG_CONFIG_HOME/sway/modes/*.sway
-          include $XDG_CONFIG_HOME/sway/inputs/*.sway
-          include $XDG_CONFIG_HOME/sway/local/*.sway
-          include $XDG_CONFIG_HOME/sway/autostarts.sway
+          include ${config.xdg.configHome}/sway/gui.sway
+          include ${config.xdg.configHome}/sway/config.d/*.sway
+          include ${config.xdg.configHome}/sway/term.sway
+          include ${config.xdg.configHome}/sway/modes/*.sway
+          include ${config.xdg.configHome}/sway/inputs/*.sway
+          include ${config.xdg.configHome}/sway/local/*.sway
+          include ${config.xdg.configHome}/sway/autostarts.sway
 
           exec ${condition} && ${wl-paste} --watch ${emit signals.custom-clipboard}
           exec ${condition} && ${wl-paste} --watch ${cliphist} store
@@ -203,6 +203,9 @@ in
         Type = "oneshot";
         ExecStart = pkgs.writeShellScript "lock-agents.sh" ''
           ${pkgs.gnupg}/bin/gpgconf --kill gpg-agent;
+          for f in  ${config.xdg.configHome}/secure-session/*; do
+            [[ -f "$f" ]] && bash "$f"
+          done
           ${pkgs.libnotify}/bin/notify-send  -e \
             -h "string:synchronous:secure-session" \
             -i 'lock' \

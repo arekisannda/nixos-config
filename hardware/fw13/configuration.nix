@@ -58,7 +58,10 @@ in
   ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
 
   hardware.fw-fanctrl = {
     enable = true;
@@ -118,6 +121,12 @@ in
     enable = true;
     noAutostart = true;
     storeOnly = true;
+  };
+
+  security.tpm2 = {
+    enable = true;
+    pkcs11.enable = true;
+    tctiEnvironment.enable = true;
   };
 
   # Default Services
