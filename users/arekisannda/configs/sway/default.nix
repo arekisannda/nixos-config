@@ -172,47 +172,5 @@ in
         ExecStart = "${pkgs.sway-audio-idle-inhibit}/bin/sway-audio-idle-inhibit";
       };
     };
-
-    "sway-lockscreen" = {
-      Unit = {
-        Description = "Sway lockscreen process";
-        After = [ "sway-session.target" ];
-        PartOf = [ "sway-session.target" ];
-        ConditionEnvironment = "WAYLAND_DISPLAY";
-      };
-      Service = {
-        Type = "simple";
-        PassEnvironment = [ "PATH" ];
-        ExecStart = "${pkgs.hyprlock}/bin/hyprlock";
-        ExecStopPost = "/bin/sh -c '[ \"$SERVICE_RESULT\" = success ] && ${pkgs.systemd}/bin/loginctl unlock-session'";
-        Restart = "on-failure";
-        TimeoutSec = "infinity";
-        RestartSec = 1;
-      };
-    };
-
-    "secure-session" = {
-      Unit = {
-        Description = "Lock GPG agent and lock encrypted directory on session lock";
-        Before = [ "sway-lockscreen.service" ];
-      };
-      Install = {
-        WantedBy = [ "sway-lockscreen.service" ];
-      };
-      Service = {
-        Type = "oneshot";
-        ExecStart = pkgs.writeShellScript "lock-agents.sh" ''
-          ${pkgs.gnupg}/bin/gpgconf --kill gpg-agent;
-          for f in  ${config.xdg.configHome}/secure-session/*; do
-            [[ -f "$f" ]] && bash "$f"
-          done
-          ${pkgs.libnotify}/bin/notify-send  -e \
-            -h "string:synchronous:secure-session" \
-            -i 'lock' \
-            'Secure Session' \
-            'Locked agents and encrypted directories'
-        '';
-      };
-    };
   };
 }

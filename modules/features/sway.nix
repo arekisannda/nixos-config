@@ -74,7 +74,6 @@
       sway-new-workspace
       swaycons
       swayest-workstyle
-      swayidle
       swaynotificationcenter
       waybar
       waypipe

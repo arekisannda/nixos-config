@@ -1,8 +1,6 @@
 { pkgs, ... }:
 
 let
-  lock = "sway-lockscreen.service";
-
   timeout = {
     idle = 300;
     lock = 600;
@@ -16,24 +14,26 @@ let
     playerctl = "${pkgs.playerctl}/bin/playerctl";
     systemctl = "${pkgs.systemd}/bin/systemctl";
     loginctl = "${pkgs.systemd}/bin/loginctl";
+    lock = "${pkgs.hyprlock}/bin/hyprlock";
+    pidof = "${pkgs.procps}/bin/pidof";
+    pkill = "${pkgs.procps}/bin/pkill";
   };
+
+  lock = "${bin.systemctl} --user start secure-session.service; ${bin.pidof} hyprlock || ${bin.lock} -q --no-fade-in";
 in
 {
   services.hypridle = {
-    enable = true;
+    enable = false;
     systemdTarget = "sway-session.target";
 
     settings = {
       general = {
-        inhibit_sleep = 1;
+        inhibit_sleep = 3;
         ignore_dbus_inhibit = false;
         ignore_systemd_inhibit = false;
         ignore_wayland_inhibit = false;
-        lock_cmd = ''
-          ${bin.systemctl} --user is-active ${lock} || ${bin.systemctl} --user start ${lock}
-        '';
-        unlock_cmd = "";
-        before_sleep_cmd = "${bin.loginctl} lock-session";
+        lock_cmd = lock;
+        before_sleep_cmd = lock;
       };
 
       listener = [

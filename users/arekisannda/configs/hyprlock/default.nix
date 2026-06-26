@@ -25,6 +25,7 @@ let
 
   timeStringSize = floor (gui.font.size * 4.0);
   dateStringSize = floor (gui.font.size * 2.4);
+  date = "${pkgs.coreutils-full}/bin/date";
 in
 {
   programs.hyprlock = {
@@ -61,7 +62,7 @@ in
         # Time
         {
           monitor = "";
-          text = ''cmd[update:1000] echo "$(date +"%I:%M:%S %p")"'';
+          text = ''cmd[update:1000] echo "$(${date} +"%I:%M:%S %p")"'';
           color = hexToRgba gui.style.foreground.focused;
           font_size = timeStringSize;
           font_family = gui.font.mono;
@@ -72,7 +73,7 @@ in
         # Date
         {
           monitor = "";
-          text = ''cmd[update:60000] echo "$(date +"%a, %x")"'';
+          text = ''cmd[update:60000] echo "$(${date} +"%a, %x")"'';
           color = hexToRgba gui.style.foreground.focused;
           font_size = dateStringSize;
           font_family = gui.font.mono;

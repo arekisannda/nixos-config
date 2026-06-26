@@ -14,39 +14,29 @@ let
     playerctl = "${pkgs.playerctl}/bin/playerctl";
     systemctl = "${pkgs.systemd}/bin/systemctl";
     loginctl = "${pkgs.systemd}/bin/loginctl";
+    lock = "${pkgs.hyprlock}/bin/hyprlock";
+    pidof = "${pkgs.procps}/bin/pidof";
+    pkill = "${pkgs.procps}/bin/pkill";
   };
+
+  lock = "${bin.systemctl} --user start secure-session.service; ${bin.pidof} hyprlock || ${bin.lock} -q --no-fade-in";
 in
 {
   services.swayidle = {
-    enable = false;
+    enable = true;
 
     systemdTargets = [ "sway-session.target" ];
 
-    events = [
-      {
-        event = "lock";
-        command = "${bin.systemctl} --user is-active sway-lockscreen.service || ${bin.systemctl} --user start sway-lockscreen.service";
-      }
-      {
-        event = "before-sleep";
-        command = "${bin.playerctl} -a pause";
-      }
-      {
-        event = "before-sleep";
-        command = "${bin.loginctl} lock-session";
-      }
-    ];
+    events = {
+      lock = lock;
+      before-sleep = "${bin.loginctl} lock-session";
+    };
 
     timeouts = [
       {
         timeout = timeout.idle;
         command = "${bin.brightnessctl} -qs && ${bin.brightnessctl} -q set 0";
-        resumeCommand = ''
-          ${bin.brightnessctl} -qr 2>&1 | ${bin.grep} -q 'Error' \
-            && ${bin.brightnessctl} -q set 100% \
-            || ${bin.brightnessctl} -qr"
-        '';
-
+        resumeCommand = "${bin.brightnessctl} -qr 2>&1 | ${bin.grep} -q 'Error' && ${bin.brightnessctl} -q set 100%  || ${bin.brightnessctl} -qr";
       }
       {
         timeout = timeout.lock;
