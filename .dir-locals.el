@@ -12,8 +12,7 @@
                     ( :expr "(builtins.getFlake (builtins.toString ./.)).currentSystem.legacyPackages.homeConfigurations.${builtins.getEnv \"USER\"}.${builtins.replaceStrings [\"\n\"] [\"\"] (builtins.readFile /etc/hostname)}.options" )
                     )
                   )
-          )
-      )
+          ))
 
      (nix-flake-iso-targets
       . (lambda ()
@@ -22,13 +21,11 @@
             (user-error "Not a flake project"))))
 
      (nix-flake-build-iso
-      . (lambda (extra-args)
-          (if-let* ((iso-targets (and (boundp 'nix-flake-iso-targets)
-                                      (functionp nix-flake-iso-targets)
-                                      (funcall nix-flake-iso-targets)))
+      . (lambda (&optional extra-args)
+          (if-let* ((iso-targets (funcall nix-flake-iso-targets))
                     (selected (completing-read "targets: " iso-targets)))
               (detached-shell-command
-               (format "nix build %s --show-trace /etc/nixos#images.%s" extra-args selected))
+               (format "nix build %s --show-trace /etc/nixos#images.%s" (or extra-args "") selected))
             (user-error "Unable to find ISO target"))))
 
      (util/commands-command-list
@@ -38,7 +35,7 @@
          ("Rebuild Home Configurations Test" . "nix build --dry-run --show-trace /etc/nixos#homeConfigurations.${USER}.${HOST}.activationPackage")
          ("Run Garbage Collection" . "sudo nix-collect-garbage -d -v && nix-collect-garbage -d -v")
          ("Run Build ISO Test" . (lambda () (funcall nix-flake-build-iso "--dry-run")))
-         ("Run Build ISO" . (lambda () (funcall nix-flake-build-iso "")))
+         ("Run Build ISO" . (lambda () (funcall nix-flake-build-iso)))
          ))
      ))
 
@@ -51,6 +48,21 @@
               util/commands-command-list
               '(("Rebuild Media Configurations Test" . "nixos-rebuild --sudo dry-build --target-host media.mgmt --show-trace --flake /etc/nixos#media")
                 ("Rebuild Media Configurations" . "nixos-rebuild --sudo switch --target-host media.mgmt --show-trace --flake /etc/nixos#media")
+                ))
+             ))
+         )
+      ))
+  )
+
+("hardware/runner"
+  . ((nil
+      . ((eval
+          . (setq-local
+             util/commands-command-list
+             (append
+              util/commands-command-list
+              '(("Rebuild Runner Configurations Test" . "nixos-rebuild --sudo dry-build --target-host runner.server --show-trace --flake /etc/nixos#runner")
+                ("Rebuild Runner Configurations" . "nixos-rebuild --sudo switch --target-host runner.server --show-trace --flake /etc/nixos#runner")
                 ))
              ))
          )

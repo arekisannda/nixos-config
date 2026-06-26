@@ -42,10 +42,10 @@
       nixgc = "sudo nix-collect-garbage -d -v && nix-collect-garbage -d -v";
       nsch = "nix search";
 
-      ec = "emacsclient -cnuq";
-      er = "emacsclient -rnuq";
+      ec = "emacsclient --create-frame -nuq";
+      er = "emacsclient --reuse-frame -nuq";
       en = "emacsclient -nuq";
-      et = "emacsclient -nw";
+      et = "emacsclient --tty";
       emc = "emacs";
 
       sm = "swaymsg";

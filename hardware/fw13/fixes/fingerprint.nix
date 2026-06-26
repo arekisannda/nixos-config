@@ -1,29 +1,25 @@
-{ pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   logger = "${pkgs.util-linux}/bin/logger";
   systemctl = "${pkgs.systemd}/bin/systemctl";
   sleep = "${pkgs.coreutils}/bin/sleep";
   lsusb = "${pkgs.usbutils}/bin/lsusb";
+  shseq = "${pkgs.coreutils}/bin/seq";
 in
 {
   systemd.services."rebind-fingerprint-reader" = {
     unitConfig = {
       Description = "Run custom script after resume to restart fingerprint sensor";
-      Wants = [
-        "suspend.target"
-        "sleep.target"
-      ];
-      After = [
-        "suspend.target"
-        "sleep.target"
-      ];
+      After = [ "sleep.target" ];
     };
 
-    wantedBy = [
-      "suspend.target"
-      "sleep.target"
-    ];
+    wantedBy = [ "sleep.target" ];
 
     serviceConfig = {
       ExecStart = pkgs.writeShellScript "rebind-fingerprint-reader.sh" ''
@@ -35,7 +31,7 @@ in
         ${logger} -t fp-rebind "Running after wake script for Goodix fingerprint reader"
         ${logger} -t fp-rebind "Checking PCI function $PCI_FUNC for Goodix device ID $GOODIX_ID"
 
-        for i in $(seq 1 5); do
+        for i in $(${shseq} 1 5); do
             ${sleep} 1
             if ${lsusb} -d "$GOODIX_ID" >/dev/null 2>&1; then
                 ${logger} -t fp-rebind "Fingerprint sensor available after ''\${i} s, nothing to do."
