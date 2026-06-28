@@ -97,6 +97,16 @@
     };
   };
 
+  systemd.services."sleep@" = {
+    description = "Pre-sleep hook for %i";
+    wantedBy = [ "sleep.target" ];
+    before = [ "sleep.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.coreutils-full}/bin/sleep 0.5";
+    };
+  };
+
   services.playerctld.enable = true;
 
   services.input-remapper.enable = true;

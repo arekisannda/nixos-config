@@ -19,21 +19,22 @@ let
     pkill = "${pkgs.procps}/bin/pkill";
   };
 
-  lock = "${bin.systemctl} --user start secure-session.service; ${bin.pidof} hyprlock || ${bin.lock} -q --no-fade-in";
+  lockscreen = "sway-lockscreen.service";
+  lock = "${bin.systemctl} --user is-active -q ${lockscreen} || ${bin.systemctl} --user start ${lockscreen}";
 in
 {
   services.hypridle = {
-    enable = false;
+    enable = true;
     systemdTarget = "sway-session.target";
 
     settings = {
       general = {
-        inhibit_sleep = 3;
+        inhibit_sleep = 1;
         ignore_dbus_inhibit = false;
         ignore_systemd_inhibit = false;
         ignore_wayland_inhibit = false;
-        lock_cmd = lock;
-        before_sleep_cmd = lock;
+        lock_cmd = "${lock}";
+        before_sleep_cmd = "${bin.loginctl} lock-session";
       };
 
       listener = [

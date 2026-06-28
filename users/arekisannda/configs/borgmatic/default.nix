@@ -20,6 +20,7 @@ in
           "- ${config.home.homeDirectory}/Books"
           "- ${config.home.homeDirectory}/Music"
           "- ${config.home.homeDirectory}/Downloads"
+          "- ${config.home.homeDirectory}/Desktop"
           "- ${config.home.homeDirectory}/.var"
           "- ${config.home.homeDirectory}/.cache"
           "- ${config.home.homeDirectory}/.encrypted"

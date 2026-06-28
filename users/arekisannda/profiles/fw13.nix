@@ -63,7 +63,6 @@ in
     (importWithArgs ../configs/zsh)
     (importWithArgs ../configs/swayidle)
     (importWithArgs ../configs/hypridle)
-    (importWithArgs ../configs/secure-session)
     (importWithArgs ../configs/swaync)
     (importWithArgs ../configs/rofi)
     (importWithArgs ../configs/sway)

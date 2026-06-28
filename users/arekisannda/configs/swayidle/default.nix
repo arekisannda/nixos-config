@@ -19,11 +19,12 @@ let
     pkill = "${pkgs.procps}/bin/pkill";
   };
 
-  lock = "${bin.systemctl} --user start secure-session.service; ${bin.pidof} hyprlock || ${bin.lock} -q --no-fade-in";
+  lockscreen = "sway-lockscreen.service";
+  lock = "${bin.systemctl} --user is-active -q ${lockscreen} || ${bin.systemctl} --user start ${lockscreen}";
 in
 {
   services.swayidle = {
-    enable = true;
+    enable = false;
 
     systemdTargets = [ "sway-session.target" ];
 
