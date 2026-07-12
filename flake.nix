@@ -83,6 +83,7 @@
               statix
               deadnix
               nixos-anywhere
+              nvd
             ];
 
             DEV_SHELL = "nixos";
