@@ -6,7 +6,7 @@
   ];
 
   services.jellyfin-mpv-shim = {
-    enable = true;
+    enable = false;
     package = pkgs.jellyfin-mpv-shim;
 
     settings = {

@@ -13,6 +13,10 @@ let
   shseq = "${pkgs.coreutils}/bin/seq";
 in
 {
+  powerManagement.powerDownCommands = ''
+    ${systemctl} stop fprintd.service 2>/dev/null || true
+  '';
+
   systemd.services."rebind-fingerprint-reader" = {
     unitConfig = {
       Description = "Run custom script after resume to restart fingerprint sensor";

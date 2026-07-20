@@ -179,6 +179,7 @@ in
     lldb
     mermaid-cli
     meson
+    multimarkdown
     ninja
     nix-index
     nixf

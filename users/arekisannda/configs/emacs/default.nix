@@ -176,11 +176,11 @@ let
     epkgs.melpaBuild {
       pname = "acp";
       ename = "acp";
-      version = "0.11.1";
+      version = "0.12.2";
       src = fetchGit {
         url = "git@github.com:xenodium/acp.el.git";
-        ref = "v0.11.1";
-        rev = "784b00017262260c2c718c98af98f16a2cc7bfdd";
+        ref = "v0.12.2";
+        rev = "c8ee1d7f70105fba8efa964ca63f38ca94a1e759";
       };
       packageRequires = [ ];
     }
@@ -191,11 +191,11 @@ let
     epkgs.melpaBuild {
       pname = "shell-maker";
       ename = "shell-maker";
-      version = "0.91.1";
+      version = "0.93.1";
       src = fetchGit {
         url = "git@github.com:xenodium/shell-maker.git";
-        ref = "v0.91.1";
-        rev = "a0cbfede8a56efaff476c8e1f6f2477dfcaae354";
+        ref = "v0.93.1";
+        rev = "43ee9e1862994cbaa89715d324edb7a424181f22";
       };
       packageRequires = [ ];
     }
@@ -206,11 +206,11 @@ let
     epkgs.melpaBuild {
       pname = "agent-shell";
       ename = "agent-shell";
-      version = "0.50.1";
+      version = "0.55.1";
       src = fetchGit {
         url = "git@github.com:xenodium/agent-shell.git";
-        ref = "v0.50.1";
-        rev = "68b8c394a4838fb54f7dbfc70cee38e7310f03a3";
+        ref = "v0.55.1";
+        rev = "d354db516b6ce8ddc00461e547adc2bae3b07d9d";
       };
       packageRequires = [
         shell-maker-latest
@@ -346,6 +346,7 @@ in
         ace-window
         activities
         affe
+        agent-shell
         aio
         auctex
         cape
@@ -444,6 +445,7 @@ in
         scad-dbus
         scad-mode
         smartparens
+        terraform-mode
         tmux-mode
         transient
         treemacs

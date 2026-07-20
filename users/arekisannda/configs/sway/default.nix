@@ -133,7 +133,7 @@ in
   services.blueman-applet.enable = true;
 
   home.packages = [
-    custompkgs.sway-display-manager
+    custompkgs.swaydm
   ];
 
   systemd.user.services = {
@@ -143,7 +143,7 @@ in
       Service = {
         Type = "simple";
         PassEnvironment = [ "SWAYSOCK" ];
-        ExecStart = "${custompkgs.sway-display-manager}/bin/swaydm daemon";
+        ExecStart = "${custompkgs.swaydm}/bin/swaydm daemon";
         Restart = "on-failure";
         TimeoutSec = "infinity";
         RestartSec = 1;

@@ -52,6 +52,10 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.availableKernelModules = [
     "uas"
+    "sha512"
+  ];
+  boot.initrd.kernelModules = [
+    "sha512"
   ];
   boot.kernelParams = [
     "quiet"

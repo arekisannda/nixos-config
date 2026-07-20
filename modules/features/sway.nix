@@ -103,7 +103,7 @@
     before = [ "sleep.target" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.coreutils-full}/bin/sleep 0.5";
+      ExecStart = "${pkgs.coreutils-full}/bin/sleep 1";
     };
   };
 

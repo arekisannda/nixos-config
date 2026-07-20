@@ -73,10 +73,26 @@ in
             ];
           };
         };
+
+        output = {
+          extraConfig = {
+            borg_exit_codes = [
+              {
+                code = 105;
+                treat_as = "warning";
+              }
+            ];
+          };
+        };
       in
       {
         backup = {
-          inherit storage retention hooks;
+          inherit
+            storage
+            retention
+            hooks
+            output
+            ;
           location = {
             patterns = locationPatterns;
             repositories = [
@@ -89,7 +105,12 @@ in
         };
 
         recovery_alpha = {
-          inherit storage retention hooks;
+          inherit
+            storage
+            retention
+            hooks
+            output
+            ;
           location = {
             patterns = locationPatterns;
             repositories = [
@@ -102,7 +123,12 @@ in
         };
 
         recovery_beta = {
-          inherit storage retention hooks;
+          inherit
+            storage
+            retention
+            hooks
+            output
+            ;
           location = {
             patterns = locationPatterns;
             repositories = [
