@@ -1,3 +1,9 @@
+{ utils, ... }:
+
+let
+  colors = import ../color-schemes/monokai-pro.nix;
+in
+with utils.colors;
 {
   font = {
     size = 9;
@@ -6,68 +12,68 @@
 
   colors = {
     dim = {
-      black = "#221f22";
-      blue = "#6cc1cc";
-      cyan = "#6cc1cc";
-      green = "#96c16b";
-      magenta = "#df587a";
-      red = "#b45d5d";
-      white = "#939293";
-      yellow = "#dfbd5d";
+      black = colors.bg-alt;
+      blue = (darken colors.cyan 0.12);
+      cyan = (darken colors.cyan 0.12);
+      green = (darken colors.green 0.12);
+      magenta = (darken colors.magenta 0.12);
+      red = (darken colors.red 0.12);
+      white = colors.fg-alt;
+      yellow = (darken colors.yellow 0.12);
     };
 
     bright = {
-      black = "#727072";
-      blue = "#8ce1eb";
-      cyan = "#8ce1eb";
-      green = "#b5e18a";
-      magenta = "#ff7899";
-      red = "#d37c7c";
-      white = "#fcfcfa";
-      yellow = "#ffdd7c";
+      black = colors.grey;
+      blue = (lighten colors.blue 0.15);
+      cyan = (lighten colors.cyan 0.15);
+      green = (lighten colors.green 0.15);
+      magenta = (lighten colors.magenta 0.15);
+      red = (lighten colors.red 0.15);
+      white = (lighten colors.fg 0.15);
+      yellow = (lighten colors.yellow 0.15);
     };
 
     normal = {
-      black = "#2d2a2e";
-      blue = "#78dce8";
-      cyan = "#78dce8";
-      green = "#a9dc76";
-      magenta = "#ff6188";
-      red = "#cc6666";
-      white = "#fcfcfa";
-      yellow = "#ffd866";
+      black = colors.bg;
+      blue = colors.blue;
+      cyan = colors.cyan;
+      green = colors.green;
+      magenta = colors.magenta;
+      red = colors.red;
+      white = colors.fg;
+      yellow = colors.yellow;
     };
 
     background = {
-      dim = "#221F22";
-      bright = "#525153";
+      dim = colors.bg-alt;
+      bright = (lighten colors.bg 0.18);
       normal = "#2d2a2e";
     };
 
     foreground = {
-      dim = "#939293";
-      bright = "#ffffff";
-      normal = "#fcfcfa";
+      dim = colors.fg-alt;
+      bright = (lighten colors.fg 1.0);
+      normal = colors.fg;
     };
 
     selection = {
-      background = "#4c4a4d";
-      foreground = "#fcfcfa";
+      background = colors.base5;
+      foreground = colors.fg;
     };
 
     search = {
-      background = "#fc9867";
+      background = colors.orange;
       foreground = "#2d2a2e";
     };
 
     footer = {
-      background = "#2d2a2e";
-      foreground = "#fc9867";
+      background = colors.bg;
+      foreground = colors.orange;
     };
 
     cursor = {
-      background = "#fcfcfa";
-      foreground = "#2d2a2e";
+      background = colors.fg;
+      foreground = colors.bg;
     };
   };
 }

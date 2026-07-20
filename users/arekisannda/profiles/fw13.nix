@@ -16,7 +16,7 @@ in
   setup = {
     terminal = {
       type = "xterm-256color";
-      theme = import ../../../modules/shared/themes/term/monokai-pro.nix;
+      theme = (importWithArgs ../../../modules/shared/themes/term/monokai-pro.nix);
     };
 
     gui = {

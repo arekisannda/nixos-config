@@ -13,12 +13,14 @@ let
   hexToRgba =
     hexColor:
     let
+      inherit (utils.radix) hexToInt;
+
       hex = substring 1 (-1) hexColor;
       len = builtins.stringLength hex;
-      r = utils.hexToInt (substring 0 2 hex);
-      g = utils.hexToInt (substring 2 2 hex);
-      b = utils.hexToInt (substring 4 2 hex);
-      a = if len >= 8 then utils.hexToInt (substring 6 2 hex) else 255;
+      r = hexToInt (substring 0 2 hex);
+      g = hexToInt (substring 2 2 hex);
+      b = hexToInt (substring 4 2 hex);
+      a = if len >= 8 then hexToInt (substring 6 2 hex) else 255;
       alpha = a / 255.0;
     in
     "rgba(${toString r}, ${toString g}, ${toString b}, ${toString alpha})";
