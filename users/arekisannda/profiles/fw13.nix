@@ -82,6 +82,7 @@ in
     (importWithArgs ../configs/zathura)
     (importWithArgs ../configs/waybar)
     (importWithArgs ../configs/jellyfin)
+    (importWithArgs ../configs/openscad)
   ];
 
   home.sessionVariables = {
