@@ -125,6 +125,8 @@ in
     git-remote-gcrypt
     imagemagick
     imv
+    kicad
+    krita
     nixpkgs-unstable.claude-agent-acp
     nixpkgs-unstable.claude-code
     nixpkgs-unstable.openscad-unstable

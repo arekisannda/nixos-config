@@ -25,6 +25,7 @@ let
     "pipewire"
     "docker"
     "udev"
+    "power-management"
 
     # tools
     "gpg"
