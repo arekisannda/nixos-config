@@ -95,22 +95,19 @@ window#waybar {
 #custom-playerctl,
 #privacy,
 #custom-wf-recorder,
-#clock {
+#clock,
+#battery,
+#backlight,
+#tray {
   padding-left: 6px;
   padding-right: 6px;
 }
 
-#tray {
-  padding-left: 5px;
-  padding-right: 4px;
-}
-
-
 #cpu,
 #memory,
 #temperature {
-  padding-left: 2px;
-  padding-right: 4px;
+  padding-left: 0px;
+  padding-right: 2px;
 }
 
 #pulseaudio,
@@ -119,16 +116,6 @@ window#waybar {
   font-size: 1.15em;
   padding-left: 6px;
   padding-right: 6px;
-}
-
-#battery {
-  padding-left: 6px;
-  padding-right: 2px;
-}
-
-#backlight {
-  padding-left: 6px;
-  padding-right: 0px;
 }
 
 #custom-notification {

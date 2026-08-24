@@ -179,8 +179,8 @@ let
       version = "0.12.2";
       src = fetchGit {
         url = "git@github.com:xenodium/acp.el.git";
-        ref = "v0.12.2";
-        rev = "c8ee1d7f70105fba8efa964ca63f38ca94a1e759";
+        ref = "v0.13.1";
+        rev = "a29cb161ac95f1819f34481a98666707661c5cf8";
       };
       packageRequires = [ ];
     }
@@ -191,11 +191,11 @@ let
     epkgs.melpaBuild {
       pname = "shell-maker";
       ename = "shell-maker";
-      version = "0.93.1";
+      version = "0.97.1";
       src = fetchGit {
         url = "git@github.com:xenodium/shell-maker.git";
-        ref = "v0.93.1";
-        rev = "43ee9e1862994cbaa89715d324edb7a424181f22";
+        ref = "v0.97.1";
+        rev = "e7c11e029f3fb54f2c04803d3833e0ccaff4ed3e";
       };
       packageRequires = [ ];
     }
@@ -206,11 +206,11 @@ let
     epkgs.melpaBuild {
       pname = "agent-shell";
       ename = "agent-shell";
-      version = "0.55.1";
+      version = "0.71.2";
       src = fetchGit {
         url = "git@github.com:xenodium/agent-shell.git";
-        ref = "v0.55.1";
-        rev = "d354db516b6ce8ddc00461e547adc2bae3b07d9d";
+        ref = "v0.71.2";
+        rev = "a896bcc1781125ce9d09a78d8f28339cabce1533";
       };
       packageRequires = [
         shell-maker-latest
@@ -431,6 +431,7 @@ in
         org-roam
         org-roam-ui
         org-super-agenda
+        orgit-forge
         pdf-tools
         persist
         plantuml-mode

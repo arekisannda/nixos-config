@@ -45,7 +45,7 @@ in
 
       cursor = {
         style = "block";
-        color = "${toIniHex colors.cursor.foreground} ${toIniHex colors.cursor.background}";
+        unfocused-style = "none";
         beam-thickness = 1;
       };
 
@@ -70,7 +70,7 @@ in
       // (mkColors "dim" colors.dim);
 
       text-bindings = {
-        "\\x00[" = "Control+z";
+        "\\x00[" = "Control+bar";
         "\\x00:" = "Alt+colon";
         "\\x00\\x1b[A" = "Control+Up";
         "\\x00\\x1b[B" = "Control+Down";
@@ -103,6 +103,8 @@ in
         minimize = "none";
         maximize = "none";
         fullscreen = "none";
+        prompt-prev = "none";
+        prompt-next = "none";
         # pipe-command-output=[wl-copy] none # Copy last command's output to the clipboard
         # pipe-visible=[sh -c "xurls | fuzzel | xargs -r firefox"] none
         # pipe-scrollback=[sh -c "xurls | fuzzel | xargs -r firefox"] none

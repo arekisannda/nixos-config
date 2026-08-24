@@ -112,6 +112,7 @@ in
   services.protonmail-bridge.extraPackages = with pkgs; [ gnome-keyring ];
 
   home.packages = with pkgs; [
+    alarm-clock-applet
     anki-bin
     brave
     calibre
@@ -170,6 +171,7 @@ in
 
     # enchant2
     cmake
+    cppman
     delve
     dtach
     gcc
