@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-emacs.url = "github:NixOS/nixpkgs/0bdc42a739c7bc234a934ce71417818224edc8b4";
+    nixpkgs-emacs.url = "github:NixOS/nixpkgs/b4dc1e199d1b6e5fe0dfe73378cd4892ef26e03b";
 
     secrets.url = "git+ssh://git@github.com/arekisannda/nixos-secrets.git?ref=main&shallow=1";
     secrets.flake = false;

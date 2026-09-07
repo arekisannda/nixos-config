@@ -9,7 +9,7 @@ let
   inherit (packages) emacsPackagesFor callPackage;
 
   epkgs = emacsPackagesFor (
-    packages.emacs30.override {
+    packages.emacs31.override {
       withPgtk = true;
       withNativeCompilation = true;
       withTreeSitter = true;
@@ -127,11 +127,11 @@ let
     epkgs.melpaBuild {
       pname = "corfu";
       ename = "corfu";
-      version = "2.5.0";
+      version = "2.14.0";
       src = fetchGit {
         url = "git@github.com:minad/corfu.git";
-        ref = "2.5";
-        rev = "2d7d5d25a9003077329d3469b64d81a60a629aba";
+        ref = "2.14";
+        rev = "75be36fe63e78c63ac71c32039ab07836bd532ac";
       };
       files = ''("*.el")'';
       packageRequires = [ epkgs.compat ];
@@ -143,11 +143,11 @@ let
     epkgs.melpaBuild {
       pname = "cape";
       ename = "cape";
-      version = "2.3.0";
+      version = "2.9.0";
       src = fetchGit {
         url = "git@github.com:minad/cape.git";
-        ref = "2.3";
-        rev = "a3f190328df26f89046b9bfd2ae0adb859c102bd";
+        ref = "2.9";
+        rev = "f0135abaf95a22b9fb2c951751a5d0733ce61bbd";
       };
       packageRequires = [ epkgs.compat ];
     }
@@ -287,6 +287,21 @@ let
     }
   );
 
+  doom-themes-latest = load-custom-packages (
+    { epkgs }:
+    epkgs.melpaBuild {
+      pname = "doom-themes";
+      version = "2.3.1";
+      src = fetchGit {
+        url = "git@github.com:doomemacs/themes.git";
+        ref = "master";
+        rev = "a59202912ad55014e53a685eee6cd94130bdd4fd";
+      };
+      files = ''("*.el" "extensions/*.el" "themes/*.el")'';
+      packageRequires = [ ];
+    }
+  );
+
   emacs = epkgs.overrideScope (
     self: super: rec {
       acp = acp-latest;
@@ -295,6 +310,7 @@ let
       cape = cape-latest;
       corfu = corfu-latest;
       diff-hl = diff-hl-stable;
+      doom-themes = doom-themes-latest;
       exercism = exercism-dev;
       gptel = gptel-latest;
       leetcode = leetcode;
