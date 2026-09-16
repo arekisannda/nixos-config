@@ -160,6 +160,7 @@ in
     custompkgs.rass
     nixpkgs-unstable.bash-language-server
     nixpkgs-unstable.emacs-lsp-booster
+    nixpkgs-unstable.gopls
     nixpkgs-unstable.ltex-ls-plus
     nixpkgs-unstable.lua-language-server
     nixpkgs-unstable.metals
