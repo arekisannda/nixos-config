@@ -9,11 +9,11 @@
         "swaydm": "swaydm"
       },
       "locked": {
-        "lastModified": 1783212974,
-        "narHash": "sha256-4NSAZBWmccweoyxUhv738yNwKu8QQ7dBNhDvAkMDopU=",
+        "lastModified": 1789598149,
+        "narHash": "sha256-tZWcrB5EXFAuFF9dr5mzI+xl3ibHZPBtwiE+8IwcOn8=",
         "owner": "arekisannda",
         "repo": "nixos-packages",
-        "rev": "206e9b1bf50d2edfffcc7ab88173b3bbb96e4463",
+        "rev": "5c64b1690106c3352d9204af9d581b77a32896c8",
         "type": "github"
       },
       "original": {
