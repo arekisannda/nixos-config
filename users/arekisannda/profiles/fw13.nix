@@ -14,6 +14,8 @@ let
 in
 {
   setup = {
+    credential-store = "pass";
+
     terminal = {
       type = "xterm-256color";
       theme = (importWithArgs ../../../modules/shared/themes/term/monokai-pro.nix);
@@ -117,6 +119,7 @@ in
     brave
     calibre
     cameractrls
+    custompkgs.proton-drive
     dict
     discord
     exercism

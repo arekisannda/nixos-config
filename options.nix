@@ -40,6 +40,15 @@ in
 {
   options = {
     setup = {
+      credential-store = mkOption {
+        type = types.enum [
+          "pass"
+          "gnome-keyring"
+          "kwallet"
+        ];
+        default = "pass";
+        description = "Default credential store type.";
+      };
       gui = {
         wallpaper = {
           image = mkStringOption "Background image." "";

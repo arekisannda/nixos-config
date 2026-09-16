@@ -1,5 +1,6 @@
 {
   self,
+  config,
   pkgs,
   lib,
   ...
@@ -34,6 +35,10 @@
         file = "share/fzf-tab/fzf-tab.plugin.zsh";
       }
     ];
+
+    sessionVariables = {
+      PROTON_DRIVE_CREDENTIALS_STORE = config.setup.credential-store;
+    };
 
     shellAliases = {
       ll = "ls -l";
