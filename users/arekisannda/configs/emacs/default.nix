@@ -8,13 +8,28 @@ let
   packages = nixpkgs-emacs;
   inherit (packages) emacsPackagesFor callPackage;
 
-  epkgs = emacsPackagesFor (
-    packages.emacs31.override {
+  canvas-patch =
+    pkgs.runCommand "canvas-31.patch"
+      {
+        nativeBuildInputs = [ pkgs.patchutils ];
+      }
+      ''
+        filterdiff -x '*/etc/NEWS' ${./patch/canvas-31.patch} > $out
+      '';
+
+  emacs-patched =
+    (packages.emacs31.override {
       withPgtk = true;
       withNativeCompilation = true;
       withTreeSitter = true;
-    }
-  );
+    }).overrideAttrs
+      (super: {
+        patches = (super.patches or [ ]) ++ [
+          canvas-patch
+        ];
+      });
+
+  epkgs = emacsPackagesFor emacs-patched;
 
   load-custom-packages = package: callPackage package { inherit epkgs; };
 
@@ -318,9 +333,16 @@ let
       shell-maker = shell-maker-latest;
     }
   );
+
+  emacs-module-dev = pkgs.runCommand "emacs-module-dev" { } ''
+    mkdir -p $out/include
+    cp ${emacs-patched}/include/*.h $out/include/
+  '';
 in
 {
   home.packages = [
+    emacs-module-dev
+
     (emacs.emacsWithPackages (
       epkgs: with epkgs; [
         (treesit-grammars.with-grammars (
