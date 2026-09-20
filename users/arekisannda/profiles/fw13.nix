@@ -133,7 +133,9 @@ in
     krita
     nixpkgs-unstable.claude-agent-acp
     nixpkgs-unstable.claude-code
+    nixpkgs-unstable.f3d
     nixpkgs-unstable.openscad-unstable
+    nixpkgs-unstable.orca-slicer
     nixpkgs-unstable.proton-vpn
     nixpkgs-unstable.streamcontroller
     polkit_gnome

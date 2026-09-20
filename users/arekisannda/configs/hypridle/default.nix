@@ -4,8 +4,8 @@ let
   timeout = {
     idle = 300;
     lock = 600;
-    screen = 900;
-    sleep = 1800;
+    screen = 1800;
+    sleep = 3600;
   };
 
   bin = {
@@ -17,6 +17,7 @@ let
     lock = "${pkgs.hyprlock}/bin/hyprlock";
     pidof = "${pkgs.procps}/bin/pidof";
     pkill = "${pkgs.procps}/bin/pkill";
+    sm = "${pkgs.sway}/bin/swaymsg";
   };
 
   lockscreen = "sway-lockscreen.service";
@@ -50,6 +51,11 @@ in
         {
           timeout = timeout.lock;
           on-timeout = "${bin.loginctl} lock-session";
+        }
+        {
+          timeout = timeout.screen;
+          on-timeout = "${bin.sm} 'output * power off'";
+          on-resume = "${bin.sm} 'output * power on'";
         }
         {
           timeout = timeout.sleep;
