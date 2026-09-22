@@ -159,7 +159,6 @@ in
 
     #lsp
     custompkgs.action-languageserver
-    custompkgs.rass
     nixpkgs-unstable.bash-language-server
     nixpkgs-unstable.emacs-lsp-booster
     nixpkgs-unstable.gopls
@@ -169,6 +168,7 @@ in
     nixpkgs-unstable.nixd
     nixpkgs-unstable.openscad-lsp
     nixpkgs-unstable.pyrefly
+    nixpkgs-unstable.rassumfrassum
     nixpkgs-unstable.terraform-ls
     nixpkgs-unstable.texlab
     nixpkgs-unstable.ty
