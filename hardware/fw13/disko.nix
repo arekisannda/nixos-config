@@ -1,6 +1,6 @@
 { config, lib, ... }:
 
- {
+{
   useDisko = false;
 
   disko.devices = lib.mkIf config.useDisko {

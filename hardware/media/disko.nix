@@ -60,7 +60,10 @@
                 type = "luks";
                 name = "data0";
                 settings.allowDiscards = true;
-                settings.crypttabExtraOpts = ["tpm2-device=auto" "token-timeout=10"];
+                settings.crypttabExtraOpts = [
+                  "tpm2-device=auto"
+                  "token-timeout=10"
+                ];
                 content = {
                   type = "filesystem";
                   format = "xfs";
@@ -84,7 +87,10 @@
                 type = "luks";
                 name = "data1";
                 settings.allowDiscards = true;
-                settings.crypttabExtraOpts = ["tpm2-device=auto" "token-timeout=10"];
+                settings.crypttabExtraOpts = [
+                  "tpm2-device=auto"
+                  "token-timeout=10"
+                ];
                 content = {
                   type = "filesystem";
                   format = "xfs";

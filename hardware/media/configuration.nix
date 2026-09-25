@@ -1,6 +1,5 @@
 {
   users ? [ ],
-  modulesDir,
   usersDir,
   ...
 }:

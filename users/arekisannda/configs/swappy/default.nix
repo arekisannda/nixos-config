@@ -1,7 +1,6 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 let
-  inherit (lib) mkIf;
   iniFormat = pkgs.formats.ini { };
 
   settings = {

@@ -30,10 +30,19 @@ let
     let
       hex = substring 1 (-1) hexColor;
     in
-    [
-      ((hexToInt (substring 0 2 hex)) / 255.0)
-      ((hexToInt (substring 2 2 hex)) / 255.0)
-      ((hexToInt (substring 4 2 hex)) / 255.0)
+    map ({ ind, len }: (clampColorValue (hexToInt (substring ind len hex))) / 255.0) [
+      {
+        ind = 0;
+        len = 2;
+      }
+      {
+        ind = 2;
+        len = 2;
+      }
+      {
+        ind = 4;
+        len = 2;
+      }
     ];
 
   toHexColor = x: padLeft 2 "0" (intToHex (floor (x * 255)));
@@ -44,8 +53,7 @@ let
       c1 = hexToRgb color1;
       c2 = hexToRgb color2;
 
-      res = builtins.genList (i: (((elemAt c1 i) * 1.0 * alpha) + ((elemAt c2 i) * (1.0 - alpha)))) 3
-      ;
+      res = builtins.genList (i: (((elemAt c1 i) * 1.0 * alpha) + ((elemAt c2 i) * (1.0 - alpha)))) 3;
     in
     if (isColor color1) && (isColor color2) && (builtins.isFloat alpha) then
       "#" + (toHexColor (elemAt res 0)) + (toHexColor (elemAt res 1)) + (toHexColor (elemAt res 2))
@@ -60,5 +68,6 @@ in
   inherit
     blend
     lighten
-    darken ;
+    darken
+    ;
 }

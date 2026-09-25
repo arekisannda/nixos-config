@@ -1,8 +1,6 @@
-{ config, ... }:
+{ ... }:
 
 let
-  gui = config.setup.gui.theme;
-
   version = "21.04";
   kvYaru = fetchTarball {
     url = "https://github.com/GabePoel/KvYaru-Colors/releases/download/${version}/KvYaru.Colors.${version}.tar.xz";

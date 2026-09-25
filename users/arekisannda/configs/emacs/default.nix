@@ -318,7 +318,7 @@ let
   );
 
   emacs = epkgs.overrideScope (
-    self: super: rec {
+    _self: _super: rec {
       acp = acp-latest;
       activities = activities;
       agent-shell = agent-shell-latest;
@@ -346,7 +346,7 @@ in
     (emacs.emacsWithPackages (
       epkgs: with epkgs; [
         (treesit-grammars.with-grammars (
-          grammars: with pkgs.tree-sitter-grammars; [
+          _grammars: with pkgs.tree-sitter-grammars; [
             tree-sitter-bash
             tree-sitter-c
             tree-sitter-c-sharp

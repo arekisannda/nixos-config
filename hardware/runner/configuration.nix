@@ -1,6 +1,5 @@
 {
   users ? [ ],
-  modulesDir,
   usersDir,
   ...
 }:
@@ -64,7 +63,6 @@ in
     pkcs11.enable = true;
     tctiEnvironment.enable = true;
   };
-
 
   services.fwupd.enable = true;
 
