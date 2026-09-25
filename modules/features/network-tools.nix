@@ -14,6 +14,7 @@
     dig
     dnsutils
     ethtool
+    inetutils
     ldns
     mitmproxy
     mtr

@@ -95,6 +95,7 @@ in
     DOCKER_HOST = "unix://$XDG_RUNTIME_DIR/docker.sock";
     EMACS_USER_DIRECTORY = "${config.xdg.configHome}/emacs";
     GOPATH = "$HOME/.go";
+    GTK_THEME = config.setup.gui.theme.gtk;
     LSP_USE_PLISTS = "true";
   };
 
@@ -131,11 +132,11 @@ in
     imv
     kicad
     krita
+    nixpkgs-unstable.bambu-studio
     nixpkgs-unstable.claude-agent-acp
     nixpkgs-unstable.claude-code
     nixpkgs-unstable.f3d
     nixpkgs-unstable.openscad-unstable
-    nixpkgs-unstable.orca-slicer
     nixpkgs-unstable.proton-vpn
     nixpkgs-unstable.streamcontroller
     polkit_gnome
