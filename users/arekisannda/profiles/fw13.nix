@@ -128,6 +128,7 @@ in
     fscrypt-experimental
     gcr
     git-remote-gcrypt
+    gitleaks
     imagemagick
     imv
     kicad

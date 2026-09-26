@@ -234,23 +234,6 @@ let
     }
   );
 
-  diff-hl-stable = load-custom-packages (
-    { epkgs }:
-    epkgs.melpaBuild {
-      pname = "diff-hl";
-      ename = "diff-hl";
-      version = "1.10.0";
-      src = fetchGit {
-        url = "git@github.com:dgutov/diff-hl.git";
-        ref = "1.10.0";
-        rev = "57d9d4e3e17397bf178c3aa5c369b5edd24523e0";
-      };
-      packageRequires = [
-        epkgs.cl-lib
-      ];
-    }
-  );
-
   leetcode = load-custom-packages (
     { epkgs }:
     epkgs.melpaBuild {
@@ -324,7 +307,6 @@ let
       agent-shell = agent-shell-latest;
       cape = cape-latest;
       corfu = corfu-latest;
-      diff-hl = diff-hl-stable;
       doom-themes = doom-themes-latest;
       exercism = exercism-dev;
       gptel = gptel-latest;
@@ -425,6 +407,7 @@ in
         flymake-golangci
         flymake-ruff
         forge
+        fringe-helper
         general
         ghostel
         ghub
