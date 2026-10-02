@@ -1,6 +1,7 @@
 {
   pkgs,
   nixpkgs-emacs,
+  custompkgs,
   ...
 }:
 
@@ -8,28 +9,7 @@ let
   packages = nixpkgs-emacs;
   inherit (packages) emacsPackagesFor callPackage;
 
-  canvas-patch =
-    pkgs.runCommand "canvas-31.patch"
-      {
-        nativeBuildInputs = [ pkgs.patchutils ];
-      }
-      ''
-        filterdiff -x '*/etc/NEWS' ${./patch/canvas-31.patch} > $out
-      '';
-
-  emacs-patched =
-    (packages.emacs31.override {
-      withPgtk = true;
-      withNativeCompilation = true;
-      withTreeSitter = true;
-    }).overrideAttrs
-      (super: {
-        patches = (super.patches or [ ]) ++ [
-          canvas-patch
-        ];
-      });
-
-  epkgs = emacsPackagesFor emacs-patched;
+  epkgs = emacsPackagesFor custompkgs.emacs;
 
   load-custom-packages = package: callPackage package { inherit epkgs; };
 
@@ -43,21 +23,6 @@ let
   #       packageRequires = [ ];
   #     }
   #   )).overrideAttrs (previousAttrs: { });
-
-  org-dev = load-custom-packages (
-    { epkgs }:
-    epkgs.melpaBuild {
-      pname = "org";
-      ename = "org";
-      version = "9.8";
-      src = fetchGit {
-        url = "https://code.tecosaur.net/tec/org-mode.git";
-        ref = "dev";
-        rev = "1ef59f0aa02e3cff40bae68b756a29bc2001739e";
-      };
-      packageRequires = [ ];
-    }
-  );
 
   edraw = load-custom-packages (
     { epkgs }:
@@ -311,19 +276,13 @@ let
       exercism = exercism-dev;
       gptel = gptel-latest;
       leetcode = leetcode;
-      org = org-dev;
       shell-maker = shell-maker-latest;
     }
   );
-
-  emacs-module-dev = pkgs.runCommand "emacs-module-dev" { } ''
-    mkdir -p $out/include
-    cp ${emacs-patched}/include/*.h $out/include/
-  '';
 in
 {
   home.packages = [
-    emacs-module-dev
+    custompkgs.emacs.dev
 
     (emacs.emacsWithPackages (
       epkgs: with epkgs; [

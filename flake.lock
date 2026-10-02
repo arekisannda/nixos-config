@@ -6,14 +6,17 @@
         "nixpkgs": [
           "nixpkgs"
         ],
+        "nixpkgs-emacs": [
+          "nixpkgs-emacs"
+        ],
         "swaydm": "swaydm"
       },
       "locked": {
-        "lastModified": 1789598149,
-        "narHash": "sha256-tZWcrB5EXFAuFF9dr5mzI+xl3ibHZPBtwiE+8IwcOn8=",
+        "lastModified": 1790898086,
+        "narHash": "sha256-hFGsIdjw98O4acnx+Yie3N04PMRjOYciD6wzmkrwiRI=",
         "owner": "arekisannda",
         "repo": "nixos-packages",
-        "rev": "5c64b1690106c3352d9204af9d581b77a32896c8",
+        "rev": "984ce0c95cc8737c8c153f41eaec9ee94414890f",
         "type": "github"
       },
       "original": {

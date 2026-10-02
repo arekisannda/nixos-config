@@ -15,6 +15,7 @@
 
     custompkgs.url = "github:arekisannda/nixos-packages";
     custompkgs.inputs.nixpkgs.follows = "nixpkgs";
+    custompkgs.inputs.nixpkgs-emacs.follows = "nixpkgs-emacs";
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
