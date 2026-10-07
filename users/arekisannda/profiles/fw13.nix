@@ -162,6 +162,7 @@ in
     #lsp
     custompkgs.action-languageserver
     nixpkgs-unstable.bash-language-server
+    nixpkgs-unstable.cmake-language-server
     nixpkgs-unstable.emacs-lsp-booster
     nixpkgs-unstable.gopls
     nixpkgs-unstable.ltex-ls-plus
@@ -177,7 +178,8 @@ in
     nixpkgs-unstable.yaml-language-server
     nixpkgs-unstable.zls
 
-    # enchant2
+    bear
+    clang-tools
     cmake
     cppman
     delve

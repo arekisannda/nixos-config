@@ -2,6 +2,7 @@
   pkgs,
   nixpkgs-emacs,
   custompkgs,
+  lib,
   ...
 }:
 
@@ -23,21 +24,6 @@ let
   #       packageRequires = [ ];
   #     }
   #   )).overrideAttrs (previousAttrs: { });
-
-  edraw = load-custom-packages (
-    { epkgs }:
-    epkgs.melpaBuild {
-      pname = "edraw";
-      ename = "edraw";
-      version = "1.2.1";
-      src = fetchGit {
-        url = "git@github.com:misohena/el-easydraw.git";
-        ref = "master";
-        rev = "8007f50c1c1734325c47939904f486753c7dd8ee";
-      };
-      packageRequires = [ ];
-    }
-  );
 
   scad-dbus = load-custom-packages (
     { epkgs }:
@@ -265,6 +251,87 @@ let
     }
   );
 
+  excali-mode = load-custom-packages (
+    { epkgs }:
+
+    let
+      excalidrawSrc = fetchGit {
+        url = "git@github.com:excalidraw/excalidraw.git";
+        ref = "v0.18.1";
+        rev = "a2ec2889babf7d2295469c6d90ebe77fae57df84";
+        shallow = true;
+      };
+
+      fontFamilies = [
+        "Assistant"
+        "Cascadia"
+        "ComicShanns"
+        "Excalifont"
+        "Liberation"
+        "Lilita"
+        "Nunito"
+        "Virgil"
+        "Xiaolai"
+      ];
+    in
+    epkgs.melpaBuild {
+      pname = "excali";
+      version = "0.2.0";
+      src = fetchGit {
+        url = "git@github.com:yibie/excali-mode.git";
+        ref = "v0.2.0";
+        rev = "98480be4ea08836155a052796de02dd49c03226e";
+      };
+      files = ''(:defaults "*.so" ("fonts" "fonts/*"))'';
+      packageRequires = [ ];
+
+      nativeBuildInputs = with nixpkgs-emacs; [
+        pkg-config
+        gcc
+        woff2
+      ];
+
+      buildInputs = with nixpkgs-emacs; [
+        cairo
+        custompkgs.emacs
+        fontconfig
+        gdk-pixbuf
+        librsvg
+        libwebp
+        pango
+        zlib
+      ];
+
+      preBuild = ''
+        mkdir -p fonts
+
+        shopt -s nullglob   # globs that match nothing expand to nothing
+
+        for fam in ${lib.concatStringsSep " " fontFamilies}; do
+            src=${excalidrawSrc}/packages/excalidraw/fonts/$fam
+
+            if [ ! -d "$src" ]; then
+                echo "excali fonts: $fam not found upstream, skipping"
+                continue
+            fi
+
+            install -D -m 444 "$src"/*.woff2 -t "fonts/$fam/"
+            for f in fonts/$fam/*.woff2; do
+                woff2_decompress "$f" && rm "$f"
+            done
+        done
+
+        shopt -u nullglob
+        make
+      '';
+
+      postPatch = ''
+        substituteInPlace excali.el \
+          --replace-fail '(emacs "32.0")' '(emacs "31.1")'
+      '';
+    }
+  );
+
   emacs = epkgs.overrideScope (
     _self: _super: rec {
       acp = acp-latest;
@@ -292,8 +359,8 @@ in
             tree-sitter-c
             tree-sitter-c-sharp
             tree-sitter-cmake
-            tree-sitter-css
             tree-sitter-cpp
+            tree-sitter-css
             tree-sitter-dockerfile
             tree-sitter-elisp
             tree-sitter-go
@@ -301,6 +368,7 @@ in
             tree-sitter-html
             tree-sitter-javascript
             tree-sitter-json
+            tree-sitter-just
             tree-sitter-kotlin
             tree-sitter-latex
             tree-sitter-lua
@@ -345,7 +413,6 @@ in
         diff-hl
         diminish
         editorconfig
-        edraw
         eglot-booster
         eldoc-box
         embark
@@ -361,6 +428,7 @@ in
         evil-mc
         evil-nerd-commenter
         evil-surround
+        excali-mode
         expreg
         flymake-clippy
         flymake-golangci
@@ -381,6 +449,7 @@ in
         ibuffer-project
         impatient-mode
         indent-bars
+        just-mode
         kotlin-mode
         kotlin-ts-mode
         latex-math-preview
