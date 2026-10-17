@@ -47,7 +47,7 @@ with utils.colors;
     background = {
       dim = colors.bg-alt;
       bright = (lighten colors.bg 0.18);
-      normal = "#2d2a2e";
+      normal = colors.bg;
     };
 
     foreground = {
@@ -74,6 +74,11 @@ with utils.colors;
     cursor = {
       background = colors.fg;
       foreground = colors.bg;
+    };
+
+    border = {
+      background = colors.bg;
+      foreground = colors.border;
     };
   };
 }

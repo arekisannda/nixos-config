@@ -62,6 +62,10 @@ in
         alpha = 1.0;
         background = toIniHex colors.background.normal;
         foreground = toIniHex colors.foreground.normal;
+
+        # colors
+        "238" = toIniHex colors.border.foreground;
+
         flash = toIniHex colors.foreground.bright;
         flash-alpha = 0.5;
       }
@@ -70,7 +74,7 @@ in
       // (mkColors "dim" colors.dim);
 
       text-bindings = {
-        "\\x00[" = "Control+Shift+bar";
+        "\\x00[" = "Control+backslash";
         "\\x00:" = "Alt+colon";
         "\\x00\\x1b[A" = "Control+Up";
         "\\x00\\x1b[B" = "Control+Down";

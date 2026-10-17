@@ -12,6 +12,7 @@ rec {
   base8 = "#fcfcfa";
   fg = "#fcfcfa";
   fg-alt = "#939293";
+  border = "#413f42";
 
   grey = "#727072";
   red = "#cc6666";

@@ -145,13 +145,18 @@ in
             };
 
             footer = {
-              background = mkStringOption "Search background." "000000";
-              foreground = mkStringOption "Search foreground." "df5f00";
+              background = mkStringOption "Footer background." "000000";
+              foreground = mkStringOption "Footer foreground." "df5f00";
             };
 
             cursor = {
               background = mkStringOption "Cursor background." "ffffff";
               foreground = mkStringOption "Cursor foreground." "000000";
+            };
+
+            border = {
+              background = mkStringOption "Border background." "000000";
+              foreground = mkStringOption "Border foreground." "ffffff";
             };
           };
         };
