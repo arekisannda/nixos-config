@@ -6,6 +6,9 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-emacs.url = "github:NixOS/nixpkgs/b4dc1e199d1b6e5fe0dfe73378cd4892ef26e03b";
 
+    nixpkgs-iso.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-iso-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
     secrets.url = "git+ssh://git@github.com/arekisannda/nixos-secrets.git?ref=main&shallow=1";
     secrets.flake = false;
 
@@ -75,6 +78,8 @@
           _module.args.pkgs = mkPackages inputs.nixpkgs;
           _module.args.nixpkgs-unstable = mkPackages inputs.nixpkgs-unstable;
           _module.args.nixpkgs-emacs = mkPackages inputs.nixpkgs-emacs;
+          _module.args.nixpkgs-iso = mkPackages inputs.nixpkgs-iso;
+          _module.args.nixpkgs-iso-unstable = mkPackages inputs.nixpkgs-iso-unstable;
           _module.args.custompkgs = inputs'.custompkgs.packages;
 
           devShells.default = pkgs.mkShell {
