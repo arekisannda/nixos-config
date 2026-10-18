@@ -74,7 +74,7 @@ in
       // (mkColors "dim" colors.dim);
 
       text-bindings = {
-        "\\x00[" = "Control+backslash";
+        "\\x00[" = "Control+Shift+backslash";
         "\\x00:" = "Alt+colon";
         "\\x00\\x1b[A" = "Control+Up";
         "\\x00\\x1b[B" = "Control+Down";

@@ -73,7 +73,7 @@ let
     }
   );
 
-  activities = load-custom-packages (
+  activities-latest = load-custom-packages (
     { epkgs }:
     epkgs.melpaBuild {
       pname = "activities";
@@ -142,7 +142,7 @@ let
     epkgs.melpaBuild {
       pname = "acp";
       ename = "acp";
-      version = "0.12.2";
+      version = "0.13.1";
       src = fetchGit {
         url = "git@github.com:xenodium/acp.el.git";
         ref = "v0.13.1";
@@ -185,7 +185,7 @@ let
     }
   );
 
-  leetcode = load-custom-packages (
+  leetcode-dev = load-custom-packages (
     { epkgs }:
     epkgs.melpaBuild {
       pname = "leetcode";
@@ -335,14 +335,14 @@ let
   emacs = epkgs.overrideScope (
     _self: _super: rec {
       acp = acp-latest;
-      activities = activities;
+      activities = activities-latest;
       agent-shell = agent-shell-latest;
       cape = cape-latest;
       corfu = corfu-latest;
       doom-themes = doom-themes-latest;
       exercism = exercism-dev;
       gptel = gptel-latest;
-      leetcode = leetcode;
+      leetcode = leetcode-dev;
       shell-maker = shell-maker-latest;
     }
   );
