@@ -17,3 +17,5 @@ set $term_toggle $term \
   --title "Dropdown Terminal" \
   --class $toggle_term_class \
   --command bash -c "tmux attach-session -t toggle || tmux new-session -s toggle"
+
+set $term_select $term --command sh -c 'tmux attach -t "=$(tmux ls 2>/dev/null | fzf --exit-0 | cut -d ":" -f 1)" 2>/dev/null || tmux new-session'

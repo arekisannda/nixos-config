@@ -1,14 +1,14 @@
 /* -*- mode: css; -*- */
 /*****----- Configuration -----*****/
 configuration {
-modi:                       "drun";
-matching:                   "normal";
-display-drun:               " ";
-case-sensitve:              false;
-sorting-method:             "fzf";
-drun-display-format:        "{name}";
-kb-custom-1:                "Alt+Return";
-kb-custom-2:                "Alt+Shift+Return";
+modi:                "drun";
+matching:            "normal";
+display-drun:        " ";
+case-sensitve:       false;
+sorting-method:      "fzf";
+drun-display-format: "{name}";
+kb-custom-1:         "Alt+Return";
+kb-custom-2:         "Alt+Shift+Return";
 }
 
 /*****----- Global Properties -----*****/
