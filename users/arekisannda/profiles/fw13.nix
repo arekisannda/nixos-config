@@ -137,6 +137,7 @@ in
     nixpkgs-unstable.claude-agent-acp
     nixpkgs-unstable.claude-code
     nixpkgs-unstable.f3d
+    nixpkgs-unstable.just
     nixpkgs-unstable.openscad-unstable
     nixpkgs-unstable.proton-vpn
     nixpkgs-unstable.streamcontroller

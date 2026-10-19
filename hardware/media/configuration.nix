@@ -30,13 +30,33 @@ in
   ++ importUsers;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.loader.systemd-boot.enable = false;
+  boot.loader.efi.canTouchEfiVariables = false;
+
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    efiInstallAsRemovable = true;
+    mirroredBoots = [
+      {
+        devices = [ "nodev" ];
+        path = "/boot";
+      }
+      {
+        devices = [ "nodev" ];
+        path = "/boot-fallback";
+      }
+    ];
+  };
+
   boot.blacklistedKernelModules = [
     "iwlwifi"
     "sdhci_pci"
   ];
   boot.initrd.systemd.enable = true;
+  boot.swraid.enable = true;
+  boot.swraid.mdadmConf = "MAILADDR root";
 
   hardware.enableRedistributableFirmware = true;
 
