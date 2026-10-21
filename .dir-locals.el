@@ -14,6 +14,8 @@
                   )
           ))
 
+     (util/commands-allow-additional-commands . nil)
+
      (nix-flake-iso-targets
       . (lambda ()
           (if-let* ((flake-root (locate-dominating-file default-directory "flake.nix")))
@@ -21,21 +23,22 @@
             (user-error "Not a flake project"))))
 
      (nix-flake-build-iso
-      . (lambda (&optional extra-args)
+      . (lambda (&optional command)
           (if-let* ((iso-targets (funcall nix-flake-iso-targets))
-                    (selected (completing-read "targets: " iso-targets)))
+                    (selected (completing-read "ISO target: " iso-targets)))
               (detached-shell-command
-               (format "nix build %s --show-trace /etc/nixos#images.%s" (or extra-args "") selected))
+               (format "%s %s" command selected))
             (user-error "Unable to find ISO target"))))
 
      (util/commands-command-list
-      . (("Rebuild NixOS Configurations Test" . "nixos-rebuild --sudo dry-build --show-trace --flake /etc/nixos#${HOST}")
-         ("Rebuild NixOS Configurations" . "nixos-rebuild --sudo switch --show-trace --flake /etc/nixos#${HOST}")
-         ("Rebuild Home Configurations" . "nix run --show-trace /etc/nixos#homeConfigurations.${USER}.${HOST}.activationPackage")
-         ("Rebuild Home Configurations Test" . "nix build --dry-run --show-trace /etc/nixos#homeConfigurations.${USER}.${HOST}.activationPackage")
-         ("Run Garbage Collection" . "sudo nix-collect-garbage -d -v && nix-collect-garbage -d -v")
-         ("Run Build ISO Test" . (lambda () (funcall nix-flake-build-iso "--dry-run")))
-         ("Run Build ISO" . (lambda () (funcall nix-flake-build-iso)))
+      . (("Rebuild NixOS Configurations Test" . "just rebuild-nixos-test")
+         ("Rebuild NixOS Configurations" . "just rebuild-nixos")
+         ("Rebuild Home Configurations" . "just rebuild-home")
+         ("Rebuild Home Configurations Test" . "just rebuild-home-test")
+         ("Run Garbage Collection" . "just --yes collect-garbage")
+         ("Run Build ISO Test" . (lambda () (funcall nix-flake-build-iso "just build-iso-test")))
+         ("Run Build ISO" . (lambda () (funcall nix-flake-build-iso "just build-iso")))
+         ("Update Nix Flake Inputs" . (lambda () (funcall #'nix-flake-update-inputs "just nix::update-inputs")))
          ))
      ))
 
@@ -46,8 +49,8 @@
              util/commands-command-list
              (append
               util/commands-command-list
-              '(("Rebuild Media Configurations Test" . "nixos-rebuild --sudo dry-build --target-host media.mgmt --show-trace --flake /etc/nixos#media")
-                ("Rebuild Media Configurations" . "nixos-rebuild --sudo switch --target-host media.mgmt --show-trace --flake /etc/nixos#media")
+              '(("Rebuild Media Configurations Test" . "just media::rebuild-nixos-test")
+                ("Rebuild Media Configurations" . "just media::rebuild-nixos")
                 ))
              ))
          )
@@ -61,8 +64,8 @@
              util/commands-command-list
              (append
               util/commands-command-list
-              '(("Rebuild Runner Configurations Test" . "nixos-rebuild --sudo dry-build --target-host runner.server --show-trace --flake /etc/nixos#runner")
-                ("Rebuild Runner Configurations" . "nixos-rebuild --sudo switch --target-host runner.server --show-trace --flake /etc/nixos#runner")
+              '(("Rebuild Runner Configurations Test" . "just runner::rebuild-nixos-test")
+                ("Rebuild Runner Configurations" . "just runner::rebuild-nixos")
                 ))
              ))
          )
